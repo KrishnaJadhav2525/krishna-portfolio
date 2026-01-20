@@ -1,16 +1,36 @@
 import Link from "next/link"
 import { Github, Twitter, Linkedin } from "lucide-react"
 
+const socialLinks = [
+  { href: "https://github.com/KrishnaJadhav2525", icon: Github, label: "GitHub" },
+  { href: "https://x.com/krlshn444", icon: Twitter, label: "Twitter" },
+  { href: "https://www.linkedin.com/in/krishna-jadhav-a5122a316/", icon: Linkedin, label: "LinkedIn" },
+]
+
 export default function Page() {
   return (
-    <section className="relative bg-black">
-      {/* GLOBAL SOFT GLOW */}
+    <section className="relative bg-black min-h-screen">
+      {/* SOFT BACKGROUND GLOW */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.10),transparent_70%)]" />
+
+      {/* TOP BAR */}
+      <div className="flex justify-between items-center pt-8">
+        <span className="text-lg font-semibold text-neutral-100">
+          Krishna<span className="text-indigo-400">.</span>
+        </span>
+
+        <Link
+          href="/about"
+          className="text-sm text-neutral-400 hover:text-white transition"
+        >
+          About
+        </Link>
+      </div>
 
       {/* HERO */}
       <div className="min-h-[80vh] flex flex-col items-center justify-center text-center">
-        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-12 text-neutral-50">
-          Krishna
+        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12 text-neutral-50">
+          Krishna Jadhav
         </h1>
 
         <Link
@@ -20,53 +40,38 @@ export default function Page() {
           ⚡ Let’s connect
         </Link>
 
-        <div className="flex gap-5 mb-20">
-          {[Github, Linkedin, Twitter].map((Icon, i) => (
+        {/* SOCIAL ICONS */}
+        <div className="flex gap-4 mb-20">
+          {socialLinks.map(({ href, icon: Icon, label }) => (
             <a
-              key={i}
-              href="#"
-              className="w-11 h-11 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-200 hover:border-neutral-600 transition"
+              key={label}
+              href={href}
+              target="_blank"
+              aria-label={label}
+              className="w-11 h-11 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 transition"
             >
-              <Icon size={19} />
+              <Icon size={18} />
             </a>
           ))}
         </div>
 
+        {/* SCROLL */}
         <a
-          href="#about"
-          className="flex flex-col items-center gap-1.5 text-sm tracking-widest uppercase text-neutral-500 hover:text-neutral-300 transition animate-bounce"
+          href="#skills"
+          className="flex flex-col items-center gap-1 text-sm tracking-widest uppercase text-neutral-500 hover:text-neutral-300 transition"
         >
           <span>Scroll</span>
           <span>↓</span>
         </a>
       </div>
 
-      {/* ABOUT */}
-      <section
-        id="about"
-        className="py-36 scroll-mt-36 border-t border-neutral-900"
-      >
-        <h2 className="text-2xl font-semibold tracking-tight mb-8 text-neutral-100">
-          About
-        </h2>
-
-        <p className="text-base text-neutral-400 leading-relaxed max-w-xl">
-          Computer science student focused on full-stack development and
-          modern frameworks. Exploring data analysis, machine learning,
-          and AI to understand how software and data-driven systems are built.
-        </p>
-      </section>
-
       {/* SKILLS */}
-      <section
-        id="skills"
-        className="py-36 scroll-mt-36 border-t border-neutral-900"
-      >
+      <section id="skills" className="py-36 scroll-mt-36 border-t border-neutral-900">
         <p className="text-sm text-neutral-500 mb-4 tracking-widest">
           WHAT I WORK WITH
         </p>
 
-        <h2 className="text-3xl font-semibold tracking-tight mb-12 text-neutral-100">
+        <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
           Skills
         </h2>
 
@@ -87,35 +92,22 @@ export default function Page() {
           },
           {
             title: "Frontend",
-            items: [
-              "React",
-              "Next.js",
-              "TypeScript",
-              "JavaScript",
-              "Tailwind CSS",
-              "Astro",
-            ],
+            items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Astro"],
           },
           {
             title: "Backend",
-            items: [
-              "Node.js",
-              "Express",
-              "Python",
-              "REST APIs",
-              "MongoDB",
-              "PostgreSQL",
-            ],
+            items: ["Node.js", "Express", "Python", "REST APIs", "MongoDB", "PostgreSQL"],
           },
           {
             title: "DevOps",
             items: ["Docker", "AWS", "Git", "Vercel", "CI/CD"],
           },
         ].map(section => (
-          <div key={section.title} className="mb-14">
+          <div key={section.title} className="mb-20">
             <p className="text-sm text-neutral-500 mb-5 tracking-widest">
               {section.title.toUpperCase()}
             </p>
+
             <div className="flex flex-wrap gap-3.5">
               {section.items.map(skill => (
                 <span
@@ -131,15 +123,12 @@ export default function Page() {
       </section>
 
       {/* CONTACT */}
-      <section
-        id="contact"
-        className="py-36 scroll-mt-36 border-t border-neutral-900"
-      >
+      <section id="contact" className="py-36 scroll-mt-36 border-t border-neutral-900">
         <p className="text-sm text-neutral-500 mb-4 tracking-widest">
           GET IN TOUCH
         </p>
 
-        <h2 className="text-3xl font-semibold tracking-tight mb-12 text-neutral-100">
+        <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
           Let’s work together
         </h2>
 
@@ -158,34 +147,49 @@ export default function Page() {
             />
 
             <textarea
-              placeholder="Your message..."
               rows={4}
+              placeholder="Your message..."
               className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
             />
 
-            <button
-              type="button"
-              className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition"
-            >
+            <button className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition">
               Send Message
             </button>
           </div>
 
+          {/* RIGHT SIDE */}
           <div className="flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-medium mb-5 text-neutral-100">
+              <h3 className="text-xl font-medium text-neutral-100 mb-4">
                 Krishna
               </h3>
-              <ul className="space-y-3 text-base text-neutral-400">
-                <li><a href="#skills" className="hover:text-white">Skills</a></li>
-                <li><a href="#about" className="hover:text-white">About</a></li>
+
+              <ul className="space-y-2 text-base text-neutral-400">
+                <li>
+                  <Link href="/#skills" className="hover:text-white transition">
+                    Skills
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="hover:text-white transition">
+                    About
+                  </Link>
+                </li>
               </ul>
             </div>
 
-            <div className="flex gap-5 mt-10 text-neutral-500">
-              <Github size={18} />
-              <Linkedin size={18} />
-              <Twitter size={18} />
+            <div className="flex gap-4 mt-10">
+              {socialLinks.map(({ href, icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  aria-label={label}
+                  className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 transition"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
