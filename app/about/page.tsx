@@ -222,16 +222,35 @@ export default function AboutPage() {
                 </ul>
               </div>
 
-              {/* SOCIAL ICONS */}
+              { /* SOCIAL ICONS */}
               <div className="flex gap-4 mt-10">
-                {[Github, Twitter, Linkedin].map((Icon, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-white hover:bg-neutral-900 hover:border-neutral-600 transition"
-                  >
-                    <Icon size={18} />
-                  </a>
+  {[
+    {
+      href: "https://github.com/KrishnaJadhav2525",
+      icon: Github,
+      label: "GitHub",
+    },
+    {
+      href: "https://x.com/krlshn444",
+      icon: Twitter,
+      label: "Twitter",
+    },
+    {
+      href: "https://www.linkedin.com/in/krishna-jadhav-a5122a316/",
+      icon: Linkedin,
+      label: "LinkedIn",
+    },
+  ].map(({ href, icon: Icon, label }) => (
+    <a
+      key={label}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-white hover:bg-neutral-900 hover:border-neutral-600 transition"
+    >
+      <Icon size={18} />
+    </a>
                 ))}
               </div>
             </div>
