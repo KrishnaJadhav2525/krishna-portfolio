@@ -12,10 +12,14 @@ export default function Navbar() {
           Krishna.
         </Link>
 
-        {/* RIGHT: LINKS (NO BLOG) */}
+        {/* RIGHT: LINKS */}
         <div className="flex items-center gap-6 text-sm text-neutral-400">
           <Link href="/#skills" className="hover:text-white transition">
             Skills
+          </Link>
+
+          <Link href="/blog" className="hover:text-white transition">
+            Blog
           </Link>
 
           <Link href="/about" className="hover:text-white transition">

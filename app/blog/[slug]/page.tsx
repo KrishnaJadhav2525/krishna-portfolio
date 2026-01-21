@@ -1,97 +1,70 @@
-import { notFound } from 'next/navigation'
-import { CustomMDX } from 'app/components/mdx'
-import { formatDate, getBlogPosts } from 'app/blog/utils'
-import { baseUrl } from 'app/sitemap'
+import fs from "fs"
+import path from "path"
+import matter from "gray-matter"
+import { remark } from "remark"
+import html from "remark-html"
 
-export async function generateStaticParams() {
-  let posts = getBlogPosts()
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+function formatDate(date: string | Date) {
+  const d = new Date(date)
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
 }
 
-export function generateMetadata({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
-  if (!post) {
-    return
+export default async function BlogSlugPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+
+  const filePath = path.join(
+    process.cwd(),
+    "app/blog/content",
+    `${slug}.md`
+  )
+
+  if (!fs.existsSync(filePath)) {
+    return (
+      <section className="pt-28 px-6">
+        <div className="mx-auto max-w-2xl">
+          <h1 className="text-2xl font-semibold text-white">
+            Blog not found
+          </h1>
+        </div>
+      </section>
+    )
   }
 
-  let {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-  } = post.metadata
-  let ogImage = image
-    ? image
-    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+  const fileContent = fs.readFileSync(filePath, "utf8")
+  const { data, content } = matter(fileContent)
 
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-      publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [ogImage],
-    },
-  }
-}
-
-export default function Blog({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
-
-  if (!post) {
-    notFound()
-  }
+  const processedContent = await remark()
+    .use(html)
+    .process(content)
 
   return (
-    <section>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
-              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
-            author: {
-              '@type': 'Person',
-              name: 'My Portfolio',
-            },
-          }),
-        }}
-      />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
+    <section className="pt-28 px-6">
+      <article className="mx-auto max-w-2xl">
+        {/* TITLE */}
+        <h1 className="text-4xl font-semibold tracking-tight text-white mb-4">
+          {data.title}
+        </h1>
+
+        {/* META — FIXED */}
+        <p className="text-sm text-neutral-500 mb-10">
+          {formatDate(data.date)}
         </p>
-      </div>
-      <article className="prose">
-        <CustomMDX source={post.content} />
+
+        {/* CONTENT */}
+        <div
+          className="prose prose-invert prose-neutral max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: processedContent.toString(),
+          }}
+        />
       </article>
     </section>
   )

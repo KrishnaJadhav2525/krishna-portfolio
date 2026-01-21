@@ -19,12 +19,21 @@ export default function Page() {
           Krishna<span className="text-indigo-400">.</span>
         </span>
 
-        <Link
-          href="/about"
-          className="text-sm text-neutral-400 hover:text-white transition"
-        >
-          About
-        </Link>
+        <div className="flex items-center gap-6 text-sm">
+          <Link
+            href="/about"
+            className="text-neutral-400 hover:text-white transition"
+          >
+            About
+          </Link>
+
+          <Link
+            href="/blog"
+            className="text-neutral-400 hover:text-white transition"
+          >
+            Blog
+          </Link>
+        </div>
       </div>
 
       {/* HERO */}
@@ -173,6 +182,11 @@ export default function Page() {
                 <li>
                   <Link href="/about" className="hover:text-white transition">
                     About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog" className="hover:text-white transition">
+                    Blog
                   </Link>
                 </li>
               </ul>

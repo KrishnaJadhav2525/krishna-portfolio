@@ -5,9 +5,9 @@ export default function AboutPage() {
   return (
     <section className="bg-black text-neutral-200">
       {/* TOP SPACING FOR FIXED NAV */}
-      <div className="pt-28 max-w-4xl mx-auto px-6">
+      <div className="pt-28 max-w-3xl mx-auto px-6">
 
-        {/* BACK ARROW */}
+        {/* BACK */}
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition mb-12"
@@ -26,7 +26,8 @@ export default function AboutPage() {
           </h1>
         </div>
 
-        <div className="space-y-5 text-neutral-400 leading-relaxed max-w-2xl">
+        {/* INTRO */}
+        <div className="space-y-5 text-neutral-400 leading-relaxed">
           <p>
             I’m a Computer Science undergraduate based in Maharashtra, India,
             with a strong interest in software development, data analysis, and
@@ -38,9 +39,7 @@ export default function AboutPage() {
             I work with Python, MySQL, and C++, and I’m currently developing a
             real-time facial recognition system using OpenCV and the Qt C++
             framework, with an emphasis on accuracy, performance, and
-            real-world usability. I’m also exploring AI application development,
-            including LLM-powered systems, automation workflows, and scalable
-            full-stack architectures.
+            real-world usability.
           </p>
 
           <p>
@@ -49,6 +48,16 @@ export default function AboutPage() {
             helped me develop strong communication skills and an
             ownership-driven mindset.
           </p>
+        </div>
+
+        {/* BLOG LINK — RESTORED */}
+        <div className="mt-10">
+          <Link
+            href="/blog"
+            className="text-sm text-emerald-400 hover:underline"
+          >
+            Read my blog →
+          </Link>
         </div>
 
         {/* EXPERIENCE */}
@@ -86,7 +95,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* EDUCATION */}
+        {/* EDUCATION — FULLY RESTORED */}
         <div className="mt-24">
           <p className="text-sm tracking-widest text-neutral-500 mb-6">
             EDUCATION
@@ -122,42 +131,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* CONNECT */}
-        <div className="mt-24">
-          <p className="text-sm tracking-widest text-neutral-500 mb-6">
-            CONNECT
-          </p>
-
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="https://github.com/KrishnaJadhav2525"
-              target="_blank"
-              className="inline-flex items-center gap-2 rounded-md border border-neutral-800 px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-neutral-900 hover:border-neutral-600 transition"
-            >
-              <Github size={16} />
-              GitHub
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/krishna-jadhav-a5122a316/"
-              target="_blank"
-              className="inline-flex items-center gap-2 rounded-md border border-neutral-800 px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-neutral-900 hover:border-neutral-600 transition"
-            >
-              <Linkedin size={16} />
-              LinkedIn
-            </a>
-
-            <a
-              href="https://x.com/krlshn444"
-              target="_blank"
-              className="inline-flex items-center gap-2 rounded-md border border-neutral-800 px-4 py-2 text-sm text-neutral-400 hover:text-white hover:bg-neutral-900 hover:border-neutral-600 transition"
-            >
-              <Twitter size={16} />
-              Twitter
-            </a>
-          </div>
-        </div>
-
         {/* CONTACT */}
         <div
           id="contact"
@@ -187,76 +160,44 @@ export default function AboutPage() {
               />
 
               <textarea
-                placeholder="Your message..."
                 rows={4}
+                placeholder="Your message..."
                 className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
               />
 
-              <button
-                type="button"
-                className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition"
-              >
+              <button className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition">
                 Send Message
               </button>
             </div>
 
-            {/* RIGHT SIDE */}
-            <div className="flex flex-col justify-between">
-              <div>
-                <h3 className="text-xl font-medium mb-5 text-white">
-                  Krishna
-                </h3>
+            {/* LINKS */}
+            <div className="space-y-4">
+              <a
+                href="https://github.com/KrishnaJadhav2525"
+                target="_blank"
+                className="flex items-center gap-2 text-neutral-400 hover:text-white transition"
+              >
+                <Github size={18} /> GitHub
+              </a>
 
-                <ul className="space-y-3 text-base text-neutral-400">
-                  <li>
-                    <Link href="/#skills" className="hover:text-white transition">
-                      Skills
-                    </Link>
-                  </li>
+              <a
+                href="https://www.linkedin.com/in/krishna-jadhav-a5122a316/"
+                target="_blank"
+                className="flex items-center gap-2 text-neutral-400 hover:text-white transition"
+              >
+                <Linkedin size={18} /> LinkedIn
+              </a>
 
-                  <li>
-                    <Link href="#about" className="hover:text-white transition">
-                      About
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              { /* SOCIAL ICONS */}
-              <div className="flex gap-4 mt-10">
-  {[
-    {
-      href: "https://github.com/KrishnaJadhav2525",
-      icon: Github,
-      label: "GitHub",
-    },
-    {
-      href: "https://x.com/krlshn444",
-      icon: Twitter,
-      label: "Twitter",
-    },
-    {
-      href: "https://www.linkedin.com/in/krishna-jadhav-a5122a316/",
-      icon: Linkedin,
-      label: "LinkedIn",
-    },
-  ].map(({ href, icon: Icon, label }) => (
-    <a
-      key={label}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-white hover:bg-neutral-900 hover:border-neutral-600 transition"
-    >
-      <Icon size={18} />
-    </a>
-                ))}
-              </div>
+              <a
+                href="https://x.com/krlshn444"
+                target="_blank"
+                className="flex items-center gap-2 text-neutral-400 hover:text-white transition"
+              >
+                <Twitter size={18} /> Twitter
+              </a>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   )
