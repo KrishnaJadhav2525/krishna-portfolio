@@ -1,17 +1,36 @@
-import { getBlogPosts } from 'app/blog/utils'
+import fs from "fs"
+import path from "path"
+import { baseUrl } from "./blog/lib/site"
 
-export const baseUrl = 'https://portfolio-blog-starter.vercel.app'
 
-export default async function sitemap() {
-  let blogs = getBlogPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }))
+export default function sitemap() {
+  const blogDir = path.join(process.cwd(), "app/blog/content")
 
-  let routes = ['', '/blog'].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-  }))
+  let blogUrls: { url: string; lastModified: Date }[] = []
 
-  return [...routes, ...blogs]
+  if (fs.existsSync(blogDir)) {
+    blogUrls = fs
+      .readdirSync(blogDir)
+      .filter((file) => file.endsWith(".md"))
+      .map((file) => ({
+        url: `${baseUrl}/blog/${file.replace(".md", "")}`,
+        lastModified: new Date(),
+      }))
+  }
+
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+    },
+    ...blogUrls,
+  ]
 }

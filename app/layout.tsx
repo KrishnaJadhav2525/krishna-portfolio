@@ -6,7 +6,8 @@ import Navbar from "./components/nav"
 import Footer from "./components/footer"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { baseUrl } from "./sitemap"
+import { baseUrl } from "./blog/lib/site"
+
 import PageWrapper from "./components/page-wrapper"
 
 export const metadata: Metadata = {
