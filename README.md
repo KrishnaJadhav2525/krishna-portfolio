@@ -3,7 +3,7 @@
 A modern personal portfolio with a fully integrated blog system, built using **Next.js App Router**.  
 This project is designed to be clean, scalable, SEO-friendly, and production-ready, while also serving as a foundation for future backend integration.
 
----
+
 
 ## ✨ Features
 
