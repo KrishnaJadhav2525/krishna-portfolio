@@ -25,8 +25,10 @@ export function getAllPosts(): BlogPost[] {
 
       return {
         slug,
-        title: data.title,
-        date: new Date(data.date).toISOString().split("T")[0],
+        title: data.title ?? "Untitled",
+        date: data.publishedAt
+          ? new Date(data.publishedAt).toISOString().split("T")[0]
+          : "",
         tags: data.tags ?? [],
         description:
           body.trim().split("\n").find(Boolean)?.slice(0, 160) ?? "",
