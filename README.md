@@ -1,42 +1,89 @@
-# Portfolio Blog Starter
+# Krishna Portfolio & Blog
 
-This is a porfolio site template complete with a blog. Includes:
+A modern personal portfolio with a fully integrated blog system, built using **Next.js App Router**.  
+This project is designed to be clean, scalable, SEO-friendly, and production-ready, while also serving as a foundation for future backend integration.
 
-- MDX and Markdown support
-- Optimized for SEO (sitemap, robots, JSON-LD schema)
-- RSS Feed
-- Dynamic OG images
-- Syntax highlighting
-- Tailwind v4
-- Vercel Speed Insights / Web Analytics
-- Geist font
 
-## Demo
 
-https://portfolio-blog-starter.vercel.app
+## ✨ Features
 
-## How to Use
+### Portfolio
+- Minimal, modern UI
+- Home and About pages
+- Skills, experience, and education sections
+- Contact form UI
+- Social links with icon-based interactions
 
-You can choose from one of the following two methods to use this repository:
+### Blog
+- Blog listing page
+- Dynamic blog pages using `[slug]`
+- Markdown-based blog content
+- Search and tag filtering
+- Curated sidebar section
+- Hover animations and interaction details
 
-### One-Click Deploy
+### SEO & Discoverability
+- Automatic sitemap (`/sitemap.xml`)
+- RSS feed (`/rss`)
+- Robots.txt
+- SEO-friendly routing
+- Ready for Open Graph and meta extensions
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
+## 🧱 Tech Stack
 
-### Clone and Deploy
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Content:** Markdown (`.md`)
+- **Package Manager:** pnpm
+- **Build System:** Turbopack
+- **Deployment:** Vercel
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+---
 
-```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+## 📁 Project Structure
+
+```
+app/
+├─ blog/
+│  ├─ content/
+│  ├─ lib/
+│  │  ├─ get-posts.ts
+│  │  └─ site.ts
+│  ├─ page.tsx
+│  └─ [slug]/page.tsx
+│
+├─ rss/
+│  └─ route.ts
+│
+├─ sitemap.ts
+├─ robots.ts
+├─ layout.tsx
+├─ page.tsx
+└─ about/page.tsx
 ```
 
-Then, run Next.js in development mode:
+---
+
+## 🚀 Getting Started
 
 ```bash
-pnpm dev
+pnpm install
+pnpm run dev
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+---
+
+## 🛠 Development Status
+
+Frontend and blog system are complete.  
+Backend integration is the next planned step.
+
+---
+
+## 👤 Author
+
+**Krishna**  
+Computer Science Undergraduate
