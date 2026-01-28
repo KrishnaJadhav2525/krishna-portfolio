@@ -5,7 +5,7 @@ summary: "How I built a real-time multi-user face recognition system in C++ usin
 tags: ["Computer Vision", "C++", "OpenCV", "Face Recognition", "AI"]
 ---
 
-## Introduction
+## Design and Implementation of a Real-Time Multi-User Face Recognition System Using LBPH
 
 Face recognition is one of the most practical and challenging applications of computer vision.  
 Instead of relying on high-level frameworks, I wanted to understand **how face recognition systems work at a lower level**, using classical computer vision techniques.

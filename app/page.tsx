@@ -42,12 +42,22 @@ export default function Page() {
           Krishna Jadhav
         </h1>
 
-        <Link
-          href="#contact"
-          className="inline-flex items-center gap-2 px-7 py-3.5 text-lg font-medium border border-neutral-800 rounded-md text-neutral-200 hover:text-white hover:border-neutral-600 transition mb-14"
-        >
-          ⚡ Let’s connect
-        </Link>
+        {/* BUTTONS */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 px-7 py-3.5 text-lg font-medium bg-neutral-100 rounded-md text-black hover:bg-white transition"
+          >
+            <span className="text-xl">✦</span> Read My Blogs
+          </Link>
+
+          <Link
+            href="#contact"
+            className="inline-flex items-center gap-2 px-7 py-3.5 text-lg font-medium border border-neutral-800 rounded-md text-neutral-200 hover:text-white hover:border-neutral-600 transition"
+          >
+            <span className="text-xl">⚡</span> Let's connect
+          </Link>
+        </div>
 
         {/* SOCIAL ICONS */}
         <div className="flex gap-4 mb-20">
@@ -138,7 +148,7 @@ export default function Page() {
         </p>
 
         <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
-          Let’s work together
+          Let's work together
         </h2>
 
         <div className="grid md:grid-cols-2 gap-14">

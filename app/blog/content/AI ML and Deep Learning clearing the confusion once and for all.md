@@ -5,7 +5,7 @@ summary: "How I designed and built my personal portfolio using Next.js App Route
 tags: ['AI','Deep Learning' ,'ML']
 ---
 
-## intro
+## Understanding AI, Machine Learning, and Deep Learning as a hierarchy rather than competing terms—from the broad AI umbrella to data-driven ML to neural-network-based deep learning.
 
 The Big Umbrella: Artificial Intelligence
 AI is the broad vision, not a specific technique. The goal is simple to state but hard to build: make machines behave in a way that looks intelligent to humans. That's it.

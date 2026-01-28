@@ -5,7 +5,7 @@ summary: "How I built a machine learning model to detect fraudulent financial tr
 tags: ["Machine Learning", "Fraud Detection", "Python", "Data Science"]
 ---
 
-## Introduction
+## Detecting Fraud with Data, Not Guesswork
 
 Financial fraud is a major challenge for banks and payment platforms.  
 Even a small number of fraudulent transactions can lead to significant financial losses, making early and accurate detection extremely important.
