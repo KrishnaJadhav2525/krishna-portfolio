@@ -1,5 +1,8 @@
+'use client';
+
 import Link from "next/link"
 import { Github, Twitter, Linkedin } from "lucide-react"
+import { useState } from "react"
 
 const socialLinks = [
   { href: "https://github.com/KrishnaJadhav2525", icon: Github, label: "GitHub" },
@@ -8,13 +11,68 @@ const socialLinks = [
 ]
 
 export default function Page() {
+  const [formData, setFormData] = useState({
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${API_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus({ 
+          type: 'success', 
+          message: result.message || 'Message sent successfully! I will get back to you soon.' 
+        });
+        setFormData({ email: '', subject: '', message: '' });
+      } else {
+        setStatus({ 
+          type: 'error', 
+          message: result.message || 'Failed to send message. Please try again.' 
+        });
+      }
+    } catch (error) {
+      setStatus({ 
+        type: 'error', 
+        message: 'Failed to send message. Please try again later.' 
+      });
+      console.error('Contact form error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="relative bg-black min-h-screen">
       {/* SOFT BACKGROUND GLOW */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.10),transparent_70%)]" />
 
       {/* TOP BAR */}
-      <div className="flex justify-between items-center pt-8">
+      <div className="flex justify-between items-center pt-8 px-8">
         <span className="text-lg font-semibold text-neutral-100">
           Krishna<span className="text-indigo-400">.</span>
         </span>
@@ -37,7 +95,7 @@ export default function Page() {
       </div>
 
       {/* HERO */}
-      <div className="min-h-[80vh] flex flex-col items-center justify-center text-center">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-4">
         <h1 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12 text-neutral-50">
           Krishna Jadhav
         </h1>
@@ -66,6 +124,7 @@ export default function Page() {
               key={label}
               href={href}
               target="_blank"
+              rel="noopener noreferrer"
               aria-label={label}
               className="w-11 h-11 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 transition"
             >
@@ -85,7 +144,7 @@ export default function Page() {
       </div>
 
       {/* SKILLS */}
-      <section id="skills" className="py-36 scroll-mt-36 border-t border-neutral-900">
+      <section id="skills" className="py-36 px-8 scroll-mt-36 border-t border-neutral-900">
         <p className="text-sm text-neutral-500 mb-4 tracking-widest">
           WHAT I WORK WITH
         </p>
@@ -142,7 +201,7 @@ export default function Page() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="py-36 scroll-mt-36 border-t border-neutral-900">
+      <section id="contact" className="py-36 px-8 scroll-mt-36 border-t border-neutral-900">
         <p className="text-sm text-neutral-500 mb-4 tracking-widest">
           GET IN TOUCH
         </p>
@@ -151,30 +210,59 @@ export default function Page() {
           Let's work together
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-14">
-          <div className="space-y-5">
+        <div className="grid md:grid-cols-2 gap-14 max-w-5xl mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="your@email.com"
-              className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+              required
+              disabled={loading}
+              className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 disabled:opacity-50"
             />
 
             <input
               type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
               placeholder="Subject"
-              className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+              required
+              disabled={loading}
+              className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 disabled:opacity-50"
             />
 
             <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
               rows={4}
               placeholder="Your message..."
-              className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+              required
+              disabled={loading}
+              className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 disabled:opacity-50"
             />
 
-            <button className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition">
-              Send Message
+            <button 
+              type="submit"
+              disabled={loading}
+              className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Sending...' : 'Send Message'}
             </button>
-          </div>
+
+            {status.message && (
+              <div className={`mt-4 p-3 rounded-md text-sm ${
+                status.type === 'success' 
+                  ? 'bg-green-900/20 text-green-400 border border-green-900' 
+                  : 'bg-red-900/20 text-red-400 border border-red-900'
+              }`}>
+                {status.message}
+              </div>
+            )}
+          </form>
 
           {/* RIGHT SIDE */}
           <div className="flex flex-col justify-between">
@@ -208,6 +296,7 @@ export default function Page() {
                   key={label}
                   href={href}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 transition"
                 >
