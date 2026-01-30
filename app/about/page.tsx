@@ -1,7 +1,65 @@
+'use client';
+
 import Link from "next/link"
 import { Github, Twitter, Linkedin } from "lucide-react"
+import { useState } from "react"
 
 export default function AboutPage() {
+  const [formData, setFormData] = useState({
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${API_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus({ 
+          type: 'success', 
+          message: result.message || 'Message sent successfully! I will get back to you soon.' 
+        });
+        setFormData({ email: '', subject: '', message: '' });
+      } else {
+        setStatus({ 
+          type: 'error', 
+          message: result.message || 'Failed to send message. Please try again.' 
+        });
+      }
+    } catch (error) {
+      setStatus({ 
+        type: 'error', 
+        message: 'Failed to send message. Please try again later.' 
+      });
+      console.error('Contact form error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="bg-black text-neutral-200">
       {/* TOP SPACING FOR FIXED NAV */}
@@ -29,21 +87,21 @@ export default function AboutPage() {
         {/* INTRO */}
         <div className="space-y-5 text-neutral-400 leading-relaxed">
           <p>
-            I’m a Computer Science undergraduate based in Maharashtra, India,
+            I'm a Computer Science undergraduate based in Maharashtra, India,
             with a strong interest in software development, data analysis, and
             AI-driven systems. I focus on building solutions grounded in solid
             engineering fundamentals and practical problem-solving.
           </p>
 
           <p>
-            I work with Python, MySQL, and C++, and I’m currently developing a
+            I work with Python, MySQL, and C++, and I'm currently developing a
             real-time facial recognition system using OpenCV and the Qt C++
             framework, with an emphasis on accuracy, performance, and
             real-world usability.
           </p>
 
           <p>
-            Alongside academics, I’ve gained experience across technical
+            Alongside academics, I've gained experience across technical
             support, database operations, and client-facing roles, which has
             helped me develop strong communication skills and an
             ownership-driven mindset.
@@ -141,40 +199,70 @@ export default function AboutPage() {
           </p>
 
           <h2 className="text-3xl font-semibold tracking-tight mb-12 text-white">
-            Let’s work together
+            Let's work together
           </h2>
 
           <div className="grid md:grid-cols-2 gap-14">
             {/* FORM */}
-            <div className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="your@email.com"
-                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+                required
+                disabled={loading}
+                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 disabled:opacity-50"
               />
 
               <input
                 type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
                 placeholder="Subject"
-                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+                required
+                disabled={loading}
+                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 disabled:opacity-50"
               />
 
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 rows={4}
                 placeholder="Your message..."
-                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+                required
+                disabled={loading}
+                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 disabled:opacity-50"
               />
 
-              <button className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition">
-                Send Message
+              <button 
+                type="submit"
+                disabled={loading}
+                className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
-            </div>
+
+              {status.message && (
+                <div className={`mt-4 p-3 rounded-md text-sm ${
+                  status.type === 'success' 
+                    ? 'bg-green-900/20 text-green-400 border border-green-900' 
+                    : 'bg-red-900/20 text-red-400 border border-red-900'
+                }`}>
+                  {status.message}
+                </div>
+              )}
+            </form>
 
             {/* LINKS */}
             <div className="space-y-4">
               <a
                 href="https://github.com/KrishnaJadhav2525"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-neutral-400 hover:text-white transition"
               >
                 <Github size={18} /> GitHub
@@ -183,6 +271,7 @@ export default function AboutPage() {
               <a
                 href="https://www.linkedin.com/in/krishna-jadhav-a5122a316/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-neutral-400 hover:text-white transition"
               >
                 <Linkedin size={18} /> LinkedIn
@@ -191,6 +280,7 @@ export default function AboutPage() {
               <a
                 href="https://x.com/krlshn444"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-neutral-400 hover:text-white transition"
               >
                 <Twitter size={18} /> Twitter
