@@ -32,7 +32,7 @@ export default function Page() {
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const API_URL = 'http://localhost:5000/api';
       const response = await fetch(`${API_URL}/contact`, {
         method: 'POST',
         headers: {
