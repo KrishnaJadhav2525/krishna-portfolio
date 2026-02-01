@@ -1,286 +1,110 @@
+// app/api/newsletter/route.js
 import { NextResponse } from 'next/server';
-import connectDB from '../../../backend/config/db.js';
-import Newsletter from '../../../backend/models/Newsletter.model.js';
-import nodemailer from 'nodemailer';
-// Email configuration
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
+import connectDB from '../../../lib/db.js';
+import Newsletter from '../../../models/Newsletter.js';
+import { sendNewsletterWelcomeEmail } from '../../../lib/email.js';
 
-// POST: Subscribe to newsletter
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { email, name } = body;
-
+    const { email } = body;
+    
     // Validate email
     if (!email) {
       return NextResponse.json(
-        {
-          success: false,
-          message: 'Email is required'
-        },
+        { error: 'Email is required' },
         { status: 400 }
       );
     }
 
-    // Connect to database
-    await connectDB();
-
-    // Check if already subscribed
-    const existingSubscriber = await Newsletter.findOne({ 
-      email: email.toLowerCase() 
-    });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
     
-    if (existingSubscriber) {
-      if (existingSubscriber.status === 'unsubscribed') {
-        // Resubscribe
-        existingSubscriber.status = 'active';
-        existingSubscriber.name = name || existingSubscriber.name;
-        await existingSubscriber.save();
+    await connectDB();
+    
+    // Check if already subscribed
+    const existing = await Newsletter.findOne({ email });
+    if (existing) {
+      if (existing.status === 'active') {
+        return NextResponse.json(
+          { error: 'This email is already subscribed to our newsletter' },
+          { status: 409 }
+        );
+      } else {
+        // Reactivate subscription
+        existing.status = 'active';
+        existing.subscribedAt = new Date();
+        await existing.save();
         
-        return NextResponse.json({
+        return NextResponse.json({ 
           success: true,
-          message: 'Welcome back! You\'re resubscribed to the newsletter.'
+          message: 'Welcome back! Your subscription has been reactivated.'
         });
       }
-      
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'You\'re already subscribed to the newsletter!'
-        },
-        { status: 400 }
-      );
     }
-
-    // Get IP address from request headers
-    const forwarded = request.headers.get('x-forwarded-for');
-    const ipAddress = forwarded ? forwarded.split(',')[0] : 
-                     request.headers.get('x-real-ip') || 
-                     'unknown';
-
+    
     // Create new subscriber
     const subscriber = new Newsletter({
-      email: email.toLowerCase(),
-      name: name || 'Anonymous',
-      ipAddress,
-      status: 'active'
+      email,
+      status: 'active',
+      subscribedAt: new Date()
     });
-
+    
     await subscriber.save();
-    console.log('✅ New newsletter subscriber:', subscriber.email);
-
+    
     // Send welcome email
     try {
-      const mailOptions = {
-        from: {
-          name: 'Krishna - Portfolio Blog',
-          address: process.env.EMAIL_USER
-        },
-        to: email,
-        subject: '🎉 Welcome to My Newsletter!',
-        html: `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <style>
-              body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-              .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%); 
-                        color: white; padding: 40px 20px; border-radius: 10px 10px 0 0; text-align: center; }
-              .content { background: #f9f9f9; padding: 40px 30px; border-radius: 0 0 10px 10px; }
-              .button { display: inline-block; padding: 12px 30px; background: #10b981; 
-                       color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
-              .footer { text-align: center; margin-top: 30px; color: #999; font-size: 12px; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <h1 style="margin: 0; font-size: 32px;">🎉 Welcome!</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 18px;">
-                  Thanks for subscribing to my newsletter
-                </p>
-              </div>
-              
-              <div class="content">
-                <p>Hey${name ? ' ' + name : ''}! 👋</p>
-                
-                <p>
-                  I'm thrilled to have you here! You're now part of an exclusive community 
-                  that gets first access to my thoughts on AI, engineering, and whatever 
-                  interesting things I'm building.
-                </p>
-                
-                <h3>What to expect:</h3>
-                <ul>
-                  <li>📚 Curated blog posts matching your interests</li>
-                  <li>🚀 Behind-the-scenes of projects I'm working on</li>
-                  <li>💡 Insights and lessons learned from building</li>
-                  <li>🎯 Zero spam - only quality content</li>
-                </ul>
-                
-                <p>
-                  I respect your inbox and promise to only send content that's worth your time. 
-                  You can unsubscribe anytime with one click.
-                </p>
-                
-                <div style="text-align: center;">
-                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/blog" class="button">
-                    Read My Latest Posts
-                  </a>
-                </div>
-                
-                <p style="margin-top: 30px;">
-                  Got questions or feedback? Just reply to this email - I read every message!
-                </p>
-                
-                <p>
-                  Best,<br>
-                  <strong>Krishna</strong>
-                </p>
-              </div>
-              
-              <div class="footer">
-                <p>You're receiving this because you subscribed at my portfolio</p>
-                <p>Don't want these emails? <a href="mailto:${process.env.EMAIL_USER}?subject=Unsubscribe">Unsubscribe</a></p>
-              </div>
-            </div>
-          </body>
-          </html>
-        `,
-        text: `
-Hey${name ? ' ' + name : ''}! 👋
-
-Thanks for subscribing to my newsletter! I'm thrilled to have you here.
-
-What to expect:
-- Curated blog posts matching your interests
-- Behind-the-scenes of projects I'm working on
-- Insights and lessons learned from building
-- Zero spam - only quality content
-
-I respect your inbox and promise to only send content that's worth your time.
-
-Read my latest posts: ${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/blog
-
-Got questions? Just reply to this email!
-
-Best,
-Krishna
-
----
-Unsubscribe: ${process.env.EMAIL_USER}
-        `
-      };
-
-      await transporter.sendMail(mailOptions);
-      console.log('✅ Welcome email sent to:', email);
-
+      await sendWelcomeEmail(email);
     } catch (emailError) {
-      console.error('❌ Failed to send welcome email:', emailError);
-      // Don't fail the request if email fails
+      console.error('Welcome email failed:', emailError);
+      // Don't fail the request
     }
-
-    // Send notification to admin
-    try {
-      const adminMailOptions = {
-        from: {
-          name: 'Portfolio Newsletter',
-          address: process.env.EMAIL_USER
-        },
-        to: process.env.EMAIL_TO,
-        subject: '🎉 New Newsletter Subscriber!',
-        html: `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <style>
-              body { font-family: Arial, sans-serif; line-height: 1.6; }
-              .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background: #10b981; color: white; padding: 20px; border-radius: 5px; }
-              .content { background: #f9f9f9; padding: 20px; margin-top: 10px; border-radius: 5px; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <h2>🎉 New Newsletter Subscriber</h2>
-              </div>
-              <div class="content">
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Name:</strong> ${name || 'Anonymous'}</p>
-                <p><strong>IP:</strong> ${ipAddress || 'N/A'}</p>
-                <p><strong>Subscribed At:</strong> ${new Date().toLocaleString()}</p>
-              </div>
-            </div>
-          </body>
-          </html>
-        `
-      };
-
-      await transporter.sendMail(adminMailOptions);
-      console.log('✅ Admin notification sent');
-
-    } catch (adminEmailError) {
-      console.error('❌ Failed to send admin notification:', adminEmailError);
-    }
-
-    return NextResponse.json({
+    
+    return NextResponse.json({ 
       success: true,
-      message: 'Successfully subscribed! Check your email for confirmation.',
-      data: {
-        email: subscriber.email,
-        name: subscriber.name
-      }
+      message: 'Successfully subscribed to newsletter! Check your email for confirmation.'
     }, { status: 201 });
-
+    
   } catch (error) {
-    console.error('❌ Newsletter subscription error:', error);
+    console.error('Newsletter API Error:', error);
     return NextResponse.json(
-      {
-        success: false,
-        message: 'Error subscribing to newsletter',
-        error: error.message
+      { 
+        error: 'Failed to subscribe to newsletter',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
       },
       { status: 500 }
     );
   }
 }
 
-// GET: Fetch all subscribers (admin only)
+// GET method for admin to retrieve subscribers
 export async function GET(request) {
   try {
     await connectDB();
     
-    const subscribers = await Newsletter.find()
-      .sort({ createdAt: -1 });
-
-    return NextResponse.json({
+    const { searchParams } = new URL(request.url);
+    const status = searchParams.get('status') || 'active';
+    const limit = parseInt(searchParams.get('limit') || '100');
+    
+    const subscribers = await Newsletter.find({ status })
+      .sort({ subscribedAt: -1 })
+      .limit(limit);
+    
+    return NextResponse.json({ 
       success: true,
-      count: subscribers.length,
-      active: subscribers.filter(s => s.status === 'active').length,
-      data: subscribers
+      subscribers,
+      count: subscribers.length
     });
+    
   } catch (error) {
-    console.error('Error fetching subscribers:', error);
+    console.error('Get Subscribers Error:', error);
     return NextResponse.json(
-      {
-        success: false,
-        message: 'Error fetching subscribers',
-        error: error.message
-      },
+      { error: 'Failed to retrieve subscribers' },
       { status: 500 }
     );
   }

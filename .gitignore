@@ -28,6 +28,8 @@ yarn-error.log*
 
 # env files
 .env
+.env.local
+.env*.local
 
 # vercel
 .vercel
@@ -35,3 +37,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# old backend (no longer needed - migrated to Next.js API routes)
+backend/

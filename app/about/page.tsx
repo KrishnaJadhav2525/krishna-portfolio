@@ -26,8 +26,8 @@ export default function AboutPage() {
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = 'http://localhost:5000/api';
-      const response = await fetch(`${API_URL}/contact`, {
+      // ✅ FIXED: Use Next.js API route instead of localhost:5000
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export default function AboutPage() {
       } else {
         setStatus({ 
           type: 'error', 
-          message: result.message || 'Failed to send message. Please try again.' 
+          message: result.error || result.message || 'Failed to send message. Please try again.' 
         });
       }
     } catch (error) {

@@ -1,53 +1,54 @@
+// app/api/newsletter/unsubscribe/route.js
 import { NextResponse } from 'next/server';
-import connectDB from '@/backend/config/db.js';
-import Newsletter from '@/backend/models/Newsletter.model.js';
+import connectDB from '../../../../lib/db.js';
+import Newsletter from '../../../../models/Newsletter.js';
 
-// POST: Unsubscribe from newsletter
 export async function POST(request) {
   try {
     const body = await request.json();
     const { email } = body;
-
+    
     if (!email) {
       return NextResponse.json(
-        {
-          success: false,
-          message: 'Email is required'
-        },
+        { error: 'Email is required' },
         { status: 400 }
       );
     }
-
+    
     await connectDB();
-
-    const subscriber = await Newsletter.findOne({ 
-      email: email.toLowerCase() 
-    });
-
+    
+    const subscriber = await Newsletter.findOne({ email });
+    
     if (!subscriber) {
       return NextResponse.json(
-        {
-          success: false,
-          message: 'Email not found in our newsletter list'
-        },
+        { error: 'Email not found in our newsletter list' },
         { status: 404 }
       );
     }
-
+    
+    if (subscriber.status === 'unsubscribed') {
+      return NextResponse.json({ 
+        success: true,
+        message: 'You are already unsubscribed from our newsletter.'
+      });
+    }
+    
+    // Update status to unsubscribed
     subscriber.status = 'unsubscribed';
+    subscriber.unsubscribedAt = new Date();
     await subscriber.save();
-
-    return NextResponse.json({
+    
+    return NextResponse.json({ 
       success: true,
-      message: 'Successfully unsubscribed from newsletter'
+      message: 'Successfully unsubscribed from newsletter. We\'re sorry to see you go!'
     });
+    
   } catch (error) {
-    console.error('Error unsubscribing:', error);
+    console.error('Unsubscribe Error:', error);
     return NextResponse.json(
-      {
-        success: false,
-        message: 'Error unsubscribing',
-        error: error.message
+      { 
+        error: 'Failed to unsubscribe',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
       },
       { status: 500 }
     );

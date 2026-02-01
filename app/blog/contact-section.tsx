@@ -22,9 +22,8 @@ export function ContactSection() {
     setFormMessage('');
 
     try {
-      // Contact uses Express backend on port 5000
-      const API_URL = 'http://localhost:5000/api';
-      const response = await fetch(`${API_URL}/contact`, {
+      // ✅ FIXED: Use Next.js API route instead of localhost:5000
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +43,7 @@ export function ContactSection() {
         setSubject('');
         setMessage('');
       } else {
-        setFormMessage('❌ ' + (data.message || 'Failed to send message'));
+        setFormMessage('❌ ' + (data.error || data.message || 'Failed to send message'));
       }
     } catch (error) {
       console.error('Contact error:', error);

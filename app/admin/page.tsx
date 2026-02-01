@@ -64,12 +64,12 @@ export default function AdminPage() {
   const fetchContacts = async () => {
     setLoading(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-      const response = await fetch(`${API_URL}/contact`);
+      // ✅ FIXED: Use Next.js API route
+      const response = await fetch('/api/contact');
       const result = await response.json();
 
       if (result.success) {
-        setContacts(result.data);
+        setContacts(result.contacts || []);
         setError('');
       } else {
         setError('Failed to fetch contacts');
@@ -109,20 +109,22 @@ export default function AdminPage() {
 
   // Calculate statistics
   const stats = useMemo(() => {
-    const total = contacts.length;
-    const newCount = contacts.filter(c => c.status === 'new').length;
-    const readCount = contacts.filter(c => c.status === 'read').length;
-    const repliedCount = contacts.filter(c => c.status === 'replied').length;
+    const total = contacts?.length || 0;
+    const newCount = contacts?.filter(c => c.status === 'new').length || 0;
+    const readCount = contacts?.filter(c => c.status === 'read').length || 0;
+    const repliedCount = contacts?.filter(c => c.status === 'replied').length || 0;
     
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const todayCount = contacts.filter(c => new Date(c.createdAt) >= today).length;
+    const todayCount = contacts?.filter(c => new Date(c.createdAt) >= today).length || 0;
 
     return { total, newCount, readCount, repliedCount, todayCount };
   }, [contacts]);
 
   // Filter and sort contacts
   const filteredContacts = useMemo(() => {
+    if (!contacts) return [];
+    
     let filtered = contacts;
 
     // Filter by status
@@ -389,7 +391,7 @@ export default function AdminPage() {
 
           {/* Results count */}
           <div className="mt-3 text-sm text-neutral-500">
-            Showing {filteredContacts.length} of {contacts.length} messages
+            Showing {filteredContacts.length} of {stats.total} messages
           </div>
         </div>
 
