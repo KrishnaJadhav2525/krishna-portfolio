@@ -50,14 +50,23 @@ export async function POST(request) {
       });
     }
 
-    // Send welcome email (don't fail request if email fails)
-    sendNewsletterWelcomeEmail(normalizedEmail).catch(err =>
-      console.error('Welcome email failed:', err.message)
-    );
+    // Send welcome email - await to ensure function doesn't terminate early
+    let emailSent = false;
+    try {
+      await sendNewsletterWelcomeEmail(normalizedEmail);
+      console.log('[Newsletter] Welcome email sent successfully to:', normalizedEmail);
+      emailSent = true;
+    } catch (emailError) {
+      console.error('[Newsletter] Welcome email FAILED for:', normalizedEmail);
+      console.error('[Newsletter] Error:', emailError.message);
+      // Don't fail the request if email fails - subscription is still valid
+    }
 
     const message = existing
       ? 'Welcome back! Your subscription has been reactivated.'
-      : 'Successfully subscribed to newsletter! Check your email for confirmation.';
+      : emailSent
+        ? 'Successfully subscribed to newsletter! Check your email for confirmation.'
+        : 'Successfully subscribed! (Welcome email may arrive shortly)';
 
     return NextResponse.json({ success: true, message }, { status: 201 });
 

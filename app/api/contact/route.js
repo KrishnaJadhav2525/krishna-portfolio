@@ -43,13 +43,23 @@ export async function POST(request) {
     // Save to database
     await contact.save();
 
-    // Send email notification asynchronously (don't wait for it)
-    sendContactEmail({ name: name || 'Anonymous', email, subject, message })
-      .catch(err => console.error('Email sending failed:', err.message));
+    // Send email notification - await to ensure function doesn't terminate early
+    let emailSent = false;
+    try {
+      await sendContactEmail({ name: name || 'Anonymous', email, subject, message });
+      console.log('[Contact] Email notification sent successfully for:', email);
+      emailSent = true;
+    } catch (emailError) {
+      console.error('[Contact] Email sending FAILED for:', email);
+      console.error('[Contact] Error:', emailError.message);
+      // Don't fail the request - contact was still saved
+    }
 
     return NextResponse.json({
       success: true,
-      message: 'Thank you for contacting us! We will get back to you soon.',
+      message: emailSent
+        ? 'Thank you for contacting us! We will get back to you soon.'
+        : 'Message received! We will get back to you soon.',
       contactId: contact._id
     }, { status: 201 });
 

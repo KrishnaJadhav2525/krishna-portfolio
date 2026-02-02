@@ -101,9 +101,16 @@ export default function Page() {
   };
 
   return (
-    <section className="relative bg-black min-h-screen">
-      {/* SOFT BACKGROUND GLOW */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.10),transparent_70%)]" />
+    <section className="relative bg-black min-h-screen overflow-hidden">
+      {/* AURORA BACKGROUND EFFECT */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        {/* Primary gradient blob */}
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-transparent rounded-full blur-3xl animate-aurora-1" />
+        {/* Secondary gradient blob */}
+        <div className="absolute -top-20 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-blue-500/15 via-cyan-500/5 to-transparent rounded-full blur-3xl animate-aurora-2" />
+        {/* Accent blob */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-violet-500/10 via-indigo-500/5 to-purple-500/10 rounded-full blur-3xl animate-aurora-3" />
+      </div>
 
       {/* TOP BAR */}
       <div className="flex justify-between items-center pt-8 px-8">
@@ -174,13 +181,92 @@ export default function Page() {
 
         {/* SCROLL */}
         <a
-          href="#skills"
+          href="#projects"
           className="flex flex-col items-center gap-1 text-sm tracking-widest uppercase text-neutral-500 hover:text-neutral-300 transition animate-bounce"
         >
           <span>Scroll</span>
           <span>↓</span>
         </a>
       </div>
+
+      {/* FEATURED PROJECTS - Glassmorphism Cards */}
+      <section
+        id="projects"
+        className="py-36 px-8 scroll-mt-36 border-t border-neutral-900"
+      >
+        <p className="text-sm text-neutral-500 mb-4 tracking-widest">
+          SELECTED WORK
+        </p>
+
+        <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
+          Featured Projects
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl">
+          {/* Project Card 1 - Facial Recognition */}
+          <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-indigo-500/50 via-purple-500/30 to-transparent hover:from-indigo-500/70 hover:via-purple-500/50 transition-all duration-300">
+            <div className="relative h-full rounded-2xl bg-neutral-950/80 backdrop-blur-xl p-8 overflow-hidden">
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Icon */}
+              <div className="relative w-14 h-14 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </div>
+
+              <h3 className="relative text-xl font-semibold text-white mb-3">
+                Real-time Facial Recognition System
+              </h3>
+
+              <p className="relative text-neutral-400 mb-6 leading-relaxed">
+                High-performance face detection and recognition system built with OpenCV and Qt C++ framework. Focuses on accuracy and real-world usability.
+              </p>
+
+              <div className="relative flex flex-wrap gap-2">
+                {['C++', 'OpenCV', 'Qt', 'Computer Vision'].map(tag => (
+                  <span key={tag} className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-neutral-400">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Project Card 2 - Portfolio */}
+          <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-emerald-500/50 via-teal-500/30 to-transparent hover:from-emerald-500/70 hover:via-teal-500/50 transition-all duration-300">
+            <div className="relative h-full rounded-2xl bg-neutral-950/80 backdrop-blur-xl p-8 overflow-hidden">
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Icon */}
+              <div className="relative w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-7 h-7 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+
+              <h3 className="relative text-xl font-semibold text-white mb-3">
+                Personal Portfolio Website
+              </h3>
+
+              <p className="relative text-neutral-400 mb-6 leading-relaxed">
+                Modern, performant portfolio built with Next.js 16, featuring smooth animations, newsletter integration, and a sleek dark theme.
+              </p>
+
+              <div className="relative flex flex-wrap gap-2">
+                {['Next.js', 'TypeScript', 'Tailwind', 'MongoDB'].map(tag => (
+                  <span key={tag} className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-neutral-400">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* SKILLS - with entrance animation */}
       <section
@@ -240,8 +326,8 @@ export default function Page() {
               {section.items.map((skill, index) => (
                 <span
                   key={skill}
-                  className="px-5 py-2 text-base rounded-full border border-neutral-800 text-neutral-300 
-                             hover:border-indigo-500/50 hover:text-indigo-300 hover:bg-indigo-500/5 hover:scale-105 
+                  className="px-5 py-2 text-base rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-neutral-300 
+                             hover:border-indigo-500/50 hover:text-indigo-300 hover:bg-indigo-500/10 hover:scale-105 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]
                              transition-all duration-200 cursor-default"
                   style={{
                     animationDelay: skillsSection.isInView ? `${(sectionIndex * 100) + (index * 50)}ms` : '0ms'
@@ -321,28 +407,6 @@ export default function Page() {
                   Send another message
                 </button>
               </div>
-
-              <style jsx>{`
-                @keyframes fade-in-up {
-                  from { opacity: 0; transform: translateY(20px); }
-                  to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes fly {
-                  0%, 100% { transform: translateY(0) rotate(0deg); }
-                  25% { transform: translateY(-6px) rotate(-5deg); }
-                  75% { transform: translateY(-3px) rotate(5deg); }
-                }
-                @keyframes float {
-                  0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
-                  50% { opacity: 1; transform: translateY(-20px) scale(1); }
-                }
-                .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
-                .animate-fly { animation: fly 2s ease-in-out infinite; }
-                .animate-float-1 { animation: float 2s ease-in-out 0.2s infinite; }
-                .animate-float-2 { animation: float 2s ease-in-out 0.5s infinite; }
-                .animate-float-3 { animation: float 2s ease-in-out 0.8s infinite; }
-                .animate-float-4 { animation: float 2s ease-in-out 1.1s infinite; }
-              `}</style>
             </div>
           ) : (
             /* FORM STATE */

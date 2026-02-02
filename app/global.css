@@ -1,5 +1,43 @@
 @import 'tailwindcss';
 
+/* ===== PREMIUM VISUAL EFFECTS ===== */
+
+/* Subtle noise texture overlay for premium feel */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
 /* ===== SMOOTH SCROLL & PAGE TRANSITIONS ===== */
 html {
   scroll-behavior: smooth;
@@ -18,6 +56,7 @@ html {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -26,8 +65,13 @@ html {
 
 /* Fade in only */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Scale in */
@@ -36,6 +80,7 @@ html {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -56,15 +101,135 @@ html {
 }
 
 /* Stagger delays for lists */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+}
+
+.stagger-5 {
+  animation-delay: 0.5s;
+}
 
 /* Initially hidden for animation */
 .animate-on-scroll {
   opacity: 0;
+}
+
+/* ===== AURORA BACKGROUND ANIMATIONS ===== */
+@keyframes aurora-1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translate(30px, 20px) scale(1.1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes aurora-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+
+  50% {
+    transform: translate(-20px, 30px) scale(1.05);
+    opacity: 0.25;
+  }
+}
+
+@keyframes aurora-3 {
+
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.1;
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 0.15;
+  }
+}
+
+.animate-aurora-1 {
+  animation: aurora-1 15s ease-in-out infinite;
+}
+
+.animate-aurora-2 {
+  animation: aurora-2 12s ease-in-out infinite;
+}
+
+.animate-aurora-3 {
+  animation: aurora-3 18s ease-in-out infinite;
+}
+
+/* ===== CONTACT SUCCESS ANIMATIONS ===== */
+@keyframes fly {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-6px) rotate(-5deg);
+  }
+
+  75% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+}
+
+@keyframes float-particle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+}
+
+.animate-fly {
+  animation: fly 2s ease-in-out infinite;
+}
+
+.animate-float-1 {
+  animation: float-particle 2s ease-in-out 0.2s infinite;
+}
+
+.animate-float-2 {
+  animation: float-particle 2s ease-in-out 0.5s infinite;
+}
+
+.animate-float-3 {
+  animation: float-particle 2s ease-in-out 0.8s infinite;
+}
+
+.animate-float-4 {
+  animation: float-particle 2s ease-in-out 1.1s infinite;
 }
 
 /* ===== SELECTION STYLES ===== */
@@ -92,6 +257,7 @@ html {
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
   }
+
   html {
     color-scheme: dark;
   }
@@ -124,7 +290,7 @@ html {
   content: '#';
 }
 
-.prose *:hover > .anchor {
+.prose *:hover>.anchor {
   @apply visible;
 }
 
@@ -183,7 +349,7 @@ html {
   @apply list-decimal pl-6;
 }
 
-.prose > :first-child {
+.prose> :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
@@ -194,8 +360,10 @@ pre::-webkit-scrollbar {
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Remove Safari input shadow on mobile */
@@ -216,6 +384,7 @@ table {
 .title {
   text-wrap: balance;
 }
+
 .prose pre {
   background: #0a0a0a;
   border: 1px solid #262626;
