@@ -9,7 +9,7 @@ export async function POST(request) {
     // Parse request body
     const body = await request.json();
     const { email, subject, message, name } = body;
-    
+
     // Validate required fields
     if (!email || !subject || !message) {
       return NextResponse.json(
@@ -26,10 +26,10 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    
+
     // Connect to database
     await connectDB();
-    
+
     // Create new contact entry
     const contact = new Contact({
       name: name || 'Anonymous',
@@ -39,28 +39,24 @@ export async function POST(request) {
       status: 'new',
       createdAt: new Date()
     });
-    
+
     // Save to database
     await contact.save();
-    
-    // Send email notification
-    try {
-      await sendContactEmail({ name: name || 'Anonymous', email, subject, message });
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      // Don't fail the request if email fails, contact is already saved
-    }
-    
-    return NextResponse.json({ 
+
+    // Send email notification asynchronously (don't wait for it)
+    sendContactEmail({ name: name || 'Anonymous', email, subject, message })
+      .catch(err => console.error('Email sending failed:', err.message));
+
+    return NextResponse.json({
       success: true,
       message: 'Thank you for contacting us! We will get back to you soon.',
       contactId: contact._id
     }, { status: 201 });
-    
+
   } catch (error) {
     console.error('Contact API Error:', error);
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to submit contact form',
         details: process.env.NODE_ENV === 'development' ? error.message : undefined
       },
@@ -73,26 +69,26 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     await connectDB();
-    
+
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     const limit = parseInt(searchParams.get('limit') || '50');
-    
+
     let query = {};
     if (status) {
       query.status = status;
     }
-    
+
     const contacts = await Contact.find(query)
       .sort({ createdAt: -1 })
       .limit(limit);
-    
-    return NextResponse.json({ 
+
+    return NextResponse.json({
       success: true,
       contacts,
       count: contacts.length
     });
-    
+
   } catch (error) {
     console.error('Get Contacts Error:', error);
     return NextResponse.json(
