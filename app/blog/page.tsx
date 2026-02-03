@@ -3,6 +3,7 @@ import { BlogPosts } from "./posts"
 import { CuratedBlogs } from "./curated"
 import { ContactSection } from "./contact-section"
 import { NewsletterSection } from "./newsletter-section"
+import SemanticSearch from "@/app/components/semantic-search"
 
 export const metadata = {
   title: "Blog",
@@ -18,10 +19,15 @@ export default function BlogPage() {
         Blogs
       </h1>
 
-      <p className="text-neutral-400 mb-12 max-w-2xl">
+      <p className="text-neutral-400 mb-8 max-w-2xl">
         Thoughts on whatever I build, break, and learn in AI,
         engineering, and more.
       </p>
+
+      {/* AI-POWERED SEMANTIC SEARCH */}
+      <div className="mb-12">
+        <SemanticSearch />
+      </div>
 
       {/* BLOG LIST + SIDEBAR */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-14">

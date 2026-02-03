@@ -48,6 +48,17 @@ const blogSchema = new mongoose.Schema(
       type: String,
       default: '5 min read',
     },
+    // Embedding vector for semantic search (768 dimensions from text-embedding-004)
+    embedding: {
+      type: [Number],
+      default: null,
+      select: false, // Don't include in queries by default (large array)
+    },
+    // Track when embedding was last updated
+    embeddingUpdatedAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

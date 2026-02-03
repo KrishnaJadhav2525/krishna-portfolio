@@ -1,0 +1,221 @@
+'use client';
+
+/**
+ * SemanticSearch Component
+ * 
+ * A React component that provides semantic search functionality for blog posts.
+ * Uses AI embeddings to find conceptually similar content, not just keyword matches.
+ * 
+ * Features:
+ * - Debounced search input
+ * - Loading and error states
+ * - Displays relevance scores
+ * - Links to blog posts
+ */
+
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+
+// TypeScript interfaces
+interface Blog {
+    _id: string;
+    title: string;
+    slug: string;
+    description?: string;
+    tags?: string[];
+}
+
+interface SearchResult {
+    score: number;
+    blog: Blog;
+}
+
+interface SemanticSearchProps {
+    className?: string;
+}
+
+// Debounce hook for search input
+function useDebounce(value: string, delay: number): string {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+
+    return debouncedValue;
+}
+
+export default function SemanticSearch({ className = '' }: SemanticSearchProps) {
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState<SearchResult[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [hasSearched, setHasSearched] = useState(false);
+
+    // Debounce search query by 500ms
+    const debouncedQuery = useDebounce(query, 500);
+
+    // Perform search when debounced query changes
+    const performSearch = useCallback(async (searchQuery: string) => {
+        if (!searchQuery || searchQuery.length < 2) {
+            setResults([]);
+            setHasSearched(false);
+            return;
+        }
+
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(
+                `/api/search?q=${encodeURIComponent(searchQuery)}&limit=5`
+            );
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(data.error || 'Search failed');
+            }
+
+            setResults(data.results || []);
+            setHasSearched(true);
+        } catch (err) {
+            console.error('Search error:', err);
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred while searching';
+            setError(errorMessage);
+            setResults([]);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    // Trigger search when debounced query changes
+    useEffect(() => {
+        performSearch(debouncedQuery);
+    }, [debouncedQuery, performSearch]);
+
+    // Format similarity score as percentage
+    const formatScore = (score: number): string => {
+        return `${Math.round(score * 100)}% match`;
+    };
+
+    return (
+        <div className={`w-full max-w-2xl mx-auto ${className}`}>
+            {/* Search Input */}
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg
+                        className="h-5 w-5 text-neutral-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                    </svg>
+                </div>
+
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search blogs semantically..."
+                    className="w-full bg-neutral-950/80 backdrop-blur-sm border border-neutral-800 rounded-xl pl-12 pr-4 py-4 text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all"
+                />
+
+                {/* Loading indicator */}
+                {isLoading && (
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                        <div className="w-5 h-5 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+                    </div>
+                )}
+            </div>
+
+            {/* Error Message */}
+            {error && (
+                <div className="mt-4 p-4 rounded-xl bg-red-500/10 border border-red-500/30">
+                    <p className="text-sm text-red-400 flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {error}
+                    </p>
+                </div>
+            )}
+
+            {/* Results */}
+            {hasSearched && !error && (
+                <div className="mt-6 space-y-4">
+                    {results.length === 0 ? (
+                        <p className="text-neutral-500 text-center py-8">
+                            No matching blogs found for &ldquo;{query}&rdquo;
+                        </p>
+                    ) : (
+                        <>
+                            <p className="text-sm text-neutral-500">
+                                Found {results.length} result{results.length !== 1 ? 's' : ''}
+                            </p>
+
+                            {results.map(({ score, blog }) => (
+                                <Link
+                                    key={blog._id}
+                                    href={`/blog/${blog.slug}`}
+                                    className="block group"
+                                >
+                                    <div className="relative rounded-xl p-[1px] bg-gradient-to-br from-indigo-500/30 via-purple-500/20 to-transparent hover:from-indigo-500/50 hover:via-purple-500/40 transition-all duration-300">
+                                        <div className="relative rounded-xl bg-neutral-950/90 backdrop-blur-sm p-5 hover:bg-neutral-900/90 transition-colors">
+                                            {/* Score badge */}
+                                            <span className="absolute top-4 right-4 px-2 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                                {formatScore(score)}
+                                            </span>
+
+                                            {/* Title */}
+                                            <h3 className="text-lg font-medium text-white group-hover:text-indigo-300 transition-colors pr-24">
+                                                {blog.title}
+                                            </h3>
+
+                                            {/* Description */}
+                                            {blog.description && (
+                                                <p className="mt-2 text-sm text-neutral-400 line-clamp-2">
+                                                    {blog.description}
+                                                </p>
+                                            )}
+
+                                            {/* Tags */}
+                                            {blog.tags && blog.tags.length > 0 && (
+                                                <div className="mt-3 flex flex-wrap gap-2">
+                                                    {blog.tags.slice(0, 4).map((tag) => (
+                                                        <span
+                                                            key={tag}
+                                                            className="px-2 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-neutral-400"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </>
+                    )}
+                </div>
+            )}
+
+            {/* Help text when not searching */}
+            {!hasSearched && !isLoading && (
+                <p className="mt-4 text-sm text-neutral-500 text-center">
+                    Enter a topic or concept to find related blog posts using AI-powered semantic search
+                </p>
+            )}
+        </div>
+    );
+}

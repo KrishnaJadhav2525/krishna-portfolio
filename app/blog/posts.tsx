@@ -1,44 +1,18 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
-import type { BlogPost } from "./lib/get-posts" // ✅ FIXED PATH
+import type { BlogPost } from "./lib/get-posts"
 
 type Props = {
   posts: BlogPost[]
 }
 
 export function BlogPosts({ posts }: Props) {
-  const [query, setQuery] = useState("")
-
-  const filteredPosts = posts.filter(post => {
-    const q = query.toLowerCase()
-    return (
-      post.title.toLowerCase().includes(q) ||
-      post.description.toLowerCase().includes(q) ||
-      post.tags.some(tag => tag.toLowerCase().includes(q))
-    )
-  })
-
   return (
     <div className="space-y-10">
-      {/* SEARCH */}
-      <div>
-        <input
-          placeholder="Search posts..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          className="w-full rounded-md border border-neutral-800 bg-black px-4 py-3 text-sm text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-emerald-400 transition"
-        />
-
-        <p className="mt-2 text-xs text-neutral-500">
-          Showing {filteredPosts.length} of {posts.length} posts
-        </p>
-      </div>
-
       {/* POSTS */}
       <div className="divide-y divide-neutral-900">
-        {filteredPosts.map(post => (
+        {posts.map(post => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
@@ -81,9 +55,9 @@ export function BlogPosts({ posts }: Props) {
           </Link>
         ))}
 
-        {filteredPosts.length === 0 && (
+        {posts.length === 0 && (
           <p className="py-12 text-sm text-neutral-500">
-            No posts match your search.
+            No posts available.
           </p>
         )}
       </div>
