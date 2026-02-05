@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Github, Twitter, Linkedin } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
+import ProjectCarousel from "@/app/components/project-carousel"
 
 const socialLinks = [
   { href: "https://github.com/KrishnaJadhav2525", icon: Github, label: "GitHub" },
@@ -189,7 +190,7 @@ export default function Page() {
         </a>
       </div>
 
-      {/* FEATURED PROJECTS - Glassmorphism Cards */}
+      {/* FEATURED PROJECTS - Carousel */}
       <section
         id="projects"
         className="py-36 px-8 scroll-mt-36 border-t border-neutral-900"
@@ -202,70 +203,7 @@ export default function Page() {
           Featured Projects
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl">
-          {/* Project Card 1 - Facial Recognition */}
-          <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-indigo-500/50 via-purple-500/30 to-transparent hover:from-indigo-500/70 hover:via-purple-500/50 transition-all duration-300">
-            <div className="relative h-full rounded-2xl bg-neutral-950/80 backdrop-blur-xl p-8 overflow-hidden">
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Icon */}
-              <div className="relative w-14 h-14 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </div>
-
-              <h3 className="relative text-xl font-semibold text-white mb-3">
-                Real-time Facial Recognition System
-              </h3>
-
-              <p className="relative text-neutral-400 mb-6 leading-relaxed">
-                High-performance face detection and recognition system built with OpenCV and Qt C++ framework. Focuses on accuracy and real-world usability.
-              </p>
-
-              <div className="relative flex flex-wrap gap-2">
-                {['C++', 'OpenCV', 'Qt', 'Computer Vision'].map(tag => (
-                  <span key={tag} className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-neutral-400">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Project Card 2 - Portfolio */}
-          <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-emerald-500/50 via-teal-500/30 to-transparent hover:from-emerald-500/70 hover:via-teal-500/50 transition-all duration-300">
-            <div className="relative h-full rounded-2xl bg-neutral-950/80 backdrop-blur-xl p-8 overflow-hidden">
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Icon */}
-              <div className="relative w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-7 h-7 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-
-              <h3 className="relative text-xl font-semibold text-white mb-3">
-                Personal Portfolio Website
-              </h3>
-
-              <p className="relative text-neutral-400 mb-6 leading-relaxed">
-                Modern, performant portfolio built with Next.js 16, featuring smooth animations, newsletter integration, and a sleek dark theme.
-              </p>
-
-              <div className="relative flex flex-wrap gap-2">
-                {['Next.js', 'TypeScript', 'Tailwind', 'MongoDB'].map(tag => (
-                  <span key={tag} className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-neutral-400">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProjectCarousel />
       </section>
 
       {/* SKILLS - with entrance animation */}

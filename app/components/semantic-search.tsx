@@ -11,6 +11,7 @@
  * - Loading and error states
  * - Displays relevance scores
  * - Links to blog posts
+ * - Typewriter effect for "Streaming" feel
  */
 
 import { useState, useEffect, useCallback } from 'react';
@@ -49,6 +50,28 @@ function useDebounce(value: string, delay: number): string {
     return debouncedValue;
 }
 
+// Typewriter Component for "Streaming" Effect
+function Typewriter({ text, speed = 10 }: { text: string; speed?: number }) {
+    const [displayedText, setDisplayedText] = useState('');
+
+    useEffect(() => {
+        setDisplayedText(''); // Reset on text change
+        let i = 0;
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                setDisplayedText((prev) => prev + text.charAt(i));
+                i++;
+            } else {
+                clearInterval(timer);
+            }
+        }, speed);
+
+        return () => clearInterval(timer);
+    }, [text, speed]);
+
+    return <span>{displayedText}</span>;
+}
+
 export default function SemanticSearch({ className = '' }: SemanticSearchProps) {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchResult[]>([]);
@@ -69,6 +92,7 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
 
         setIsLoading(true);
         setError(null);
+        setResults([]); // Clear previous results to emphasize "new generation"
 
         try {
             const response = await fetch(
@@ -79,6 +103,9 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
             if (!data.success) {
                 throw new Error(data.error || 'Search failed');
             }
+
+            // Simulate a slight network delay for dramatic effect if it's too fast
+            // await new Promise(resolve => setTimeout(resolve, 300));
 
             setResults(data.results || []);
             setHasSearched(true);
@@ -181,10 +208,10 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                                                 {blog.title}
                                             </h3>
 
-                                            {/* Description */}
+                                            {/* Description - Streaming Effect */}
                                             {blog.description && (
-                                                <p className="mt-2 text-sm text-neutral-400 line-clamp-2">
-                                                    {blog.description}
+                                                <p className="mt-2 text-sm text-neutral-400 line-clamp-2 min-h-[40px]">
+                                                    <Typewriter text={blog.description} speed={15} />
                                                 </p>
                                             )}
 
