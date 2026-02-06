@@ -207,7 +207,7 @@ export default function ProjectCarousel() {
     return (
         <div className="relative w-full max-w-7xl mx-auto h-[700px] flex items-center justify-center">
             {/* Navigation Buttons */}
-            <div className="absolute inset-x-4 md:inset-x-0 flex items-center justify-between z-20 pointer-events-none top-1/2 -translate-y-1/2">
+            <div className={`absolute inset-x-2 md:-inset-x-12 flex items-center justify-between z-20 pointer-events-none top-1/2 -translate-y-1/2 transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
                 <button
                     className="pointer-events-auto p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
                     onClick={() => paginate(-1)}
