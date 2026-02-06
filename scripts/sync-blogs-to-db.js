@@ -14,7 +14,10 @@ import mongoose from 'mongoose';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-dotenv.config({ path: join(__dirname, '..', '.env.local') });
+const result = dotenv.config({ path: join(__dirname, '..', '.env.local') });
+if (result.error) {
+    dotenv.config({ path: join(__dirname, '..', '.env') });
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const BLOG_DIR = join(__dirname, '..', 'app', 'blog', 'content');

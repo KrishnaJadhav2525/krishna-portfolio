@@ -15,7 +15,10 @@ import { dirname, join } from 'path';
 // Load .env.local (Next.js convention)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-dotenv.config({ path: join(__dirname, '..', '.env.local') });
+const result = dotenv.config({ path: join(__dirname, '..', '.env.local') });
+if (result.error) {
+    dotenv.config({ path: join(__dirname, '..', '.env') });
+}
 import mongoose from 'mongoose';
 
 // Import after dotenv so env vars are available

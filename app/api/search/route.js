@@ -42,12 +42,17 @@ export async function GET(request) {
         }
 
         console.log(`🔍 Semantic search for: "${query}"`);
+        const start = Date.now();
 
         // Generate embedding for the search query
+        const embeddingStart = Date.now();
         const queryEmbedding = await generateEmbedding(query);
+        console.log(`⏱️ Embedding took ${Date.now() - embeddingStart}ms`);
 
         // Query Pinecone for similar vectors
+        const pineconeStart = Date.now();
         const matches = await querySimilar(queryEmbedding, limit);
+        console.log(`⏱️ Pinecone took ${Date.now() - pineconeStart}ms`);
 
         if (matches.length === 0) {
             return NextResponse.json({
@@ -62,6 +67,7 @@ export async function GET(request) {
         const blogIds = matches.map(match => match.id.replace('blog-', ''));
 
         // Fetch full blog documents from MongoDB
+        const mongoStart = Date.now();
         await connectDB();
         const blogs = await Blog.find({
             _id: { $in: blogIds },
@@ -86,6 +92,8 @@ export async function GET(request) {
             .filter(Boolean);
 
         console.log(`✅ Found ${results.length} matching blog(s)`);
+        console.log(`⏱️ MongoDB took ${Date.now() - mongoStart}ms`);
+        console.log(`⏱️ Total search took ${Date.now() - start}ms`);
 
         return NextResponse.json({
             success: true,
@@ -99,8 +107,8 @@ export async function GET(request) {
         return NextResponse.json(
             {
                 success: false,
-                error: 'Search failed',
-                details: error.message,
+                error: error.message || 'Search failed',
+                details: error.stack,
             },
             { status: 500 }
         );
