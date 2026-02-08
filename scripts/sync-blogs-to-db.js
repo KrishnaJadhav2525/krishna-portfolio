@@ -3,6 +3,7 @@
  * 
  * Reads all markdown blog files from app/blog/content/
  * and syncs them to MongoDB as published blogs.
+ * Updated to trigger sync workflow
  */
 
 import dotenv from 'dotenv';

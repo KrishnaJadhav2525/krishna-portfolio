@@ -7,6 +7,8 @@ on:
     paths:
       - 'app/blog/content/**'
       - 'scripts/sync-blogs-to-db.js'
+      - '.github/workflows/sync-blogs.yml'
+  workflow_dispatch:
 
 jobs:
   sync:
