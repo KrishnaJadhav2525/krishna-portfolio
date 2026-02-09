@@ -22,3 +22,4 @@
 - [2026-02-09T16:14:12.272Z] docs: add changelog entry
 - [2026-02-09T17:17:10.272Z] chore: configure eslint rules
 - [2026-02-09T08:40:39.272Z] fix: fix z-index issue on modal
+- [2026-02-09T04:52:39.272Z] refactor: restructure folder hierarchy
