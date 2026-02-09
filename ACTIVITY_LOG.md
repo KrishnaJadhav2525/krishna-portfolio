@@ -17,3 +17,4 @@
 - [2026-02-09T09:09:04.272Z] fix: handle null state in user card
 - [2026-02-09T14:03:52.272Z] fix: fix infinite loop in useEffect
 - [2026-02-09T10:20:29.272Z] feat: create responsive navigation bar
+- [2026-02-09T15:26:40.272Z] docs: fix typos in documentation
