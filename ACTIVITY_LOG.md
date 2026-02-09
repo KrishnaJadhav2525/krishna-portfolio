@@ -13,3 +13,4 @@
 - [2026-02-09T13:47:15.272Z] test: mock api response for testing
 - [2026-02-09T06:04:19.272Z] docs: update license file
 - [2026-02-09T07:12:27.272Z] fix: fix infinite loop in useEffect
+- [2026-02-09T08:21:13.272Z] fix: fix infinite loop in useEffect
