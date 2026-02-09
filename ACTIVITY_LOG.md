@@ -19,3 +19,4 @@
 - [2026-02-09T10:20:29.272Z] feat: create responsive navigation bar
 - [2026-02-09T15:26:40.272Z] docs: fix typos in documentation
 - [2026-02-09T10:54:31.272Z] feat: create reusable button component
+- [2026-02-09T16:14:12.272Z] docs: add changelog entry
