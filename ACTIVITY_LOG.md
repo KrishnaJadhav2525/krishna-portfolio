@@ -11,3 +11,4 @@
 - [2026-02-09T07:32:06.272Z] fix: resolve api timeout error
 - [2026-02-09T05:56:44.272Z] fix: fix overflow issue on small screens
 - [2026-02-09T13:47:15.272Z] test: mock api response for testing
+- [2026-02-09T06:04:19.272Z] docs: update license file
