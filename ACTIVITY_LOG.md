@@ -3,3 +3,4 @@
 - [2026-02-09T08:22:45.272Z] feat: create reusable button component
 - [2026-02-09T08:40:05.272Z] docs: document api endpoints
 - [2026-02-09T12:54:04.272Z] chore: update vercel configuration
+- [2026-02-09T07:47:08.272Z] feat: create animated hero section
