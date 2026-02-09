@@ -24,3 +24,4 @@
 - [2026-02-09T08:40:39.272Z] fix: fix z-index issue on modal
 - [2026-02-09T04:52:39.272Z] refactor: restructure folder hierarchy
 - [2026-02-09T11:30:59.272Z] fix: handle null state in user card
+- [2026-02-09T13:47:20.272Z] feat: implement pagination for blog posts
