@@ -96,44 +96,44 @@ const projects: Project[] = [
     },
     {
         title: "Movies Analysis",
-        description: "Data analytics platform visualizing cinematic trends. Leverages Pandas and Matplotlib for interactive heatmaps and correlation patterns.",
+        description: "Data analysis project exploring trends in 44,000+ movies. Visualizes budget vs. revenue correlations and genre popularity using Pandas and Matplotlib.",
         features: [
-            "Analysis of 50,000+ Films",
-            "Interactive Box Office Heatmaps",
-            "Seasonality & Trend Detection",
-            "Director Impact Correlation"
+            "Analysis of 44,000+ Films",
+            "ROI & Revenue Analysis",
+            "Genre & Cast Insights",
+            "Content Discovery (Keywords)"
         ],
         stats: [
-            { label: "Dataset", value: "50k+", icon: Database },
-            { label: "Range", value: "50 Yrs", icon: Activity },
-            { label: "Charts", value: "20+", icon: BarChart3 }
+            { label: "Dataset", value: "44k+", icon: Database },
+            { label: "Range", value: "100 Yrs", icon: Activity },
+            { label: "Charts", value: "Static", icon: BarChart3 }
         ],
-        links: { github: "#" },
+        links: { github: "https://github.com/KrishnaJadhav2525/CineData-Analysis" },
         tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
         gradient: "from-yellow-500/50 via-amber-500/30 to-transparent",
         iconBg: "bg-yellow-500/10",
         iconBorder: "border-yellow-500/20",
         iconColor: "text-yellow-400",
         iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1-1H4a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
         )
     },
     {
         title: "Data Grid React",
-        description: "High-performance React data grid for large datasets (1M+ rows). Features virtualized scrolling, server-side pagination, and complex filtering.",
+        description: "Custom-built virtualized data grid for React. identifying performance bottlenecks, it efficiently handles 50k+ rows with client-side sorting and column management.",
         features: [
-            "Virtualized Scrolling (1M+ Rows)",
-            "Server-side Pagination & Sort",
-            "Multi-column Complex Filtering",
-            "Export to CSV / Excel"
+            "Virtualization (50k+ Rows)",
+            "Client-side Sorting",
+            "Column Pinning/Reordering",
+            "Undo/Redo History Stack"
         ],
         stats: [
-            { label: "Rows", value: "1M+", icon: Database },
-            { label: "Scroll", value: "60 FPS", icon: Activity },
-            { label: "Bundle", value: "<15kb", icon: Activity }
+            { label: "Rows", value: "50k+", icon: Database },
+            { label: "FPS", value: "60", icon: Activity },
+            { label: "Nav", value: "A11y", icon: Activity }
         ],
-        links: { github: "#", demo: "#" },
-        tags: ['React', 'TypeScript', 'MUI', 'Data Grid'],
+        links: { github: "https://github.com/KrishnaJadhav2525/react-virtualized-data-grid", demo: "#" },
+        tags: ['React', 'TypeScript', 'Vite', 'Vitest'],
         gradient: "from-cyan-500/50 via-blue-500/30 to-transparent",
         iconBg: "bg-cyan-500/10",
         iconBorder: "border-cyan-500/20",
@@ -144,20 +144,20 @@ const projects: Project[] = [
     },
     {
         title: "College Portal",
-        description: "Full-stack academic management system. Features RBAC, real-time attendance, and module result processing using MongoDB aggregation pipelines.",
+        description: "Full-stack academic management platform. Features student enrollment, admin dashboards, and a blog submission workflow using Flask and MongoDB.",
         features: [
-            "Role-Based Access Control (RBAC)",
-            "Real-time Chat (Socket.io)",
-            "Automated Grade Processing",
-            "Digital Resource Integration"
+            "Flask & MongoDB Backend",
+            "Student/Admin Auth",
+            "Blog Approval Workflow",
+            "Admin Dashboard"
         ],
         stats: [
-            { label: "Users", value: "500+", icon: Activity },
-            { label: "Uptime", value: "99.9%", icon: Activity },
-            { label: "Roles", value: "4", icon: Activity }
+            { label: "Users", value: "Multi", icon: Activity },
+            { label: "Backend", value: "Flask", icon: Activity },
+            { label: "DB", value: "Mongo", icon: Database }
         ],
-        links: { github: "#" },
-        tags: ['Next.js', 'MongoDB', 'Express', 'AuthJS'],
+        links: { github: "https://github.com/KrishnaJadhav2525/College_Web-_Portal-_Full-Stack" },
+        tags: ['Flask', 'MongoDB', 'HTML/CSS', 'Python'],
         gradient: "from-violet-500/50 via-fuchsia-500/30 to-transparent",
         iconBg: "bg-violet-500/10",
         iconBorder: "border-violet-500/20",
