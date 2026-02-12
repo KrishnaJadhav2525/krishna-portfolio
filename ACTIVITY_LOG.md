@@ -55,3 +55,4 @@
 - [2026-02-12T08:41:58.230Z] fix: handle null state in user card
 - [2026-02-12T15:21:43.230Z] chore: update vercel configuration
 - [2026-02-12T12:13:14.230Z] feat: add form validation logic
+- [2026-02-12T08:46:58.230Z] chore: configure eslint rules
