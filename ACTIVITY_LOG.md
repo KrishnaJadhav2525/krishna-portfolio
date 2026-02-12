@@ -30,3 +30,4 @@
 - [2026-02-09T14:52:19.272Z] feat: add form validation logic
 - [2026-02-09T05:14:06.272Z] docs: update README with setup instructions
 - [2026-02-12T10:36:48.230Z] fix: resolve hydration mismatch error
+- [2026-02-12T07:40:13.230Z] docs: update README with setup instructions
