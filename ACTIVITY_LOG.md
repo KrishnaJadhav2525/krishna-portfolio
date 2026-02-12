@@ -33,3 +33,4 @@
 - [2026-02-12T07:40:13.230Z] docs: update README with setup instructions
 - [2026-02-12T12:15:35.230Z] feat: implement secure authentication flow
 - [2026-02-12T09:25:44.230Z] fix: resolve hydration mismatch error
+- [2026-02-12T11:08:44.230Z] feat: integrate newsletter subscription form
