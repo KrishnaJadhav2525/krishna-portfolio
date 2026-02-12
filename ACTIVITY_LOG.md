@@ -53,3 +53,4 @@
 - [2026-02-12T11:37:48.230Z] chore: cleanup temporary files
 - [2026-02-12T15:36:02.230Z] refactor: simplify state management logic
 - [2026-02-12T08:41:58.230Z] fix: handle null state in user card
+- [2026-02-12T15:21:43.230Z] chore: update vercel configuration
