@@ -44,3 +44,4 @@
 - [2026-02-12T16:29:42.230Z] refactor: rename components for clarity
 - [2026-02-12T13:17:43.230Z] chore: update npm dependencies
 - [2026-02-12T18:03:30.230Z] chore: update npm dependencies
+- [2026-02-12T14:20:10.230Z] chore: update vercel configuration
