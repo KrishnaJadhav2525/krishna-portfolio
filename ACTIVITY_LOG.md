@@ -47,3 +47,4 @@
 - [2026-02-12T14:20:10.230Z] chore: update vercel configuration
 - [2026-02-12T05:46:45.230Z] fix: correct date formatting
 - [2026-02-12T05:38:35.230Z] chore: tweak prettier config
+- [2026-02-12T14:14:43.230Z] refactor: extract helper functions to utils
