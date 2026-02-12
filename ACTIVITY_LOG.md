@@ -36,3 +36,4 @@
 - [2026-02-12T11:08:44.230Z] feat: integrate newsletter subscription form
 - [2026-02-12T09:33:10.230Z] fix: resolve race condition in data fetching
 - [2026-02-12T07:25:35.230Z] fix: correct margin on mobile devices
+- [2026-02-12T07:58:05.230Z] refactor: clean up unused imports
