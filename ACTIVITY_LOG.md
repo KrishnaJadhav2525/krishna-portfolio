@@ -40,3 +40,4 @@
 - [2026-02-12T10:25:07.230Z] refactor: remove deprecated api calls
 - [2026-02-12T15:55:31.230Z] feat: setup basic routing structure
 - [2026-02-12T13:11:51.230Z] feat: integrate newsletter subscription form
+- [2026-02-12T16:07:02.230Z] docs: document environment variables
