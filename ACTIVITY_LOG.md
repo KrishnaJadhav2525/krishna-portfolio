@@ -42,3 +42,4 @@
 - [2026-02-12T13:11:51.230Z] feat: integrate newsletter subscription form
 - [2026-02-12T16:07:02.230Z] docs: document environment variables
 - [2026-02-12T16:29:42.230Z] refactor: rename components for clarity
+- [2026-02-12T13:17:43.230Z] chore: update npm dependencies
