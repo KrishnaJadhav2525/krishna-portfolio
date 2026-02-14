@@ -40,3 +40,6 @@ next-env.d.ts
 
 # old backend (no longer needed - migrated to Next.js API routes)
 backend/
+
+# project explanation
+project_explanation.txt

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe } from "lucide-react";
+import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Project {
@@ -19,6 +19,78 @@ interface Project {
 }
 
 const projects: Project[] = [
+    {
+        title: "Binance Futures Bot",
+        description: "Production-quality CLI trading bot for Binance Futures Testnet (USDT-M). Features robust validation, structured logging, and market/limit order support.",
+        features: [
+            "Testnet USDT-M Trading",
+            "Market & Limit Orders",
+            "Robust Error Actions",
+            "Structured Logging"
+        ],
+        stats: [
+            { label: "Type", value: "CLI", icon: Terminal },
+            { label: "Speed", value: "Real-time", icon: Zap },
+            { label: "Market", value: "USDT-M", icon: Activity }
+        ],
+        links: { github: "https://github.com/KrishnaJadhav2525/" }, // Placeholder or general profile if specific repo link is unknown, user provided profile.
+        tags: ['Python', 'Binance API', 'CLI', 'Trading'],
+        gradient: "from-yellow-500/50 via-orange-500/30 to-transparent",
+        iconBg: "bg-yellow-500/10",
+        iconBorder: "border-yellow-500/20",
+        iconColor: "text-yellow-400",
+        iconPath: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        )
+    },
+    {
+        title: "AI Video Pipeline",
+        description: "Fully automated video generation pipeline. Orchestrates n8n, Gemini, Edge TTS, and MoviePy to turn a topic into a YouTube-ready MP4.",
+        features: [
+            "100% Automated Workflow",
+            "Gemini AI Scripting",
+            "Edge TTS Voiceover",
+            "Auto-Thumbnail Gen"
+        ],
+        stats: [
+            { label: "Output", value: "1080p", icon: Video },
+            { label: "Cost", value: "Free-tier", icon: Activity },
+            { label: "Status", value: "Auto", icon: Zap }
+        ],
+        links: { github: "https://github.com/KrishnaJadhav2525/" },
+        tags: ['n8n', 'Python', 'Gemini AI', 'FFmpeg'],
+        gradient: "from-pink-500/50 via-rose-500/30 to-transparent",
+        iconBg: "bg-pink-500/10",
+        iconBorder: "border-pink-500/20",
+        iconColor: "text-pink-400",
+        iconPath: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        )
+    },
+    {
+        title: "ResumeFit AI",
+        description: "Production-ready resume analyzer using TF-IDF & cosine similarity to match resumes with job descriptions. Features a premium glassmorphism UI.",
+        features: [
+            "TF-IDF Vectorization",
+            "Cosine Similarity Scoring",
+            "Skill Gap Analysis",
+            "Privacy-First (Local)"
+        ],
+        stats: [
+            { label: "Stack", value: "Django", icon: Database },
+            { label: "Model", value: "TF-IDF", icon: Activity },
+            { label: "Speed", value: "~ms", icon: Zap }
+        ],
+        links: { github: "https://github.com/KrishnaJadhav2525/" },
+        tags: ['Django', 'Python', 'Scikit-learn', 'NLP'],
+        gradient: "from-blue-500/50 via-cyan-500/30 to-transparent",
+        iconBg: "bg-blue-500/10",
+        iconBorder: "border-blue-500/20",
+        iconColor: "text-blue-400",
+        iconPath: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        )
+    },
     {
         title: "Real-time Facial Recognition",
         description: "High-performance biometric system utilizing OpenCV and Qt C++ for real-time face detection. Optimized for low-latency environments with custom threading.",
