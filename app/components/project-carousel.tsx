@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot } from "lucide-react";
+import { useState, useCallback, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Project {
@@ -33,7 +33,7 @@ const projects: Project[] = [
             { label: "Speed", value: "Real-time", icon: Zap },
             { label: "Market", value: "USDT-M", icon: Activity }
         ],
-        links: { github: "https://github.com/KrishnaJadhav2525/" }, // Placeholder or general profile if specific repo link is unknown, user provided profile.
+        links: { github: "https://github.com/KrishnaJadhav2525/" },
         tags: ['Python', 'Binance API', 'CLI', 'Trading'],
         gradient: "from-yellow-500/50 via-orange-500/30 to-transparent",
         iconBg: "bg-yellow-500/10",
@@ -263,9 +263,144 @@ const variants = {
     }),
 };
 
+// Mobile Project Modal Component
+function MobileProjectModal({ project, isOpen, onClose }: { project: Project; isOpen: boolean; onClose: () => void }) {
+    if (!project) return null;
+
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose}
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                    />
+
+                    {/* Modal Content */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        onClick={(e) => e.stopPropagation()}
+                        className={`
+                            relative w-full max-w-lg max-h-[90vh] overflow-y-auto
+                            rounded-3xl border border-white/10
+                            bg-neutral-900 shadow-2xl
+                        `}
+                    >
+                        {/* Gradient Header */}
+                        <div className={`absolute top-0 inset-x-0 h-32 bg-gradient-to-b ${project.gradient} opacity-20`} />
+
+                        {/* Close Button */}
+                        <button
+                            onClick={onClose}
+                            className="absolute top-4 right-4 p-2 rounded-full bg-black/20 hover:bg-black/40 text-neutral-400 hover:text-white transition-colors z-10"
+                        >
+                            <X size={20} />
+                        </button>
+
+                        <div className="relative p-6 md:p-8 flex flex-col items-center">
+                            {/* Icon */}
+                            <div className={`relative w-16 h-16 rounded-2xl ${project.iconBg} border ${project.iconBorder} flex items-center justify-center shadow-[0_0_20px_-5px_rgba(0,0,0,0.3)] mb-4`}>
+                                <svg className={`w-8 h-8 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {project.iconPath}
+                                </svg>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-2xl font-bold text-white text-center mb-1">
+                                {project.title}
+                            </h3>
+
+                            {/* Tags */}
+                            <div className="flex flex-wrap items-center justify-center gap-2 mt-3 mb-6">
+                                {project.tags.map(tag => (
+                                    <span
+                                        key={tag}
+                                        className="px-2.5 py-0.5 text-[10px] font-medium tracking-wide uppercase rounded-full bg-white/5 border border-white/10 text-neutral-300"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Description */}
+                            <p className="text-neutral-400 text-sm leading-relaxed text-center mb-8">
+                                {project.description}
+                            </p>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-3 gap-3 w-full mb-8">
+                                {project.stats.map((stat, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="bg-neutral-800/50 rounded-xl p-3 border border-white/5 text-center flex flex-col items-center justify-center"
+                                    >
+                                        <stat.icon className={`w-4 h-4 ${project.iconColor} mb-1.5`} />
+                                        <div className="text-sm font-bold text-white leading-none mb-1">{stat.value}</div>
+                                        <div className="text-[9px] text-neutral-500 uppercase tracking-wide">{stat.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Features */}
+                            <div className="w-full bg-white/5 rounded-2xl p-5 border border-white/5 mb-8">
+                                <h4 className="flex items-center gap-2 text-xs font-semibold text-neutral-200 mb-3 uppercase tracking-wider">
+                                    <Activity className="w-3.5 h-3.5 text-emerald-400" /> Key Features
+                                </h4>
+                                <ul className="space-y-2.5">
+                                    {project.features.map((feature, idx) => (
+                                        <li
+                                            key={idx}
+                                            className="flex items-start text-sm text-neutral-400"
+                                        >
+                                            <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0`} />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-3 w-full">
+                                {project.links.github && (
+                                    <a
+                                        href={project.links.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-3 rounded-xl font-semibold hover:bg-neutral-200 transition-colors text-sm"
+                                    >
+                                        <Github size={18} /> View Code
+                                    </a>
+                                )}
+                                {project.links.demo && (
+                                    <a
+                                        href={project.links.demo}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 flex items-center justify-center gap-2 bg-neutral-800 text-white py-3 rounded-xl font-semibold border border-neutral-700 hover:bg-neutral-700 transition-colors text-sm"
+                                    >
+                                        <Globe size={18} /> Live Demo
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
+    );
+}
+
 export default function ProjectCarousel() {
     const [[page, direction], setPage] = useState([1, 0]);
     const [isHovered, setIsHovered] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     // Wrap index effectively
     const projectIndex = Math.abs(page % projects.length);
@@ -276,207 +411,244 @@ export default function ProjectCarousel() {
         setIsHovered(false); // Reset hover state on navigation
     }, [page]);
 
+    // Handle Mobile Detection
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Handle Card Click
+    const handleCardClick = () => {
+        if (isMobile) {
+            setSelectedProject(project);
+        } else {
+            setIsHovered(!isHovered);
+        }
+    };
+
     return (
-        <div className="relative w-full max-w-7xl mx-auto h-[700px] flex items-center justify-center">
-            {/* Navigation Buttons */}
-            <div className={`absolute inset-x-2 md:-inset-x-12 flex items-center justify-between z-20 pointer-events-none top-1/2 -translate-y-1/2 transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
-                <button
-                    className="pointer-events-auto p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
-                    onClick={() => paginate(-1)}
-                    aria-label="Previous project"
-                >
-                    <ChevronLeft size={32} />
-                </button>
-                <button
-                    className="pointer-events-auto p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
-                    onClick={() => paginate(1)}
-                    aria-label="Next project"
-                >
-                    <ChevronRight size={32} />
-                </button>
-            </div>
-
-            {/* Card Container */}
-            <div className="relative w-full h-full flex items-center justify-center perspective-1000">
-                <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                    <motion.div
-                        key={page}
-                        custom={direction}
-                        variants={variants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                            x: { type: "spring", stiffness: 300, damping: 30 },
-                            opacity: { duration: 0.4 },
-                            scale: { duration: 0.4 },
-                            filter: { duration: 0.3 },
-                        }}
-                        className="absolute w-full flex justify-center items-center px-4"
-                        style={{ zIndex: isHovered ? 50 : 1 }}
-                    >
-                        {/* The Intensified Expanding Card */}
-                        <motion.div
-                            layout
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            onClick={() => setIsHovered(!isHovered)}
-                            transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                            className={`
-                relative overflow-hidden
-                rounded-3xl p-[1px]
-                bg-gradient-to-br ${project.gradient}
-                shadow-2xl shadow-black/80
-                cursor-pointer
-                ${isHovered ? 'w-full max-w-3xl md:max-w-4xl' : 'w-full max-w-lg'}
-              `}
-                            animate={{
-                                scale: isHovered ? 1.02 : 1,
-                            }}
-                        >
-                            {/* Card Background */}
-                            <div className={`relative bg-neutral-950/95 backdrop-blur-3xl rounded-3xl p-8 md:p-12 flex flex-col items-center transition-all duration-500 h-full ${isHovered ? 'min-h-[600px]' : 'min-h-[500px]'}`}>
-
-                                {/* Decorative Elements */}
-                                <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                                <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-
-                                {/* Header Section: Icon + Title */}
-                                <motion.div layout className="flex flex-col items-center z-10">
-                                    <motion.div layout className={`relative w-20 h-20 rounded-2xl ${project.iconBg} border ${project.iconBorder} flex items-center justify-center shadow-[0_0_30px_-5px_rgba(0,0,0,0.3)] mb-6`}>
-                                        <svg className={`w-10 h-10 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            {project.iconPath}
-                                        </svg>
-                                    </motion.div>
-
-                                    <motion.h3 layout className="text-3xl md:text-4xl font-bold text-white tracking-tight text-center mb-2">
-                                        {project.title}
-                                    </motion.h3>
-                                </motion.div>
-
-                                {/* Content Container */}
-                                <div className="w-full flex flex-col gap-6 mt-4">
-
-                                    {/* Description */}
-                                    <motion.p layout className="text-neutral-400 text-lg leading-relaxed text-center max-w-2xl mx-auto">
-                                        {project.description}
-                                    </motion.p>
-
-                                    {/* Expanded Content Grid */}
-                                    <AnimatePresence>
-                                        {isHovered && (
-                                            <motion.div
-                                                initial={{ opacity: 0, scale: 0.95 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                exit={{ opacity: 0, scale: 0.95 }}
-                                                transition={{ duration: 0.3, delay: 0.1 }}
-                                                className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 w-full"
-                                            >
-                                                {/* Features Column */}
-                                                <div className="bg-white/5 rounded-2xl p-6 border border-white/5 mx-auto w-full">
-                                                    <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-200 mb-4 uppercase tracking-wider">
-                                                        <Activity className="w-4 h-4 text-emerald-400" /> Key Features
-                                                    </h4>
-                                                    <ul className="space-y-3">
-                                                        {project.features.map((feature, idx) => (
-                                                            <motion.li
-                                                                key={idx}
-                                                                initial={{ opacity: 0, x: -10 }}
-                                                                animate={{ opacity: 1, x: 0 }}
-                                                                transition={{ delay: 0.2 + (idx * 0.05) }}
-                                                                className="flex items-start text-sm text-neutral-400"
-                                                            >
-                                                                <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0`} />
-                                                                {feature}
-                                                            </motion.li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-
-                                                {/* Stats & Actions Column */}
-                                                <div className="flex flex-col gap-6">
-                                                    {/* Stats */}
-                                                    <div className="grid grid-cols-3 gap-3">
-                                                        {project.stats.map((stat, idx) => (
-                                                            <motion.div
-                                                                key={idx}
-                                                                initial={{ opacity: 0, y: 10 }}
-                                                                animate={{ opacity: 1, y: 0 }}
-                                                                transition={{ delay: 0.3 + (idx * 0.05) }}
-                                                                className="bg-neutral-900/50 rounded-xl p-3 border border-white/5 text-center flex flex-col items-center justify-center"
-                                                            >
-                                                                <stat.icon className={`w-5 h-5 ${project.iconColor} mb-2`} />
-                                                                <div className="text-lg font-bold text-white leading-none mb-1">{stat.value}</div>
-                                                                <div className="text-[10px] text-neutral-500 uppercase tracking-wide">{stat.label}</div>
-                                                            </motion.div>
-                                                        ))}
-                                                    </div>
-
-                                                    {/* Action Buttons */}
-                                                    <div className="flex gap-4 mt-auto">
-                                                        {project.links.github && (
-                                                            <motion.a
-                                                                href={project.links.github}
-                                                                initial={{ opacity: 0, y: 10 }}
-                                                                animate={{ opacity: 1, y: 0 }}
-                                                                transition={{ delay: 0.5 }}
-                                                                className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-3 rounded-xl font-semibold hover:bg-neutral-200 transition-colors"
-                                                            >
-                                                                <Github size={20} /> View Code
-                                                            </motion.a>
-                                                        )}
-                                                        {project.links.demo && (
-                                                            <motion.a
-                                                                href={project.links.demo}
-                                                                initial={{ opacity: 0, y: 10 }}
-                                                                animate={{ opacity: 1, y: 0 }}
-                                                                transition={{ delay: 0.6 }}
-                                                                className="flex-1 flex items-center justify-center gap-2 bg-neutral-800 text-white py-3 rounded-xl font-semibold border border-neutral-700 hover:bg-neutral-700 transition-colors"
-                                                            >
-                                                                <Globe size={20} /> Live Demo
-                                                            </motion.a>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-
-                                    {/* Tags - Always Visible but pushed down on hover */}
-                                    <motion.div layout className={`flex flex-wrap items-center justify-center gap-2 ${isHovered ? 'mt-8' : 'mt-auto'}`}>
-                                        {project.tags.map(tag => (
-                                            <span
-                                                key={tag}
-                                                className="px-3 py-1 text-[10px] font-medium tracking-wide uppercase rounded-full bg-white/5 border border-white/10 text-neutral-300"
-                                            >
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </motion.div>
-
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                </AnimatePresence>
-            </div>
-
-            {/* Pagination Indicators */}
-            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-20">
-                {projects.map((_, idx) => (
+        <>
+            <div className="relative w-full max-w-7xl mx-auto h-[600px] md:h-[700px] flex items-center justify-center">
+                {/* Navigation Buttons */}
+                <div className={`absolute inset-x-2 md:-inset-x-12 flex items-center justify-between z-20 pointer-events-none top-1/2 -translate-y-1/2 transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
                     <button
-                        key={idx}
-                        onClick={() => setPage([idx, idx > projectIndex ? 1 : -1])}
-                        className={`
-              w-2 h-2 rounded-full transition-all duration-300 
-              ${idx === projectIndex
-                                ? 'w-8 bg-white'
-                                : 'bg-neutral-800 hover:bg-neutral-600'}
-            `}
-                        aria-label={`Go to project ${idx + 1}`}
-                    />
-                ))}
+                        className="pointer-events-auto p-3 md:p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
+                        onClick={() => paginate(-1)}
+                        aria-label="Previous project"
+                    >
+                        <ChevronLeft size={24} className="md:w-8 md:h-8" />
+                    </button>
+                    <button
+                        className="pointer-events-auto p-3 md:p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
+                        onClick={() => paginate(1)}
+                        aria-label="Next project"
+                    >
+                        <ChevronRight size={24} className="md:w-8 md:h-8" />
+                    </button>
+                </div>
+
+                {/* Card Container */}
+                <div className="relative w-full h-full flex items-center justify-center perspective-1000 px-4">
+                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                        <motion.div
+                            key={page}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{
+                                x: { type: "spring", stiffness: 300, damping: 30 },
+                                opacity: { duration: 0.4 },
+                                scale: { duration: 0.4 },
+                                filter: { duration: 0.3 },
+                            }}
+                            className="absolute w-full flex justify-center items-center"
+                            style={{ zIndex: isHovered ? 50 : 1 }}
+                        >
+                            {/* The Card */}
+                            <motion.div
+                                layout
+                                onMouseEnter={() => !isMobile && setIsHovered(true)}
+                                onMouseLeave={() => !isMobile && setIsHovered(false)}
+                                onClick={handleCardClick}
+                                transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                                className={`
+                                    relative overflow-hidden
+                                    rounded-3xl p-[1px]
+                                    bg-gradient-to-br ${project.gradient}
+                                    shadow-2xl shadow-black/80
+                                    cursor-pointer
+                                    ${isHovered ? 'w-full max-w-4xl' : 'w-full max-w-sm md:max-w-lg'}
+                                `}
+                                animate={{
+                                    scale: isHovered ? 1.02 : 1,
+                                }}
+                            >
+                                {/* Card Background */}
+                                <div className={`relative bg-neutral-950/95 backdrop-blur-3xl rounded-3xl p-6 md:p-12 flex flex-col items-center transition-all duration-500 h-full ${isHovered ? 'min-h-[600px]' : 'min-h-[450px] md:min-h-[500px]'}`}>
+
+                                    {/* Decorative Elements */}
+                                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                                    <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+
+                                    {/* Header Section: Icon + Title */}
+                                    <motion.div layout className="flex flex-col items-center z-10 w-full">
+                                        <motion.div layout className={`relative w-16 h-16 md:w-20 md:h-20 rounded-2xl ${project.iconBg} border ${project.iconBorder} flex items-center justify-center shadow-[0_0_30px_-5px_rgba(0,0,0,0.3)] mb-4 md:mb-6`}>
+                                            <svg className={`w-8 h-8 md:w-10 md:h-10 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                {project.iconPath}
+                                            </svg>
+                                        </motion.div>
+
+                                        <motion.h3 layout className="text-2xl md:text-4xl font-bold text-white tracking-tight text-center mb-2">
+                                            {project.title}
+                                        </motion.h3>
+                                    </motion.div>
+
+                                    {/* Content Container */}
+                                    <div className="w-full flex flex-col gap-4 md:gap-6 mt-4 flex-grow">
+
+                                        {/* Description */}
+                                        <motion.p layout className="text-neutral-400 text-base md:text-lg leading-relaxed text-center max-w-2xl mx-auto line-clamp-3 md:line-clamp-none">
+                                            {project.description}
+                                        </motion.p>
+
+                                        {/* Mobile Tap Hint */}
+                                        <div className="md:hidden mt-auto pt-4 text-center">
+                                            <span className="text-xs text-neutral-500 uppercase tracking-widest animate-pulse">Tap for details</span>
+                                        </div>
+
+                                        {/* Expanded Content Grid (Desktop Only) */}
+                                        <AnimatePresence>
+                                            {isHovered && !isMobile && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.95 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    transition={{ duration: 0.3, delay: 0.1 }}
+                                                    className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 w-full"
+                                                >
+                                                    {/* Features Column */}
+                                                    <div className="bg-white/5 rounded-2xl p-6 border border-white/5 mx-auto w-full">
+                                                        <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-200 mb-4 uppercase tracking-wider">
+                                                            <Activity className="w-4 h-4 text-emerald-400" /> Key Features
+                                                        </h4>
+                                                        <ul className="space-y-3">
+                                                            {project.features.map((feature, idx) => (
+                                                                <motion.li
+                                                                    key={idx}
+                                                                    initial={{ opacity: 0, x: -10 }}
+                                                                    animate={{ opacity: 1, x: 0 }}
+                                                                    transition={{ delay: 0.2 + (idx * 0.05) }}
+                                                                    className="flex items-start text-sm text-neutral-400"
+                                                                >
+                                                                    <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0`} />
+                                                                    {feature}
+                                                                </motion.li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+
+                                                    {/* Stats & Actions Column */}
+                                                    <div className="flex flex-col gap-6">
+                                                        {/* Stats */}
+                                                        <div className="grid grid-cols-3 gap-3">
+                                                            {project.stats.map((stat, idx) => (
+                                                                <motion.div
+                                                                    key={idx}
+                                                                    initial={{ opacity: 0, y: 10 }}
+                                                                    animate={{ opacity: 1, y: 0 }}
+                                                                    transition={{ delay: 0.3 + (idx * 0.05) }}
+                                                                    className="bg-neutral-900/50 rounded-xl p-3 border border-white/5 text-center flex flex-col items-center justify-center"
+                                                                >
+                                                                    <stat.icon className={`w-5 h-5 ${project.iconColor} mb-2`} />
+                                                                    <div className="text-lg font-bold text-white leading-none mb-1">{stat.value}</div>
+                                                                    <div className="text-[10px] text-neutral-500 uppercase tracking-wide">{stat.label}</div>
+                                                                </motion.div>
+                                                            ))}
+                                                        </div>
+
+                                                        {/* Action Buttons */}
+                                                        <div className="flex gap-4 mt-auto">
+                                                            {project.links.github && (
+                                                                <motion.a
+                                                                    href={project.links.github}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    initial={{ opacity: 0, y: 10 }}
+                                                                    animate={{ opacity: 1, y: 0 }}
+                                                                    transition={{ delay: 0.5 }}
+                                                                    className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-3 rounded-xl font-semibold hover:bg-neutral-200 transition-colors"
+                                                                >
+                                                                    <Github size={20} /> View Code
+                                                                </motion.a>
+                                                            )}
+                                                            {project.links.demo && (
+                                                                <motion.a
+                                                                    href={project.links.demo}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    initial={{ opacity: 0, y: 10 }}
+                                                                    animate={{ opacity: 1, y: 0 }}
+                                                                    transition={{ delay: 0.6 }}
+                                                                    className="flex-1 flex items-center justify-center gap-2 bg-neutral-800 text-white py-3 rounded-xl font-semibold border border-neutral-700 hover:bg-neutral-700 transition-colors"
+                                                                >
+                                                                    <Globe size={20} /> Live Demo
+                                                                </motion.a>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
+                                        {/* Tags - Always Visible but pushed down on hover */}
+                                        <motion.div layout className={`flex flex-wrap items-center justify-center gap-2 ${isHovered ? 'mt-8' : 'mt-auto'} ${isMobile ? 'hidden' : 'flex'}`}>
+                                            {project.tags.map(tag => (
+                                                <span
+                                                    key={tag}
+                                                    className="px-3 py-1 text-[10px] font-medium tracking-wide uppercase rounded-full bg-white/5 border border-white/10 text-neutral-300"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </motion.div>
+
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+
+                {/* Pagination Indicators */}
+                <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-20">
+                    {projects.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setPage([idx, idx > projectIndex ? 1 : -1])}
+                            className={`
+                  w-2 h-2 rounded-full transition-all duration-300 
+                  ${idx === projectIndex
+                                    ? 'w-8 bg-white'
+                                    : 'bg-neutral-800 hover:bg-neutral-600'}
+                `}
+                            aria-label={`Go to project ${idx + 1}`}
+                        />
+                    ))}
+                </div>
             </div>
-        </div>
+
+            {/* Mobile Modal */}
+            <MobileProjectModal
+                project={selectedProject!}
+                isOpen={!!selectedProject}
+                onClose={() => setSelectedProject(null)}
+            />
+        </>
     );
 }
