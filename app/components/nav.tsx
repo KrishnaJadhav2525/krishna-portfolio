@@ -3,9 +3,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
+import { useState } from "react"
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   const navLinks = [
     { href: "/#skills", label: "Skills" },
@@ -21,41 +24,60 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/60 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto w-full max-w-7xl px-6 h-16 flex items-center justify-between">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm sm:max-w-md px-4">
+      <nav className="flex items-center justify-between py-2 px-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50 ring-1 ring-white/5 transition-all hover:bg-black/50 hover:border-white/20">
+
         {/* LEFT: NAME */}
         <Link
           href="/"
-          className="text-lg font-bold tracking-tight text-foreground hover:opacity-80 transition-opacity"
+          className="text-base font-bold tracking-tight text-white mr-8 hover:text-indigo-400 transition-colors"
         >
-          Krishna<span className="text-muted-foreground">.</span>
+          Krishna<span className="text-indigo-500">.</span>
         </Link>
 
         {/* RIGHT: LINKS */}
-        <div className="flex items-center gap-8 text-sm font-medium">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "relative py-1 transition-colors duration-300",
-                isActive(href)
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {label}
-              {/* Active indicator line */}
-              <span
+        <div className="flex items-center gap-1">
+          {navLinks.map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
                 className={cn(
-                  "absolute -bottom-1 left-0 right-0 h-px bg-foreground transform origin-left transition-transform duration-300",
-                  isActive(href) ? "scale-x-100" : "scale-x-0"
+                  "relative px-4 py-1.5 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-full",
+                  active ? "text-white" : "text-neutral-400 hover:text-white"
                 )}
-              />
-            </Link>
-          ))}
+                onMouseEnter={() => setHoveredPath(href)}
+                onMouseLeave={() => setHoveredPath(null)}
+              >
+                {/* Text Label */}
+                <span className="relative z-10">{label}</span>
+
+                {/* Hover Background */}
+                {hoveredPath === href && (
+                  <motion.div
+                    className="absolute inset-0 bg-white/10 rounded-full -z-0"
+                    layoutId="navbar-hover"
+                    transition={{
+                      type: "spring",
+                      stiffness: 350,
+                      damping: 25,
+                    }}
+                  />
+                )}
+
+                {/* Active Dot Indicator */}
+                {active && (
+                  <motion.div
+                    layoutId="navbar-active"
+                    className="absolute bottom-[6px] left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-500 rounded-full"
+                  />
+                )}
+              </Link>
+            );
+          })}
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   )
 }
