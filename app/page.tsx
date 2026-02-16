@@ -62,7 +62,7 @@ export default function Page() {
 
 
       {/* HERO - Replaced manual animation with FadeIn */}
-      <FadeIn className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4" delay={0.1}>
+      <FadeIn className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 pt-32 md:pt-40" delay={0.1}>
         {/* AVAILABILITY BADGE */}
 
 
