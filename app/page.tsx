@@ -139,32 +139,44 @@ export default function Page() {
       {/* HERO - with entrance animation */}
       <div
         ref={heroSection.ref as React.RefObject<HTMLDivElement>}
-        className={`min-h-[80vh] flex flex-col items-center justify-center text-center px-4 transition-all duration-700 ${heroSection.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        className={`min-h-[90vh] flex flex-col items-center justify-center text-center px-4 transition-all duration-1000 ${heroSection.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
       >
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12 text-neutral-50">
+        <div className="mb-8 relative inline-flex items-center justify-center">
+          <span className="relative z-10 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300 backdrop-blur-md">
+            Available for new opportunities
+          </span>
+          <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-xl animate-pulse" />
+        </div>
+
+        <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-400">
           Krishna Jadhav
         </h1>
 
+        <p className="text-xl md:text-2xl text-neutral-400 max-w-2xl mb-12 leading-relaxed">
+          Full Stack Developer & AI Engineer crafting <span className="text-white font-medium">high-performance</span> digital experiences.
+        </p>
+
         {/* BUTTONS */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-20">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-7 py-3.5 text-lg font-medium bg-neutral-100 rounded-md text-black hover:bg-white hover:scale-105 transition-all duration-200"
+            className="group relative inline-flex items-center gap-2 px-8 py-4 text-lg font-medium bg-white rounded-full text-black overflow-hidden transition-all hover:scale-105"
           >
-            <span className="text-xl">✦</span> Read My Blogs
+            <span className="relative z-10 flex items-center gap-2">Read My Blogs <span className="group-hover:translate-x-1 transition-transform">→</span></span>
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-200 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
 
           <Link
             href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3.5 text-lg font-medium border border-neutral-800 rounded-md text-neutral-200 hover:text-white hover:border-neutral-600 hover:scale-105 transition-all duration-200"
+            className="group px-8 py-4 text-lg font-medium border border-white/10 bg-white/5 rounded-full text-white hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all backdrop-blur-sm"
           >
-            <span className="text-xl">⚡</span> Let's connect
+            Let's connect
           </Link>
         </div>
 
         {/* SOCIAL ICONS */}
-        <div className="flex gap-4 mb-20">
+        <div className="flex gap-6 mb-24">
           {socialLinks.map(({ href, icon: Icon, label }, index) => (
             <a
               key={label}
@@ -172,10 +184,10 @@ export default function Page() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="w-11 h-11 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 hover:scale-110 transition-all duration-200"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="p-3 rounded-full border border-white/10 bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10 hover:border-white/20 hover:scale-110 transition-all duration-300"
+              style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <Icon size={18} />
+              <Icon size={22} />
             </a>
           ))}
         </div>
@@ -183,10 +195,12 @@ export default function Page() {
         {/* SCROLL */}
         <a
           href="#projects"
-          className="flex flex-col items-center gap-1 text-sm tracking-widest uppercase text-neutral-500 hover:text-neutral-300 transition animate-bounce"
+          className="flex flex-col items-center gap-3 text-xs tracking-[0.2em] uppercase text-neutral-500 hover:text-white transition-colors duration-300 animate-bounce"
         >
           <span>Scroll</span>
-          <span>↓</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+          </svg>
         </a>
       </div>
 
@@ -210,73 +224,79 @@ export default function Page() {
       <section
         id="skills"
         ref={skillsSection.ref as React.RefObject<HTMLElement>}
-        className={`py-36 px-8 scroll-mt-36 border-t border-neutral-900 transition-all duration-700 ${skillsSection.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        className={`py-32 px-6 max-w-7xl mx-auto border-t border-white/5 transition-opacity duration-1000 ${skillsSection.isInView ? 'opacity-100' : 'opacity-0'
           }`}
       >
-        <p className="text-sm text-neutral-500 mb-4 tracking-widest">
-          WHAT I WORK WITH
-        </p>
+        <div className="mb-20">
+          <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
+            Technical Arsenal
+          </p>
 
-        <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
-          Skills
-        </h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
+            Technologies & Tools
+          </h2>
+        </div>
 
-        {[
-          {
-            title: "AI / ML",
-            items: [
-              "Machine Learning",
-              "Deep Learning",
-              "Data Science",
-              "LLMs",
-              "RAG",
-              "NLP",
-              "Agentic Workflows",
-              "LangChain",
-              "Vector Databases",
-            ],
-          },
-          {
-            title: "Frontend",
-            items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Astro"],
-          },
-          {
-            title: "Backend",
-            items: ["Node.js", "Express", "Python", "REST APIs", "MongoDB", "PostgreSQL"],
-          },
-          {
-            title: "DevOps",
-            items: ["Docker", "AWS", "Git", "Vercel", "CI/CD"],
-          },
-        ].map((section, sectionIndex) => (
-          <div
-            key={section.title}
-            className="mb-20"
-            style={{
-              transitionDelay: skillsSection.isInView ? `${sectionIndex * 100}ms` : '0ms'
-            }}
-          >
-            <p className="text-sm text-neutral-500 mb-5 tracking-widest">
-              {section.title.toUpperCase()}
-            </p>
+        <div className="grid md:grid-cols-2 gap-8">
+          {[
+            {
+              title: "AI & Machine Learning",
+              icon: "🤖",
+              items: [
+                "Machine Learning",
+                "Deep Learning",
+                "Large Language Models (LLMs)",
+                "RAG Systems",
+                "Natural Language Processing",
+                "Agentic Workflows",
+                "LangChain",
+                "Vector Search",
+              ],
+            },
+            {
+              title: "Frontend Engineering",
+              icon: "🎨",
+              items: ["React.js", "Next.js 14+", "TypeScript", "Tailwind CSS v4", "Framer Motion", "Astro", "WebGL"],
+            },
+            {
+              title: "Backend Systems",
+              icon: "⚡",
+              items: ["Node.js", "Python (FastAPI/Django)", "PostgreSQL", "MongoDB", "Redis", "REST & GraphQL APIs"],
+            },
+            {
+              title: "DevOps & Cloud",
+              icon: "☁️",
+              items: ["Docker & Kubernetes", "AWS Components", "CI/CD Pipelines", "Vercel Edge Functions", "GitOps"],
+            },
+          ].map((section, sectionIndex) => (
+            <div
+              key={section.title}
+              className="p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-500 group"
+              style={{
+                transitionDelay: skillsSection.isInView ? `${sectionIndex * 100}ms` : '0ms'
+              }}
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-500">{section.icon}</span>
+                <h3 className="text-xl font-semibold text-white tracking-tight">
+                  {section.title}
+                </h3>
+              </div>
 
-            <div className="flex flex-wrap gap-3.5">
-              {section.items.map((skill, index) => (
-                <span
-                  key={skill}
-                  className="px-5 py-2 text-base rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-neutral-300 
-                             hover:border-indigo-500/50 hover:text-indigo-300 hover:bg-indigo-500/10 hover:scale-105 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]
-                             transition-all duration-200 cursor-default"
-                  style={{
-                    animationDelay: skillsSection.isInView ? `${(sectionIndex * 100) + (index * 50)}ms` : '0ms'
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
+              <div className="flex flex-wrap gap-2.5">
+                {section.items.map((skill, index) => (
+                  <span
+                    key={skill}
+                    className="px-3.5 py-1.5 text-sm font-medium rounded-full bg-white/5 text-neutral-400 border border-white/5
+                               hover:text-white hover:border-white/20 hover:bg-white/10 transition-all duration-300 cursor-default"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* CONTACT - with entrance animation */}
