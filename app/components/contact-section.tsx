@@ -188,8 +188,8 @@ export function ContactSection() {
                                         Contact Info
                                     </h3>
                                     <div className="space-y-4">
-                                        <a href="mailto:krishna@example.com" className="block text-2xl md:text-3xl font-light text-neutral-300 hover:text-white transition-colors">
-                                            krisn.jadhav@gmail.com
+                                        <a href="mailto:jadhavkrishna475@gmail.com" className="block text-2xl md:text-3xl font-light text-neutral-300 hover:text-white transition-colors">
+                                            jadhavkrishna475@gmail.com
                                         </a>
                                         <p className="text-neutral-500">
                                             Based in India • Available Worldwide
