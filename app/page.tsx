@@ -119,28 +119,7 @@ export default function Page() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-violet-500/10 via-indigo-500/5 to-purple-500/10 rounded-full blur-3xl animate-aurora-3" />
       </div>
 
-      {/* TOP BAR */}
-      <div className="flex justify-between items-center pt-8 px-8 relative z-50">
-        <span className="text-lg font-semibold text-neutral-100">
-          Krishna<span className="text-indigo-400">.</span>
-        </span>
 
-        <div className="flex items-center gap-6 text-sm">
-          <Link
-            href="/about"
-            className="text-neutral-400 hover:text-white transition"
-          >
-            About
-          </Link>
-
-          <Link
-            href="/blog"
-            className="text-neutral-400 hover:text-white transition"
-          >
-            Blog
-          </Link>
-        </div>
-      </div>
 
       {/* HERO - Replaced manual animation with FadeIn */}
       <FadeIn className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4" delay={0.1}>
@@ -153,14 +132,14 @@ export default function Page() {
         </div>
 
         {/* HEADLINE WITH GRADIENT & GLOW */}
-        <div className="relative mb-8">
+        <div className="relative mb-8 max-w-4xl mx-auto">
           <div className="absolute inset-0 blur-[100px] bg-indigo-500/20 pointer-events-none" />
-          <h1 className="relative z-10 text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl">
+          <h1 className="relative z-10 text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight leading-tight text-white drop-shadow-2xl">
             Krishna <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))]">Jadhav</span>
           </h1>
         </div>
 
-        <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
+        <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mb-12 leading-relaxed">
           Full Stack Developer & AI Engineer crafting <span className="text-white font-medium">high-performance</span> digital experiences.
         </p>
 
@@ -216,7 +195,7 @@ export default function Page() {
       {/* FEATURED PROJECTS - Carousel */}
       <section
         id="projects"
-        className="py-24 px-4 sm:px-8 scroll-mt-24 border-t border-neutral-900"
+        className="py-20 px-4 sm:px-8 scroll-mt-24 border-t border-neutral-900"
       >
         <FadeIn>
           <p className="text-sm text-neutral-500 mb-4 tracking-widest">

@@ -27,11 +27,11 @@ export default function BlogPage() {
       <Container className="pt-32 relative z-10">
 
         {/* HEADER */}
-        <FadeIn className="mb-16 text-center md:text-left">
+        <FadeIn className="mb-12 text-center md:text-left">
           <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
             Engineering & Thoughts
           </p>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold text-white mb-6 tracking-tight">
             The Blog
           </h1>
           <p className="text-xl text-neutral-400 max-w-2xl leading-relaxed md:ml-0 mx-auto">

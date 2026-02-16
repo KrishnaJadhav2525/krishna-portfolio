@@ -90,12 +90,12 @@ export default function AboutPage() {
           </Link>
 
           {/* HEADER */}
-          <div id="about" className="mb-16">
+          <div id="about" className="mb-12">
             <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
               About Me
             </p>
 
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white mb-6">
+            <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-6">
               Krishna Jadhav
             </h1>
             <p className="text-xl text-neutral-400 max-w-2xl leading-relaxed">
