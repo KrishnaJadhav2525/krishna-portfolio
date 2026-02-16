@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link"
-import { Github, Twitter, Linkedin } from "lucide-react"
+import { Github, Twitter, Linkedin, Activity } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import ProjectCarousel from "@/app/components/project-carousel"
 
@@ -303,163 +303,159 @@ export default function Page() {
       <section
         id="contact"
         ref={contactSection.ref as React.RefObject<HTMLElement>}
-        className={`py-36 px-8 scroll-mt-36 border-t border-neutral-900 transition-all duration-700 ${contactSection.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
+        className={`py-32 px-6 border-t border-white/5 bg-black/50 relative overflow-hidden transition-all duration-1000 ${contactSection.isInView ? 'opacity-100' : 'opacity-0'}`}
       >
-        <p className="text-sm text-neutral-500 mb-4 tracking-widest">
-          GET IN TOUCH
-        </p>
+        {/* Abstract Background Elements */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[128px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] pointer-events-none" />
 
-        <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
-          Let's work together
-        </h2>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="mb-20">
+            <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
+              Get In Touch
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+              Let's create something <span className="text-neutral-500">extraordinary.</span>
+            </h2>
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-14 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 md:gap-24">
 
-          {/* SUCCESS STATE - Animated celebration */}
-          {status.type === 'success' ? (
-            <div className="relative">
-              <div className="rounded-2xl border border-blue-500/30 bg-gradient-to-b from-blue-500/10 to-transparent p-10 animate-fade-in-up">
+            {/* LEFT: FORM */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-1000" />
+              <div className="relative bg-neutral-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
+                {status.type === 'success' ? (
+                  <div className="flex flex-col items-center justify-center py-12 text-center animate-fadeInUp">
+                    <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20">
+                      <svg className="w-10 h-10 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
+                    <p className="text-neutral-400 max-w-xs mx-auto mb-8">
+                      {status.message}
+                    </p>
+                    <button
+                      onClick={() => setStatus({ type: '', message: '' })}
+                      className="px-6 py-2.5 text-sm font-medium text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-colors"
+                    >
+                      Send another
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium text-neutral-400 ml-1">Email Address</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="john@example.com"
+                        required
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all font-mono text-sm"
+                      />
+                    </div>
 
-                {/* Animated paper plane icon */}
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-blue-500/20">
-                  <svg
-                    className="h-10 w-10 text-blue-400 animate-fly"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                    />
-                  </svg>
-                </div>
+                    <div className="space-y-2">
+                      <label htmlFor="subject" className="text-sm font-medium text-neutral-400 ml-1">Subject</label>
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        placeholder="Project Inquiry"
+                        required
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all font-mono text-sm"
+                      />
+                    </div>
 
-                {/* Floating dots animation */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  <div className="absolute top-8 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-float-1"></div>
-                  <div className="absolute top-16 right-1/4 w-1.5 h-1.5 bg-indigo-400 rounded-full animate-float-2"></div>
-                  <div className="absolute top-12 left-1/3 w-1 h-1 bg-blue-300 rounded-full animate-float-3"></div>
-                  <div className="absolute top-20 right-1/3 w-2 h-2 bg-indigo-300 rounded-full animate-float-4"></div>
-                </div>
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="text-sm font-medium text-neutral-400 ml-1">Message</label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows={5}
+                        placeholder="Tell me about your project..."
+                        required
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all font-mono text-sm resize-none"
+                      />
+                    </div>
 
-                <h3 className="text-2xl font-semibold text-blue-400 mb-3 text-center">
-                  Message Sent! 🚀
-                </h3>
+                    <button
+                      type="submit"
+                      className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group/btn"
+                    >
+                      Send Message
+                      <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
+                    </button>
 
-                <p className="text-neutral-300 mb-2 text-center">
-                  {status.message}
-                </p>
-
-                <p className="text-neutral-500 text-sm text-center">
-                  I typically respond within 24-48 hours.
-                </p>
-
-                <button
-                  onClick={() => setStatus({ type: '', message: '' })}
-                  className="mt-8 w-full px-6 py-2 text-sm text-blue-400 border border-blue-500/30 rounded-md hover:bg-blue-500/10 transition-all"
-                >
-                  Send another message
-                </button>
+                    {status.type === 'error' && (
+                      <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3">
+                        <Activity className="w-4 h-4" />
+                        {status.message}
+                      </div>
+                    )}
+                  </form>
+                )}
               </div>
             </div>
-          ) : (
-            /* FORM STATE */
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="your@email.com"
-                required
-                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500 transition-colors"
-              />
 
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                placeholder="Subject"
-                required
-                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500 transition-colors"
-              />
-
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                placeholder="Your message..."
-                required
-                className="w-full bg-black border border-neutral-800 rounded-md px-5 py-3 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-              />
-
-              <button
-                type="submit"
-                className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md text-base font-medium hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all"
-              >
-                Send Message
-              </button>
-
-              {/* Error message */}
-              {status.type === 'error' && status.message && (
-                <div className="mt-4 p-3 rounded-md bg-red-500/10 border border-red-500/30">
-                  <p className="text-sm text-red-400 flex items-center justify-center gap-2">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {status.message}
-                  </p>
+            {/* RIGHT: INFO */}
+            <div className="flex flex-col justify-between py-4">
+              <div className="space-y-12">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
+                    <span className="w-8 h-px bg-indigo-500"></span>
+                    Contact Info
+                  </h3>
+                  <div className="space-y-4">
+                    <a href="mailto:krishna@example.com" className="block text-2xl md:text-3xl font-light text-neutral-300 hover:text-white transition-colors">
+                      krisn.jadhav@gmail.com
+                    </a>
+                    <p className="text-neutral-500">
+                      Based in India • Available Worldwide
+                    </p>
+                  </div>
                 </div>
-              )}
-            </form>
-          )}
 
-          {/* RIGHT SIDE */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <h3 className="text-xl font-medium text-neutral-100 mb-4">
-                Krishna
-              </h3>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
+                    <span className="w-8 h-px bg-purple-500"></span>
+                    Connect
+                  </h3>
+                  <div className="flex flex-wrap gap-4">
+                    {socialLinks.map(({ href, icon: Icon, label }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative flex items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                        aria-label={label}
+                      >
+                        <Icon size={24} className="text-neutral-400 group-hover:text-white transition-colors" />
+                        <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-black border border-white/10 rounded-lg text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                          {label}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
-              <ul className="space-y-2 text-base text-neutral-400">
-                <li>
-                  <Link href="/#skills" className="hover:text-white transition">
-                    Skills
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="hover:text-white transition">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-white transition">
-                    Blog
-                  </Link>
-                </li>
-              </ul>
+              <div className="hidden md:block">
+                <p className="text-neutral-600 text-sm max-w-xs leading-relaxed">
+                  I'm currently opening to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                </p>
+              </div>
             </div>
 
-            <div className="flex gap-4 mt-10">
-              {socialLinks.map(({ href, icon: Icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 hover:scale-110 transition-all duration-200"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </section>
