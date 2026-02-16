@@ -20,32 +20,30 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-neutral-900/50">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 bg-black/50">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* LEFT: NAME */}
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-white hover:text-indigo-300 transition-colors"
+          className="text-lg font-bold tracking-tight text-white hover:opacity-80 transition-opacity"
         >
-          Krishna<span className="text-indigo-400">.</span>
+          Krishna<span className="text-neutral-500">.</span>
         </Link>
 
         {/* RIGHT: LINKS */}
-        <div className="flex items-center gap-8 text-sm">
+        <div className="flex items-center gap-10 text-sm font-medium">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className={`relative py-1 transition-colors ${isActive(href)
-                  ? 'text-white'
-                  : 'text-neutral-400 hover:text-white'
+              className={`relative py-1 transition-all duration-300 ${isActive(href)
+                ? 'text-white'
+                : 'text-neutral-400 hover:text-white'
                 }`}
             >
               {label}
               {/* Active indicator line */}
-              {isActive(href) && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-indigo-500 rounded-full" />
-              )}
+              <span className={`absolute -bottom-1 left-0 right-0 h-px bg-white transform origin-left transition-transform duration-300 ${isActive(href) ? 'scale-x-100' : 'scale-x-0'}`} />
             </Link>
           ))}
         </div>
