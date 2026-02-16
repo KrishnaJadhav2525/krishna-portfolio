@@ -472,169 +472,121 @@ export default function ProjectCarousel() {
                             className="absolute w-full flex justify-center items-center"
                             style={{ zIndex: isHovered ? 50 : 1 }}
                         >
-                            {/* The Card */}
+                            {/* The Card - Glass Shard Design */}
                             <motion.div
                                 layout
                                 onMouseEnter={() => !isMobile && setIsHovered(true)}
                                 onMouseLeave={() => !isMobile && setIsHovered(false)}
                                 onClick={handleCardClick}
+                                whileHover={{ y: isMobile ? 0 : -8 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
                                 className={`
                                     relative overflow-hidden
-                                    rounded-3xl p-[1px]
-                                    bg-gradient-to-br ${project.gradient}
-                                    shadow-2xl shadow-black/80
+                                    rounded-3xl border border-white/10
+                                    bg-neutral-900/40 backdrop-blur-md
+                                    shadow-xl
                                     cursor-pointer
-                                    ${isHovered ? 'w-full max-w-4xl' : 'w-full max-w-sm md:max-w-lg'}
+                                    group/card
+                                    ${isHovered ? 'w-full max-w-4xl shadow-indigo-500/20' : 'w-full max-w-sm md:max-w-lg hover:border-white/20'}
                                 `}
                                 animate={{
-                                    scale: isHovered ? 1.02 : 1,
+                                    scale: isHovered ? 1 : 0.98,
                                 }}
                             >
-                                {/* Card Background */}
-                                <div className={`relative bg-neutral-950/90 backdrop-blur-3xl rounded-3xl p-6 md:p-12 flex flex-col items-center transition-all duration-500 h-full ${isHovered ? 'min-h-[600px]' : 'min-h-[450px] md:min-h-[500px]'}`}>
+                                {/* Dynamic Gradient Glow Background */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover/card:opacity-10 transition-opacity duration-700`} />
 
-                                    {/* Decorative Elements - Refined Glow */}
-                                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                                    <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                                    <div className={`absolute -inset-1 bg-gradient-to-br ${project.gradient} opacity-0 hover:opacity-10 transition-opacity duration-700 blur-2xl`} />
+                                <div className={`relative p-8 md:p-10 flex flex-col h-full ${isHovered ? 'min-h-[550px]' : 'min-h-[450px]'}`}>
 
-                                    {/* Header Section: Icon + Title */}
-                                    <motion.div layout className="flex flex-col items-center z-10 w-full">
-                                        <motion.div layout className={`relative w-20 h-20 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center shadow-lg mb-6 backdrop-blur-sm group-hover:scale-110 transition-transform duration-500`}>
-                                            <div className="absolute inset-0 bg-white/5 rounded-3xl blur-md"></div>
-                                            <div className="relative">
-                                                <svg className={`w-10 h-10 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    {project.iconPath}
-                                                </svg>
-                                            </div>
-                                        </motion.div>
-
-                                        <motion.h3 layout className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-neutral-500 tracking-tight text-center mb-3">
+                                    {/* HEADER: Icon & Title */}
+                                    <motion.div layout className="flex flex-col items-start gap-4 mb-6">
+                                        <div className={`p-3 rounded-xl ${project.iconBg} border ${project.iconBorder} ${project.iconColor}`}>
+                                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                {project.iconPath}
+                                            </svg>
+                                        </div>
+                                        <motion.h3 layout className="text-2xl md:text-4xl font-bold text-white tracking-tight">
                                             {project.title}
                                         </motion.h3>
                                     </motion.div>
 
-                                    {/* Content Container */}
-                                    <div className="w-full flex flex-col gap-6 mt-4 flex-grow z-10">
-
-                                        {/* Description */}
-                                        <motion.p layout className="text-neutral-400 text-base md:text-xl leading-relaxed text-center max-w-3xl mx-auto line-clamp-3 md:line-clamp-none font-light">
+                                    {/* CONTENT: Description */}
+                                    <motion.div layout className="mb-6 flex-grow">
+                                        <p className="text-neutral-400 text-sm md:text-base leading-relaxed line-clamp-3 md:line-clamp-none">
                                             {project.description}
-                                        </motion.p>
+                                        </p>
+                                    </motion.div>
 
-                                        {/* Mobile Tap Hint */}
-                                        <div className="md:hidden mt-auto pt-4 text-center">
-                                            <span className="text-xs text-neutral-500 uppercase tracking-widest animate-pulse font-mono">Tap for details</span>
-                                        </div>
+                                    {/* TECH STACK (Visible always) */}
+                                    <motion.div layout className="flex flex-wrap gap-2 mb-6">
+                                        {(isHovered ? project.tags : project.tags.slice(0, 3)).map(tag => (
+                                            <Badge
+                                                key={tag}
+                                                variant="secondary"
+                                                className="px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider bg-white/5 border-white/5 text-neutral-400 group-hover/card:text-white transition-colors"
+                                            >
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                        {!isHovered && project.tags.length > 3 && (
+                                            <span className="text-[10px] text-neutral-600 self-center">+{project.tags.length - 3}</span>
+                                        )}
+                                    </motion.div>
 
-                                        {/* Expanded Content Grid (Desktop Only) */}
-                                        <AnimatePresence>
-                                            {isHovered && !isMobile && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-                                                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                                                    exit={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-                                                    transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-                                                    className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 w-full"
-                                                >
-                                                    {/* Features Column */}
-                                                    <div className="bg-white/[0.03] rounded-3xl p-8 border border-white/5 mx-auto w-full backdrop-blur-md">
-                                                        <h4 className="flex items-center gap-2 text-xs font-bold text-white mb-6 uppercase tracking-widest">
-                                                            <Activity className="w-4 h-4 text-emerald-400" /> Key Features
-                                                        </h4>
-                                                        <ul className="space-y-4">
-                                                            {project.features.map((feature, idx) => (
-                                                                <motion.li
-                                                                    key={idx}
-                                                                    initial={{ opacity: 0, x: -10 }}
-                                                                    animate={{ opacity: 1, x: 0 }}
-                                                                    transition={{ delay: 0.1 + (idx * 0.05) }}
-                                                                    className="flex items-start text-sm text-neutral-300 font-medium"
-                                                                >
-                                                                    <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0 shadow-[0_0_8px_currentColor] opacity-70`} />
+                                    {/* EXPANDED CONTENT (Desktop Only) */}
+                                    <AnimatePresence>
+                                        {isHovered && !isMobile && (
+                                            <motion.div
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: "auto" }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                className="overflow-hidden"
+                                            >
+                                                <div className="pt-6 border-t border-white/5 grid grid-cols-2 gap-8">
+                                                    {/* Key Features */}
+                                                    <div>
+                                                        <h4 className="text-xs font-semibold text-white/60 uppercase tracking-widest mb-3">Highlights</h4>
+                                                        <ul className="space-y-2">
+                                                            {project.features.slice(0, 3).map((feature, idx) => (
+                                                                <li key={idx} className="flex items-center text-sm text-neutral-300">
+                                                                    <div className={`w-1 h-1 rounded-full mr-2 ${project.iconColor.replace('text-', 'bg-')}`} />
                                                                     {feature}
-                                                                </motion.li>
+                                                                </li>
                                                             ))}
                                                         </ul>
                                                     </div>
 
-                                                    {/* Stats & Actions Column */}
-                                                    <div className="flex flex-col gap-6">
-                                                        {/* Stats */}
-                                                        <div className="grid grid-cols-3 gap-4">
-                                                            {project.stats.map((stat, idx) => (
-                                                                <motion.div
-                                                                    key={idx}
-                                                                    initial={{ opacity: 0, y: 10 }}
-                                                                    animate={{ opacity: 1, y: 0 }}
-                                                                    transition={{ delay: 0.2 + (idx * 0.05) }}
-                                                                    className="bg-white/[0.03] rounded-2xl p-4 border border-white/5 text-center flex flex-col items-center justify-center backdrop-blur-sm group/stat hover:bg-white/[0.05] transition-colors"
-                                                                >
-                                                                    <stat.icon className={`w-5 h-5 ${project.iconColor} mb-2 group-hover/stat:scale-110 transition-transform`} />
-                                                                    <div className="text-xl font-bold text-white leading-none mb-1">{stat.value}</div>
-                                                                    <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-semibold">{stat.label}</div>
-                                                                </motion.div>
-                                                            ))}
-                                                        </div>
-
-                                                        {/* Action Buttons */}
-                                                        <div className="flex gap-4 mt-auto">
-                                                            {project.links.github && (
-                                                                <Button
-                                                                    asChild
-                                                                    variant="default"
-                                                                    className="flex-1 h-14 rounded-2xl text-base font-bold shadow-lg shadow-white/5"
-                                                                >
-                                                                    <motion.a
-                                                                        href={project.links.github}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        initial={{ opacity: 0, y: 10 }}
-                                                                        animate={{ opacity: 1, y: 0 }}
-                                                                        transition={{ delay: 0.4 }}
-                                                                    >
-                                                                        <Github size={20} className="mr-2" /> View Code
-                                                                    </motion.a>
-                                                                </Button>
-                                                            )}
-                                                            {project.links.demo && (
-                                                                <Button
-                                                                    asChild
-                                                                    variant="outline"
-                                                                    className="flex-1 h-14 rounded-2xl text-base font-bold border-white/10 bg-white/5 hover:bg-white/10 text-white"
-                                                                >
-                                                                    <motion.a
-                                                                        href={project.links.demo}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        initial={{ opacity: 0, y: 10 }}
-                                                                        animate={{ opacity: 1, y: 0 }}
-                                                                        transition={{ delay: 0.5 }}
-                                                                    >
-                                                                        <Globe size={20} className="mr-2" /> Live Demo
-                                                                    </motion.a>
-                                                                </Button>
-                                                            )}
-                                                        </div>
+                                                    {/* Actions */}
+                                                    <div className="flex flex-col justify-end gap-3">
+                                                        {project.links.github && (
+                                                            <a
+                                                                href={project.links.github}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center justify-center gap-2 py-3 rounded-lg bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors"
+                                                            >
+                                                                <Github size={16} /> View Code
+                                                            </a>
+                                                        )}
+                                                        {project.links.demo && (
+                                                            <a
+                                                                href={project.links.demo}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center justify-center gap-2 py-3 rounded-lg border border-white/10 bg-white/5 text-white font-medium text-sm hover:bg-white/10 transition-colors"
+                                                            >
+                                                                <Globe size={16} /> Live Demo
+                                                            </a>
+                                                        )}
                                                     </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
 
-                                        {/* Tags - Always Visible but pushed down on hover */}
-                                        <motion.div layout className={`flex flex-wrap items-center justify-center gap-2 ${isHovered ? 'mt-8' : 'mt-auto'} ${isMobile ? 'hidden' : 'flex'}`}>
-                                            {project.tags.map(tag => (
-                                                <Badge
-                                                    key={tag}
-                                                    variant="secondary"
-                                                    className="px-4 py-1.5 text-xs font-semibold tracking-wide uppercase bg-white/5 border-white/5 text-muted-foreground hover:text-foreground transition-colors"
-                                                >
-                                                    {tag}
-                                                </Badge>
-                                            ))}
-                                        </motion.div>
-
+                                    {/* Mobile Tap Hint */}
+                                    <div className="md:hidden mt-2 text-center">
+                                        <span className="text-[10px] text-neutral-600 uppercase tracking-widest">Tap for details</span>
                                     </div>
                                 </div>
                             </motion.div>
