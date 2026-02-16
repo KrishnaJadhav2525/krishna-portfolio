@@ -143,6 +143,7 @@
   --foreground: 210 40% 98%;
   /* #f8fafc */
 
+
   --card: 224 71% 4%;
   --card-foreground: 210 40% 98%;
 
@@ -275,13 +276,31 @@ body::before {
 .prose code {
   background: hsl(var(--muted));
   color: hsl(var(--foreground));
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
-  font-family: var(--font-geist-mono);
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
 }
 
-.prose pre {
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
+/* ===== GLOBAL MICRO-INTERACTIONS ===== */
+
+/* Premium Selection */
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  /* indigo-500/30 */
+  color: #ffffff;
+}
+
+/* Smooth Focus Rings */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Global Transitions */
+a,
+button,
+input,
+textarea,
+.transition-base {
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

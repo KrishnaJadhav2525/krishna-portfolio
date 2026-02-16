@@ -9,6 +9,7 @@ import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 import { Container } from "@/app/components/ui/section"
+import { FadeIn } from "@/app/components/ui/fade-in"
 
 const socialLinks = [
   { href: "https://github.com/KrishnaJadhav2525", icon: Github, label: "GitHub" },
@@ -119,7 +120,7 @@ export default function Page() {
       </div>
 
       {/* TOP BAR */}
-      <div className="flex justify-between items-center pt-8 px-8">
+      <div className="flex justify-between items-center pt-8 px-8 relative z-50">
         <span className="text-lg font-semibold text-neutral-100">
           Krishna<span className="text-indigo-400">.</span>
         </span>
@@ -141,12 +142,8 @@ export default function Page() {
         </div>
       </div>
 
-      {/* HERO - with entrance animation */}
-      <div
-        ref={heroSection.ref as React.RefObject<HTMLDivElement>}
-        className={`min-h-[90vh] flex flex-col items-center justify-center text-center px-4 transition-all duration-1000 ${heroSection.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-      >
+      {/* HERO - Replaced manual animation with FadeIn */}
+      <FadeIn className="min-h-[90vh] flex flex-col items-center justify-center text-center px-4" delay={0.1}>
         {/* AVAILABILITY BADGE */}
         <div className="mb-8 relative inline-flex items-center justify-center animate-[float_4s_ease-in-out_infinite]">
           <span className="relative z-10 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300 backdrop-blur-md">
@@ -214,188 +211,198 @@ export default function Page() {
             <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
           </svg>
         </a>
-      </div>
+      </FadeIn>
 
       {/* FEATURED PROJECTS - Carousel */}
       <section
         id="projects"
         className="py-36 px-8 scroll-mt-36 border-t border-neutral-900"
       >
-        <p className="text-sm text-neutral-500 mb-4 tracking-widest">
-          SELECTED WORK
-        </p>
+        <FadeIn>
+          <p className="text-sm text-neutral-500 mb-4 tracking-widest">
+            SELECTED WORK
+          </p>
 
-        <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
-          Featured Projects
-        </h2>
+          <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
+            Featured Projects
+          </h2>
+        </FadeIn>
 
-        <ProjectCarousel />
+        <FadeIn delay={0.2} fullWidth>
+          <ProjectCarousel />
+        </FadeIn>
       </section>
 
       {/* SKILLS */}
-      <Skills />
+      <FadeIn>
+        <Skills />
+      </FadeIn>
 
-      {/* CONTACT - with entrance animation */}
-      <section
-        id="contact"
-        ref={contactSection.ref as React.RefObject<HTMLElement>}
-        className={`py-32 border-t border-white/5 bg-black/50 relative overflow-hidden transition-all duration-1000 ${contactSection.isInView ? 'opacity-100' : 'opacity-0'}`}
+      {/* CONTACT */}
+      <FadeIn
+        className="py-32 border-t border-white/5 bg-black/50 relative overflow-hidden"
+        fullWidth
       >
-        {/* Abstract Background Elements */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[128px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] pointer-events-none" />
+        <section
+          id="contact"
+          className="relative"
+        >
+          {/* Abstract Background Elements */}
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[128px] pointer-events-none" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] pointer-events-none" />
 
-        <Container className="relative z-10">
-          <div className="mb-20">
-            <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
-              Get In Touch
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
-              Let's create something <span className="text-neutral-500">extraordinary.</span>
-            </h2>
-          </div>
+          <Container className="relative z-10">
+            <div className="mb-20">
+              <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
+                Get In Touch
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+                Let's create something <span className="text-neutral-500">extraordinary.</span>
+              </h2>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-16 md:gap-24">
+            <div className="grid md:grid-cols-2 gap-16 md:gap-24">
 
-            {/* LEFT: FORM */}
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-1000" />
-              <div className="relative bg-neutral-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
-                {status.type === 'success' ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center animate-fadeInUp">
-                    <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20">
-                      <svg className="w-10 h-10 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
-                    <p className="text-neutral-400 max-w-xs mx-auto mb-8">
-                      {status.message}
-                    </p>
-                    <Button
-                      onClick={() => setStatus({ type: '', message: '' })}
-                      variant="outline"
-                      className="bg-white/5 border-white/10 hover:bg-white/10"
-                    >
-                      Send another
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium text-neutral-400 ml-1">Email Address</label>
-                      <Input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="john@example.com"
-                        required
-                        className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="subject" className="text-sm font-medium text-neutral-400 ml-1">Subject</label>
-                      <Input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        placeholder="Project Inquiry"
-                        required
-                        className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm font-medium text-neutral-400 ml-1">Message</label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={5}
-                        placeholder="Tell me about your project..."
-                        required
-                        className="bg-black/40 border-white/10 px-5 py-4 text-white placeholder-neutral-600 font-mono resize-none"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      className="w-full text-base font-bold h-14 bg-white text-black hover:bg-neutral-200 group/btn"
-                    >
-                      Send Message
-                      <span className="group-hover/btn:translate-x-1 transition-transform ml-2">→</span>
-                    </Button>
-
-                    {status.type === 'error' && (
-                      <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3">
-                        <Activity className="w-4 h-4" />
-                        {status.message}
+              {/* LEFT: FORM */}
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="relative bg-neutral-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
+                  {status.type === 'success' ? (
+                    <div className="flex flex-col items-center justify-center py-12 text-center animate-fadeInUp">
+                      <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20">
+                        <svg className="w-10 h-10 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
-                    )}
-                  </form>
-                )}
-              </div>
-            </div>
-
-            {/* RIGHT: INFO */}
-            <div className="flex flex-col justify-between py-4">
-              <div className="space-y-12">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
-                    <span className="w-8 h-px bg-indigo-500"></span>
-                    Contact Info
-                  </h3>
-                  <div className="space-y-4">
-                    <a href="mailto:krishna@example.com" className="block text-2xl md:text-3xl font-light text-neutral-300 hover:text-white transition-colors">
-                      krisn.jadhav@gmail.com
-                    </a>
-                    <p className="text-neutral-500">
-                      Based in India • Available Worldwide
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
-                    <span className="w-8 h-px bg-purple-500"></span>
-                    Connect
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
-                    {socialLinks.map(({ href, icon: Icon, label }) => (
-                      <a
-                        key={label}
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group relative flex items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                        aria-label={label}
+                      <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
+                      <p className="text-neutral-400 max-w-xs mx-auto mb-8">
+                        {status.message}
+                      </p>
+                      <Button
+                        onClick={() => setStatus({ type: '', message: '' })}
+                        variant="outline"
+                        className="bg-white/5 border-white/10 hover:bg-white/10"
                       >
-                        <Icon size={24} className="text-neutral-400 group-hover:text-white transition-colors" />
-                        <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-black border border-white/10 rounded-lg text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                          {label}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
+                        Send another
+                      </Button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="space-y-2">
+                        <label htmlFor="email" className="text-sm font-medium text-neutral-400 ml-1">Email Address</label>
+                        <Input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="john@example.com"
+                          required
+                          className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono focus:border-indigo-500/50 transition-colors"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label htmlFor="subject" className="text-sm font-medium text-neutral-400 ml-1">Subject</label>
+                        <Input
+                          type="text"
+                          id="subject"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          placeholder="Project Inquiry"
+                          required
+                          className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono focus:border-indigo-500/50 transition-colors"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label htmlFor="message" className="text-sm font-medium text-neutral-400 ml-1">Message</label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          rows={5}
+                          placeholder="Tell me about your project..."
+                          required
+                          className="bg-black/40 border-white/10 px-5 py-4 text-white placeholder-neutral-600 font-mono resize-none focus:border-indigo-500/50 transition-colors"
+                        />
+                      </div>
+
+                      <Button
+                        type="submit"
+                        className="w-full text-base font-bold h-14 bg-white text-black hover:bg-neutral-200 group/btn"
+                      >
+                        Send Message
+                        <span className="group-hover/btn:translate-x-1 transition-transform ml-2">→</span>
+                      </Button>
+
+                      {status.type === 'error' && (
+                        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3">
+                          <Activity className="w-4 h-4" />
+                          {status.message}
+                        </div>
+                      )}
+                    </form>
+                  )}
                 </div>
               </div>
 
-              <div className="hidden md:block">
-                <p className="text-neutral-600 text-sm max-w-xs leading-relaxed">
-                  I'm currently opening to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-                </p>
-              </div>
-            </div>
+              {/* RIGHT: INFO */}
+              <div className="flex flex-col justify-between py-4">
+                <div className="space-y-12">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
+                      <span className="w-8 h-px bg-indigo-500"></span>
+                      Contact Info
+                    </h3>
+                    <div className="space-y-4">
+                      <a href="mailto:krishna@example.com" className="block text-2xl md:text-3xl font-light text-neutral-300 hover:text-white transition-colors">
+                        krisn.jadhav@gmail.com
+                      </a>
+                      <p className="text-neutral-500">
+                        Based in India • Available Worldwide
+                      </p>
+                    </div>
+                  </div>
 
-          </div>
-        </Container>
-      </section>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
+                      <span className="w-8 h-px bg-purple-500"></span>
+                      Connect
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                      {socialLinks.map(({ href, icon: Icon, label }) => (
+                        <a
+                          key={label}
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative flex items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                          aria-label={label}
+                        >
+                          <Icon size={24} className="text-neutral-400 group-hover:text-white transition-colors" />
+                          <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-black border border-white/10 rounded-lg text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                            {label}
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="hidden md:block">
+                  <p className="text-neutral-600 text-sm max-w-xs leading-relaxed">
+                    I'm currently opening to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </Container>
+        </section>
+      </FadeIn>
     </section>
   )
 }
