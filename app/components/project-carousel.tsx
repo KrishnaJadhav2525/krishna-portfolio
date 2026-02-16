@@ -490,63 +490,67 @@ export default function ProjectCarousel() {
                                 }}
                             >
                                 {/* Card Background */}
-                                <div className={`relative bg-neutral-950/95 backdrop-blur-3xl rounded-3xl p-6 md:p-12 flex flex-col items-center transition-all duration-500 h-full ${isHovered ? 'min-h-[600px]' : 'min-h-[450px] md:min-h-[500px]'}`}>
+                                <div className={`relative bg-neutral-950/90 backdrop-blur-3xl rounded-3xl p-6 md:p-12 flex flex-col items-center transition-all duration-500 h-full ${isHovered ? 'min-h-[600px]' : 'min-h-[450px] md:min-h-[500px]'}`}>
 
-                                    {/* Decorative Elements */}
-                                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                                    <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+                                    {/* Decorative Elements - Refined Glow */}
+                                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                                    <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                                    <div className={`absolute -inset-1 bg-gradient-to-br ${project.gradient} opacity-0 hover:opacity-10 transition-opacity duration-700 blur-2xl`} />
 
                                     {/* Header Section: Icon + Title */}
                                     <motion.div layout className="flex flex-col items-center z-10 w-full">
-                                        <motion.div layout className={`relative w-16 h-16 md:w-20 md:h-20 rounded-2xl ${project.iconBg} border ${project.iconBorder} flex items-center justify-center shadow-[0_0_30px_-5px_rgba(0,0,0,0.3)] mb-4 md:mb-6`}>
-                                            <svg className={`w-8 h-8 md:w-10 md:h-10 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                {project.iconPath}
-                                            </svg>
+                                        <motion.div layout className={`relative w-20 h-20 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center shadow-lg mb-6 backdrop-blur-sm group-hover:scale-110 transition-transform duration-500`}>
+                                            <div className="absolute inset-0 bg-white/5 rounded-3xl blur-md"></div>
+                                            <div className="relative">
+                                                <svg className={`w-10 h-10 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    {project.iconPath}
+                                                </svg>
+                                            </div>
                                         </motion.div>
 
-                                        <motion.h3 layout className="text-2xl md:text-4xl font-bold text-white tracking-tight text-center mb-2">
+                                        <motion.h3 layout className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-neutral-500 tracking-tight text-center mb-3">
                                             {project.title}
                                         </motion.h3>
                                     </motion.div>
 
                                     {/* Content Container */}
-                                    <div className="w-full flex flex-col gap-4 md:gap-6 mt-4 flex-grow">
+                                    <div className="w-full flex flex-col gap-6 mt-4 flex-grow z-10">
 
                                         {/* Description */}
-                                        <motion.p layout className="text-neutral-400 text-base md:text-lg leading-relaxed text-center max-w-2xl mx-auto line-clamp-3 md:line-clamp-none">
+                                        <motion.p layout className="text-neutral-400 text-base md:text-xl leading-relaxed text-center max-w-3xl mx-auto line-clamp-3 md:line-clamp-none font-light">
                                             {project.description}
                                         </motion.p>
 
                                         {/* Mobile Tap Hint */}
                                         <div className="md:hidden mt-auto pt-4 text-center">
-                                            <span className="text-xs text-neutral-500 uppercase tracking-widest animate-pulse">Tap for details</span>
+                                            <span className="text-xs text-neutral-500 uppercase tracking-widest animate-pulse font-mono">Tap for details</span>
                                         </div>
 
                                         {/* Expanded Content Grid (Desktop Only) */}
                                         <AnimatePresence>
                                             {isHovered && !isMobile && (
                                                 <motion.div
-                                                    initial={{ opacity: 0, scale: 0.95 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    exit={{ opacity: 0, scale: 0.95 }}
-                                                    transition={{ duration: 0.3, delay: 0.1 }}
-                                                    className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 w-full"
+                                                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                                                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                                    exit={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                                                    transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                                                    className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 w-full"
                                                 >
                                                     {/* Features Column */}
-                                                    <div className="bg-white/5 rounded-2xl p-6 border border-white/5 mx-auto w-full">
-                                                        <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-200 mb-4 uppercase tracking-wider">
+                                                    <div className="bg-white/[0.03] rounded-3xl p-8 border border-white/5 mx-auto w-full backdrop-blur-md">
+                                                        <h4 className="flex items-center gap-2 text-xs font-bold text-white mb-6 uppercase tracking-widest">
                                                             <Activity className="w-4 h-4 text-emerald-400" /> Key Features
                                                         </h4>
-                                                        <ul className="space-y-3">
+                                                        <ul className="space-y-4">
                                                             {project.features.map((feature, idx) => (
                                                                 <motion.li
                                                                     key={idx}
                                                                     initial={{ opacity: 0, x: -10 }}
                                                                     animate={{ opacity: 1, x: 0 }}
-                                                                    transition={{ delay: 0.2 + (idx * 0.05) }}
-                                                                    className="flex items-start text-sm text-neutral-400"
+                                                                    transition={{ delay: 0.1 + (idx * 0.05) }}
+                                                                    className="flex items-start text-sm text-neutral-300 font-medium"
                                                                 >
-                                                                    <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0`} />
+                                                                    <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0 shadow-[0_0_8px_currentColor] opacity-70`} />
                                                                     {feature}
                                                                 </motion.li>
                                                             ))}
@@ -556,18 +560,18 @@ export default function ProjectCarousel() {
                                                     {/* Stats & Actions Column */}
                                                     <div className="flex flex-col gap-6">
                                                         {/* Stats */}
-                                                        <div className="grid grid-cols-3 gap-3">
+                                                        <div className="grid grid-cols-3 gap-4">
                                                             {project.stats.map((stat, idx) => (
                                                                 <motion.div
                                                                     key={idx}
                                                                     initial={{ opacity: 0, y: 10 }}
                                                                     animate={{ opacity: 1, y: 0 }}
-                                                                    transition={{ delay: 0.3 + (idx * 0.05) }}
-                                                                    className="bg-neutral-900/50 rounded-xl p-3 border border-white/5 text-center flex flex-col items-center justify-center"
+                                                                    transition={{ delay: 0.2 + (idx * 0.05) }}
+                                                                    className="bg-white/[0.03] rounded-2xl p-4 border border-white/5 text-center flex flex-col items-center justify-center backdrop-blur-sm group/stat hover:bg-white/[0.05] transition-colors"
                                                                 >
-                                                                    <stat.icon className={`w-5 h-5 ${project.iconColor} mb-2`} />
-                                                                    <div className="text-lg font-bold text-white leading-none mb-1">{stat.value}</div>
-                                                                    <div className="text-[10px] text-neutral-500 uppercase tracking-wide">{stat.label}</div>
+                                                                    <stat.icon className={`w-5 h-5 ${project.iconColor} mb-2 group-hover/stat:scale-110 transition-transform`} />
+                                                                    <div className="text-xl font-bold text-white leading-none mb-1">{stat.value}</div>
+                                                                    <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-semibold">{stat.label}</div>
                                                                 </motion.div>
                                                             ))}
                                                         </div>
@@ -581,8 +585,8 @@ export default function ProjectCarousel() {
                                                                     rel="noopener noreferrer"
                                                                     initial={{ opacity: 0, y: 10 }}
                                                                     animate={{ opacity: 1, y: 0 }}
-                                                                    transition={{ delay: 0.5 }}
-                                                                    className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-3 rounded-xl font-semibold hover:bg-neutral-200 transition-colors"
+                                                                    transition={{ delay: 0.4 }}
+                                                                    className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-4 rounded-2xl font-bold hover:bg-neutral-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
                                                                 >
                                                                     <Github size={20} /> View Code
                                                                 </motion.a>
@@ -594,8 +598,8 @@ export default function ProjectCarousel() {
                                                                     rel="noopener noreferrer"
                                                                     initial={{ opacity: 0, y: 10 }}
                                                                     animate={{ opacity: 1, y: 0 }}
-                                                                    transition={{ delay: 0.6 }}
-                                                                    className="flex-1 flex items-center justify-center gap-2 bg-neutral-800 text-white py-3 rounded-xl font-semibold border border-neutral-700 hover:bg-neutral-700 transition-colors"
+                                                                    transition={{ delay: 0.5 }}
+                                                                    className="flex-1 flex items-center justify-center gap-2 bg-white/[0.05] text-white py-4 rounded-2xl font-bold border border-white/10 hover:bg-white/[0.1] transition-all hover:scale-[1.02] active:scale-[0.98]"
                                                                 >
                                                                     <Globe size={20} /> Live Demo
                                                                 </motion.a>
@@ -611,7 +615,7 @@ export default function ProjectCarousel() {
                                             {project.tags.map(tag => (
                                                 <span
                                                     key={tag}
-                                                    className="px-3 py-1 text-[10px] font-medium tracking-wide uppercase rounded-full bg-white/5 border border-white/10 text-neutral-300"
+                                                    className="px-4 py-1.5 text-xs font-semibold tracking-wide uppercase rounded-full bg-white/5 border border-white/5 text-neutral-400"
                                                 >
                                                     {tag}
                                                 </span>
