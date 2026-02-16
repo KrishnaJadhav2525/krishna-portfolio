@@ -30,77 +30,98 @@ function useInView(threshold = 0.1) {
 }
 
 export default function Skills() {
-    const { ref, isInView } = useInView(0.2);
+    const { ref, isInView } = useInView(0.1);
 
     return (
         <section
             id="skills"
             ref={ref}
-            className={`py-32 border-t border-white/5 transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}
+            className="py-32 relative overflow-hidden"
         >
+            {/* Background Glow */}
+            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`} />
+
             <Container>
-                <div className="mb-20">
+                <div className="mb-20 text-center md:text-left">
                     <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
                         Technical Arsenal
                     </p>
-
-                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
+                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
                         Technologies & Tools
                     </h2>
+                    <p className="text-neutral-400 max-w-2xl text-lg leading-relaxed">
+                        A curated stack of modern tools and frameworks used to build scalable, production-ready applications.
+                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[
                         {
-                            title: "AI & Machine Learning",
+                            title: "AI & ML",
                             icon: "🤖",
-                            items: [
-                                "Machine Learning",
-                                "Deep Learning",
-                                "Large Language Models (LLMs)",
-                                "RAG Systems",
-                                "Natural Language Processing",
-                                "Agentic Workflows",
-                                "LangChain",
-                                "Vector Search",
-                            ],
+                            items: ["PyTorch", "TensorFlow", "LangChain", "OpenAI API", "HuggingFace", "RAG Pipeline", "Pinecone", "CUDA"],
+                            gradient: "from-indigo-500/10 to-blue-500/5"
                         },
                         {
-                            title: "Frontend Engineering",
+                            title: "Frontend",
                             icon: "🎨",
-                            items: ["React.js", "Next.js 14+", "TypeScript", "Tailwind CSS v4", "Framer Motion", "Astro", "WebGL"],
+                            items: ["Next.js 15", "React", "TypeScript", "Tailwind v4", "Framer Motion", "Three.js", "Zustand", "Shadcn UI"],
+                            gradient: "from-emerald-500/10 to-teal-500/5"
                         },
                         {
-                            title: "Backend Systems",
+                            title: "Backend",
                             icon: "⚡",
-                            items: ["Node.js", "Python (FastAPI/Django)", "PostgreSQL", "MongoDB", "Redis", "REST & GraphQL APIs"],
+                            items: ["Node.js", "Python", "FastAPI", "PostgreSQL", "MongoDB", "Redis", "Docker", "GraphQL"],
+                            gradient: "from-orange-500/10 to-red-500/5"
                         },
                         {
-                            title: "DevOps & Cloud",
+                            title: "DevOps/Cloud",
                             icon: "☁️",
-                            items: ["Docker & Kubernetes", "AWS Components", "CI/CD Pipelines", "Vercel Edge Functions", "GitOps"],
+                            items: ["AWS", "Vercel", "GitHub Actions", "Terraform", "Nginx", "Linux", "Kubernetes", "Sentry"],
+                            gradient: "from-blue-500/10 to-cyan-500/5"
                         },
                     ].map((section, sectionIndex) => (
                         <div
                             key={section.title}
-                            className="p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-500 group"
+                            className={`
+                                group relative
+                                flex flex-col items-start
+                                p-6 rounded-2xl
+                                border border-white/5
+                                bg-neutral-900/40 backdrop-blur-sm
+                                hover:border-white/10 hover:bg-white/[0.03]
+                                transition-all duration-300
+                                hover:-translate-y-1
+                            `}
                             style={{
-                                transitionDelay: isInView ? `${sectionIndex * 100}ms` : '0ms'
+                                transitionDelay: isInView ? `${sectionIndex * 50}ms` : '0ms',
+                                opacity: isInView ? 1 : 0,
+                                transform: isInView ? 'translateY(0)' : 'translateY(20px)'
                             }}
                         >
-                            <div className="flex items-center gap-4 mb-8">
-                                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-500">{section.icon}</span>
-                                <h3 className="text-xl font-semibold text-white tracking-tight">
+                            {/* Hover Gradient */}
+                            <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${section.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10`} />
+
+                            <div className="flex items-center gap-3 mb-6">
+                                <span className="text-2xl filter grayscale group-hover:grayscale-0 transition-all duration-300 transform group-hover:scale-110">{section.icon}</span>
+                                <h3 className="text-lg font-bold text-white tracking-tight">
                                     {section.title}
                                 </h3>
                             </div>
 
-                            <div className="flex flex-wrap gap-2.5">
+                            <div className="flex flex-wrap gap-2">
                                 {section.items.map((skill) => (
                                     <Badge
                                         key={skill}
-                                        variant="glass"
-                                        className="px-3.5 py-1.5 text-sm font-medium border-white/5 hover:border-white/20 transition-all duration-300 cursor-default"
+                                        variant="secondary"
+                                        className="
+                                            px-2.5 py-1 
+                                            text-xs font-medium 
+                                            bg-white/5 border-white/5 text-neutral-400 
+                                            group-hover:text-white group-hover:bg-white/10 group-hover:border-white/10
+                                            transition-all duration-300
+                                            cursor-default
+                                        "
                                     >
                                         {skill}
                                     </Badge>
