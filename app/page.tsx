@@ -4,6 +4,11 @@ import Link from "next/link"
 import { Github, Twitter, Linkedin, Activity } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import ProjectCarousel from "@/app/components/project-carousel"
+import Skills from "@/app/components/skills"
+import { Button } from "@/app/components/ui/button"
+import { Input } from "@/app/components/ui/input"
+import { Textarea } from "@/app/components/ui/textarea"
+import { Container } from "@/app/components/ui/section"
 
 const socialLinks = [
   { href: "https://github.com/KrishnaJadhav2525", icon: Github, label: "GitHub" },
@@ -220,96 +225,20 @@ export default function Page() {
         <ProjectCarousel />
       </section>
 
-      {/* SKILLS - with entrance animation */}
-      <section
-        id="skills"
-        ref={skillsSection.ref as React.RefObject<HTMLElement>}
-        className={`py-32 px-6 max-w-7xl mx-auto border-t border-white/5 transition-opacity duration-1000 ${skillsSection.isInView ? 'opacity-100' : 'opacity-0'
-          }`}
-      >
-        <div className="mb-20">
-          <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
-            Technical Arsenal
-          </p>
-
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Technologies & Tools
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {[
-            {
-              title: "AI & Machine Learning",
-              icon: "🤖",
-              items: [
-                "Machine Learning",
-                "Deep Learning",
-                "Large Language Models (LLMs)",
-                "RAG Systems",
-                "Natural Language Processing",
-                "Agentic Workflows",
-                "LangChain",
-                "Vector Search",
-              ],
-            },
-            {
-              title: "Frontend Engineering",
-              icon: "🎨",
-              items: ["React.js", "Next.js 14+", "TypeScript", "Tailwind CSS v4", "Framer Motion", "Astro", "WebGL"],
-            },
-            {
-              title: "Backend Systems",
-              icon: "⚡",
-              items: ["Node.js", "Python (FastAPI/Django)", "PostgreSQL", "MongoDB", "Redis", "REST & GraphQL APIs"],
-            },
-            {
-              title: "DevOps & Cloud",
-              icon: "☁️",
-              items: ["Docker & Kubernetes", "AWS Components", "CI/CD Pipelines", "Vercel Edge Functions", "GitOps"],
-            },
-          ].map((section, sectionIndex) => (
-            <div
-              key={section.title}
-              className="p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-500 group"
-              style={{
-                transitionDelay: skillsSection.isInView ? `${sectionIndex * 100}ms` : '0ms'
-              }}
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-500">{section.icon}</span>
-                <h3 className="text-xl font-semibold text-white tracking-tight">
-                  {section.title}
-                </h3>
-              </div>
-
-              <div className="flex flex-wrap gap-2.5">
-                {section.items.map((skill, index) => (
-                  <span
-                    key={skill}
-                    className="px-3.5 py-1.5 text-sm font-medium rounded-full bg-white/5 text-neutral-400 border border-white/5
-                               hover:text-white hover:border-white/20 hover:bg-white/10 transition-all duration-300 cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* SKILLS */}
+      <Skills />
 
       {/* CONTACT - with entrance animation */}
       <section
         id="contact"
         ref={contactSection.ref as React.RefObject<HTMLElement>}
-        className={`py-32 px-6 border-t border-white/5 bg-black/50 relative overflow-hidden transition-all duration-1000 ${contactSection.isInView ? 'opacity-100' : 'opacity-0'}`}
+        className={`py-32 border-t border-white/5 bg-black/50 relative overflow-hidden transition-all duration-1000 ${contactSection.isInView ? 'opacity-100' : 'opacity-0'}`}
       >
         {/* Abstract Background Elements */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[128px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <Container className="relative z-10">
           <div className="mb-20">
             <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
               Get In Touch
@@ -336,18 +265,19 @@ export default function Page() {
                     <p className="text-neutral-400 max-w-xs mx-auto mb-8">
                       {status.message}
                     </p>
-                    <button
+                    <Button
                       onClick={() => setStatus({ type: '', message: '' })}
-                      className="px-6 py-2.5 text-sm font-medium text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-colors"
+                      variant="outline"
+                      className="bg-white/5 border-white/10 hover:bg-white/10"
                     >
                       Send another
-                    </button>
+                    </Button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm font-medium text-neutral-400 ml-1">Email Address</label>
-                      <input
+                      <Input
                         type="email"
                         id="email"
                         name="email"
@@ -355,13 +285,13 @@ export default function Page() {
                         onChange={handleChange}
                         placeholder="john@example.com"
                         required
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all font-mono text-sm"
+                        className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono"
                       />
                     </div>
 
                     <div className="space-y-2">
                       <label htmlFor="subject" className="text-sm font-medium text-neutral-400 ml-1">Subject</label>
-                      <input
+                      <Input
                         type="text"
                         id="subject"
                         name="subject"
@@ -369,13 +299,13 @@ export default function Page() {
                         onChange={handleChange}
                         placeholder="Project Inquiry"
                         required
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all font-mono text-sm"
+                        className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono"
                       />
                     </div>
 
                     <div className="space-y-2">
                       <label htmlFor="message" className="text-sm font-medium text-neutral-400 ml-1">Message</label>
-                      <textarea
+                      <Textarea
                         id="message"
                         name="message"
                         value={formData.message}
@@ -383,17 +313,17 @@ export default function Page() {
                         rows={5}
                         placeholder="Tell me about your project..."
                         required
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all font-mono text-sm resize-none"
+                        className="bg-black/40 border-white/10 px-5 py-4 text-white placeholder-neutral-600 font-mono resize-none"
                       />
                     </div>
 
-                    <button
+                    <Button
                       type="submit"
-                      className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-neutral-200 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group/btn"
+                      className="w-full text-base font-bold h-14 bg-white text-black hover:bg-neutral-200 group/btn"
                     >
                       Send Message
-                      <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
-                    </button>
+                      <span className="group-hover/btn:translate-x-1 transition-transform ml-2">→</span>
+                    </Button>
 
                     {status.type === 'error' && (
                       <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3">
@@ -457,7 +387,7 @@ export default function Page() {
             </div>
 
           </div>
-        </div>
+        </Container>
       </section>
     </section>
   )

@@ -3,6 +3,9 @@
 import Link from "next/link"
 import { Github, Twitter, Linkedin } from "lucide-react"
 import { useState } from "react"
+import { Button } from "@/app/components/ui/button"
+import { Input } from "@/app/components/ui/input"
+import { Textarea } from "@/app/components/ui/textarea"
 
 export default function AboutPage() {
   const [formData, setFormData] = useState({
@@ -244,37 +247,38 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">Sent!</h3>
                 <p className="text-neutral-400 mb-6">{status.message}</p>
-                <button
+                <Button
+                  variant="ghost"
                   onClick={() => setStatus({ type: '', message: '' })}
-                  className="text-sm text-indigo-400 hover:text-white transition-colors"
+                  className="text-sm text-indigo-400 hover:text-white hover:bg-white/5"
                 >
                   Send another
-                </button>
+                </Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-xs font-medium text-neutral-500 ml-1 uppercase">Email</label>
-                    <input
+                    <Input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-sm"
+                      className="bg-black/40 border-white/10 px-4 py-3 text-white focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 text-sm"
                       placeholder="hello@example.com"
                     />
                   </div>
                   <div className="space-y-1">
                     <label className="text-xs font-medium text-neutral-500 ml-1 uppercase">Subject</label>
-                    <input
+                    <Input
                       type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-sm"
+                      className="bg-black/40 border-white/10 px-4 py-3 text-white focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 text-sm"
                       placeholder="Inquiry"
                     />
                   </div>
@@ -282,23 +286,23 @@ export default function AboutPage() {
 
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-neutral-500 ml-1 uppercase">Message</label>
-                  <textarea
+                  <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
                     required
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-sm resize-none"
+                    className="bg-black/40 border-white/10 px-4 py-3 text-white focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 text-sm resize-none"
                     placeholder="Write your message here..."
                   />
                 </div>
 
-                <button
+                <Button
                   type="submit"
-                  className="w-full bg-white text-black font-bold py-3.5 rounded-xl hover:bg-neutral-200 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                  className="w-full text-base font-bold h-12 bg-white text-black hover:bg-neutral-200"
                 >
                   Send Message
-                </button>
+                </Button>
 
                 {status.type === 'error' && (
                   <div className="text-center text-red-400 text-xs mt-2">

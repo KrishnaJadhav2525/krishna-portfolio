@@ -3,6 +3,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/app/components/ui/button";
+import { Badge } from "@/app/components/ui/badge";
 
 interface Project {
     title: string;
@@ -579,30 +581,40 @@ export default function ProjectCarousel() {
                                                         {/* Action Buttons */}
                                                         <div className="flex gap-4 mt-auto">
                                                             {project.links.github && (
-                                                                <motion.a
-                                                                    href={project.links.github}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    initial={{ opacity: 0, y: 10 }}
-                                                                    animate={{ opacity: 1, y: 0 }}
-                                                                    transition={{ delay: 0.4 }}
-                                                                    className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-4 rounded-2xl font-bold hover:bg-neutral-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                                                <Button
+                                                                    asChild
+                                                                    variant="default"
+                                                                    className="flex-1 h-14 rounded-2xl text-base font-bold shadow-lg shadow-white/5"
                                                                 >
-                                                                    <Github size={20} /> View Code
-                                                                </motion.a>
+                                                                    <motion.a
+                                                                        href={project.links.github}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        initial={{ opacity: 0, y: 10 }}
+                                                                        animate={{ opacity: 1, y: 0 }}
+                                                                        transition={{ delay: 0.4 }}
+                                                                    >
+                                                                        <Github size={20} className="mr-2" /> View Code
+                                                                    </motion.a>
+                                                                </Button>
                                                             )}
                                                             {project.links.demo && (
-                                                                <motion.a
-                                                                    href={project.links.demo}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    initial={{ opacity: 0, y: 10 }}
-                                                                    animate={{ opacity: 1, y: 0 }}
-                                                                    transition={{ delay: 0.5 }}
-                                                                    className="flex-1 flex items-center justify-center gap-2 bg-white/[0.05] text-white py-4 rounded-2xl font-bold border border-white/10 hover:bg-white/[0.1] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                                                <Button
+                                                                    asChild
+                                                                    variant="outline"
+                                                                    className="flex-1 h-14 rounded-2xl text-base font-bold border-white/10 bg-white/5 hover:bg-white/10 text-white"
                                                                 >
-                                                                    <Globe size={20} /> Live Demo
-                                                                </motion.a>
+                                                                    <motion.a
+                                                                        href={project.links.demo}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        initial={{ opacity: 0, y: 10 }}
+                                                                        animate={{ opacity: 1, y: 0 }}
+                                                                        transition={{ delay: 0.5 }}
+                                                                    >
+                                                                        <Globe size={20} className="mr-2" /> Live Demo
+                                                                    </motion.a>
+                                                                </Button>
                                                             )}
                                                         </div>
                                                     </div>
@@ -613,12 +625,13 @@ export default function ProjectCarousel() {
                                         {/* Tags - Always Visible but pushed down on hover */}
                                         <motion.div layout className={`flex flex-wrap items-center justify-center gap-2 ${isHovered ? 'mt-8' : 'mt-auto'} ${isMobile ? 'hidden' : 'flex'}`}>
                                             {project.tags.map(tag => (
-                                                <span
+                                                <Badge
                                                     key={tag}
-                                                    className="px-4 py-1.5 text-xs font-semibold tracking-wide uppercase rounded-full bg-white/5 border border-white/5 text-neutral-400"
+                                                    variant="secondary"
+                                                    className="px-4 py-1.5 text-xs font-semibold tracking-wide uppercase bg-white/5 border-white/5 text-muted-foreground hover:text-foreground transition-colors"
                                                 >
                                                     {tag}
-                                                </span>
+                                                </Badge>
                                             ))}
                                         </motion.div>
 

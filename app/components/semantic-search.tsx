@@ -16,6 +16,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { Input } from "@/app/components/ui/input";
+import { Badge } from "@/app/components/ui/badge";
 
 // TypeScript interfaces
 interface Blog {
@@ -149,12 +151,12 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                     </svg>
                 </div>
 
-                <input
+                <Input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search blogs semantically..."
-                    className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-xl pl-12 pr-4 py-4 text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-xl shadow-black/20"
+                    className="w-full h-14 bg-white/5 backdrop-blur-md border-white/10 rounded-xl pl-12 pr-4 py-4 text-neutral-200 placeholder:text-neutral-500 focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 transition-all shadow-xl shadow-black/20"
                 />
 
                 {/* Loading indicator */}
@@ -199,9 +201,12 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                                     <div className="relative rounded-xl p-[1px] bg-gradient-to-br from-indigo-500/30 via-purple-500/20 to-transparent hover:from-indigo-500/50 hover:via-purple-500/40 transition-all duration-300">
                                         <div className="relative rounded-xl bg-neutral-950/90 backdrop-blur-sm p-5 hover:bg-neutral-900/90 transition-colors">
                                             {/* Score badge */}
-                                            <span className="absolute top-4 right-4 px-2 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                            <Badge
+                                                variant="secondary"
+                                                className="absolute top-4 right-4 bg-indigo-500/20 text-indigo-300 border-indigo-500/30 hover:bg-indigo-500/30"
+                                            >
                                                 {formatScore(score)}
-                                            </span>
+                                            </Badge>
 
                                             {/* Title */}
                                             <h3 className="text-lg font-medium text-white group-hover:text-indigo-300 transition-colors pr-24">
@@ -219,12 +224,13 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                                             {blog.tags && blog.tags.length > 0 && (
                                                 <div className="mt-3 flex flex-wrap gap-2">
                                                     {blog.tags.slice(0, 4).map((tag) => (
-                                                        <span
+                                                        <Badge
                                                             key={tag}
-                                                            className="px-2 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-neutral-400"
+                                                            variant="outline"
+                                                            className="bg-white/5 border-white/10 text-neutral-400 hover:text-white"
                                                         >
                                                             {tag}
-                                                        </span>
+                                                        </Badge>
                                                     ))}
                                                 </div>
                                             )}

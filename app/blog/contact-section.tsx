@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { Github, Twitter, Linkedin } from "lucide-react";
 
 type Status = 'idle' | 'success' | 'error';
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Textarea } from "@/app/components/ui/textarea";
 
 export function ContactSection() {
   const [email, setEmail] = useState('');
@@ -166,44 +169,45 @@ export function ContactSection() {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input
+            <Input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+              className="px-5 py-6 bg-secondary/50 border-white/5 focus-visible:ring-primary/20"
               required
             />
 
-            <input
+            <Input
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Subject"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+              className="px-5 py-6 bg-secondary/50 border-white/5 focus-visible:ring-primary/20"
               required
             />
 
-            <textarea
+            <Textarea
               rows={4}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Your message..."
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all resize-none"
+              className="px-5 py-4 bg-secondary/50 border-white/5 focus-visible:ring-primary/20 resize-none min-h-[120px]"
               required
             />
 
-            <button
+            <Button
               type="submit"
-              className="mt-4 w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-neutral-200 hover:scale-[1.01] active:scale-[0.99] transition-all"
+              size="lg"
+              className="w-full h-14 text-base font-bold"
             >
               Send Message
-            </button>
+            </Button>
 
             {/* Error message with animation */}
             {status === 'error' && formMessage && (
-              <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 animate-shake">
-                <p className="text-sm text-red-400 flex items-center justify-center gap-2">
+              <div className="mt-4 p-3 rounded-lg bg-destructive/10 border border-destructive/20 animate-shake">
+                <p className="text-sm text-destructive flex items-center justify-center gap-2">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -258,35 +262,38 @@ function RightSection() {
 
       {/* SOCIAL ICONS */}
       <div className="mt-10 flex gap-4">
-        <a
-          href="https://github.com/KrishnaJadhav2525"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 hover:scale-110 transition-all"
-        >
-          <Github size={18} />
-        </a>
+        <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/10 bg-transparent hover:bg-white/10 hover:border-white/20">
+          <a
+            href="https://github.com/KrishnaJadhav2525"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <Github size={20} className="text-muted-foreground group-hover:text-foreground" />
+          </a>
+        </Button>
 
-        <a
-          href="https://www.linkedin.com/in/krishna-jadhav-a5122a316/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-          className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 hover:scale-110 transition-all"
-        >
-          <Linkedin size={18} />
-        </a>
+        <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/10 bg-transparent hover:bg-white/10 hover:border-white/20">
+          <a
+            href="https://www.linkedin.com/in/krishna-jadhav-a5122a316/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={20} className="text-muted-foreground group-hover:text-foreground" />
+          </a>
+        </Button>
 
-        <a
-          href="https://x.com/krlshn444"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Twitter"
-          className="w-10 h-10 flex items-center justify-center rounded-md border border-neutral-800 text-neutral-500 hover:text-neutral-100 hover:bg-neutral-900 hover:border-neutral-600 hover:scale-110 transition-all"
-        >
-          <Twitter size={18} />
-        </a>
+        <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/10 bg-transparent hover:bg-white/10 hover:border-white/20">
+          <a
+            href="https://x.com/krlshn444"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+          >
+            <Twitter size={20} className="text-muted-foreground group-hover:text-foreground" />
+          </a>
+        </Button>
       </div>
     </div>
   );
