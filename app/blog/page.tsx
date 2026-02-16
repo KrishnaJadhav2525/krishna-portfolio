@@ -4,6 +4,8 @@ import { CuratedBlogs } from "./curated"
 import { ContactSection } from "./contact-section"
 import { NewsletterSection } from "./newsletter-section"
 import SemanticSearch from "@/app/components/semantic-search"
+import { Container } from "@/app/components/ui/section"
+import { FadeIn } from "@/app/components/ui/fade-in"
 
 export const metadata = {
   title: "Blog",
@@ -22,10 +24,10 @@ export default function BlogPage() {
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px] opacity-40" />
       </div>
 
-      <div className="max-w-7xl mx-auto pt-32 px-6 relative z-10">
+      <Container className="pt-32 relative z-10">
 
         {/* HEADER */}
-        <div className="mb-16 text-center md:text-left">
+        <FadeIn className="mb-16 text-center md:text-left">
           <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
             Engineering & Thoughts
           </p>
@@ -36,15 +38,15 @@ export default function BlogPage() {
             Insights on Artificial Intelligence, Software Engineering, and the future of tech.
             Documenting my journey of building and breaking things.
           </p>
-        </div>
+        </FadeIn>
 
         {/* AI-POWERED SEMANTIC SEARCH */}
-        <div className="mb-20">
+        <FadeIn className="mb-20" delay={0.1}>
           <SemanticSearch />
-        </div>
+        </FadeIn>
 
         {/* BLOG LIST + SIDEBAR */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-12 lg:gap-20">
+        <FadeIn delay={0.2} className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-12 lg:gap-20">
 
           {/* Main Content */}
           <div>
@@ -66,13 +68,13 @@ export default function BlogPage() {
               <NewsletterSection />
             </div>
           </div>
-        </div>
+        </FadeIn>
 
         {/* CONTACT - Client Component */}
-        <div className="mt-32">
+        <FadeIn className="mt-32" delay={0.3}>
           <ContactSection />
-        </div>
-      </div>
+        </FadeIn>
+      </Container>
     </section>
   )
 }

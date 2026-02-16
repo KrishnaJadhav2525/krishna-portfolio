@@ -143,7 +143,7 @@ export default function Page() {
       </div>
 
       {/* HERO - Replaced manual animation with FadeIn */}
-      <FadeIn className="min-h-[90vh] flex flex-col items-center justify-center text-center px-4" delay={0.1}>
+      <FadeIn className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4" delay={0.1}>
         {/* AVAILABILITY BADGE */}
         <div className="mb-8 relative inline-flex items-center justify-center animate-[float_4s_ease-in-out_infinite]">
           <span className="relative z-10 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300 backdrop-blur-md">
@@ -155,17 +155,17 @@ export default function Page() {
         {/* HEADLINE WITH GRADIENT & GLOW */}
         <div className="relative mb-8">
           <div className="absolute inset-0 blur-[100px] bg-indigo-500/20 pointer-events-none" />
-          <h1 className="relative z-10 text-6xl md:text-8xl font-bold tracking-tight text-white drop-shadow-2xl">
+          <h1 className="relative z-10 text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl">
             Krishna <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))]">Jadhav</span>
           </h1>
         </div>
 
-        <p className="text-xl md:text-2xl text-neutral-400 max-w-2xl mb-12 leading-relaxed">
+        <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
           Full Stack Developer & AI Engineer crafting <span className="text-white font-medium">high-performance</span> digital experiences.
         </p>
 
         {/* BUTTONS */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-20">
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-20">
           {/* Primary Button */}
           <div className="p-[1px] rounded-full bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--secondary))] to-[hsl(var(--primary))] bg-[length:200%_auto] hover:animate-gradient-x transition-all duration-300 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)]">
             <Link
@@ -216,14 +216,14 @@ export default function Page() {
       {/* FEATURED PROJECTS - Carousel */}
       <section
         id="projects"
-        className="py-36 px-8 scroll-mt-36 border-t border-neutral-900"
+        className="py-24 px-4 sm:px-8 scroll-mt-24 border-t border-neutral-900"
       >
         <FadeIn>
           <p className="text-sm text-neutral-500 mb-4 tracking-widest">
             SELECTED WORK
           </p>
 
-          <h2 className="text-3xl font-semibold tracking-tight mb-14 text-neutral-100">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-12 text-neutral-100">
             Featured Projects
           </h2>
         </FadeIn>
@@ -240,7 +240,7 @@ export default function Page() {
 
       {/* CONTACT */}
       <FadeIn
-        className="py-32 border-t border-white/5 bg-black/50 relative overflow-hidden"
+        className="py-24 border-t border-white/5 bg-black/50 relative overflow-hidden"
         fullWidth
       >
         <section
@@ -252,11 +252,11 @@ export default function Page() {
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] pointer-events-none" />
 
           <Container className="relative z-10">
-            <div className="mb-20">
+            <div className="mb-16">
               <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
                 Get In Touch
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
                 Let's create something <span className="text-neutral-500">extraordinary.</span>
               </h2>
             </div>

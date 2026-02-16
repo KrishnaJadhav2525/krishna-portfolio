@@ -24,19 +24,19 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm sm:max-w-md px-4">
-      <nav className="flex items-center justify-between py-2 px-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50 ring-1 ring-white/5 transition-all hover:bg-black/50 hover:border-white/20">
+    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm sm:max-w-md px-4">
+      <nav className="flex items-center justify-between py-2 px-5 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50 ring-1 ring-white/5 transition-all hover:bg-black/50 hover:border-white/20">
 
         {/* LEFT: NAME */}
         <Link
           href="/"
-          className="text-base font-bold tracking-tight text-white mr-8 hover:text-indigo-400 transition-colors"
+          className="text-sm font-bold tracking-tight text-white mr-6 hover:text-indigo-400 transition-colors"
         >
           Krishna<span className="text-indigo-500">.</span>
         </Link>
 
         {/* RIGHT: LINKS */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           {navLinks.map(({ href, label }) => {
             const active = isActive(href);
             return (
@@ -44,7 +44,7 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 className={cn(
-                  "relative px-4 py-1.5 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-full",
+                  "relative px-3 py-1.5 text-xs font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-full",
                   active ? "text-white" : "text-neutral-400 hover:text-white"
                 )}
                 onMouseEnter={() => setHoveredPath(href)}
