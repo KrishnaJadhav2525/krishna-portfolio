@@ -171,7 +171,7 @@ export function NewsletterSection() {
         <form onSubmit={handleSubmit}>
 
 
-          // ... (in the form)
+
           <div className="flex flex-col sm:flex-row gap-4">
             <Input
               type="email"
