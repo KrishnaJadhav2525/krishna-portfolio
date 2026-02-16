@@ -154,7 +154,7 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search blogs semantically..."
-                    className="w-full bg-neutral-950/80 backdrop-blur-sm border border-neutral-800 rounded-xl pl-12 pr-4 py-4 text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all"
+                    className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-xl pl-12 pr-4 py-4 text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-xl shadow-black/20"
                 />
 
                 {/* Loading indicator */}

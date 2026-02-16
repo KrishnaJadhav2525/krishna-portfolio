@@ -152,26 +152,26 @@ export function ContactSection() {
 
   // Default form state
   return (
-    <div className="mt-40 border-t border-neutral-900 pt-32">
+    <div className="mt-32 pt-20 border-t border-white/5">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
 
         {/* LEFT: FORM */}
         <div>
-          <p className="text-sm tracking-widest text-neutral-500 mb-4">
-            GET IN TOUCH
+          <p className="text-sm tracking-widest text-indigo-400 mb-4 font-mono uppercase">
+            Get in Touch
           </p>
 
-          <h2 className="text-3xl font-semibold tracking-tight mb-12 text-white">
+          <h2 className="text-3xl font-bold tracking-tight mb-8 text-white">
             Let's work together
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full rounded-md border border-neutral-800 bg-black px-5 py-3 text-base text-neutral-200 focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
               required
             />
 
@@ -180,7 +180,7 @@ export function ContactSection() {
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Subject"
-              className="w-full rounded-md border border-neutral-800 bg-black px-5 py-3 text-base text-neutral-200 focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
               required
             />
 
@@ -189,20 +189,20 @@ export function ContactSection() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Your message..."
-              className="w-full rounded-md border border-neutral-800 bg-black px-5 py-3 text-base text-neutral-200 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-base text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all resize-none"
               required
             />
 
             <button
               type="submit"
-              className="mt-6 w-full bg-neutral-100 text-black py-3 rounded-md font-medium hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="mt-4 w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-neutral-200 hover:scale-[1.01] active:scale-[0.99] transition-all"
             >
               Send Message
             </button>
 
             {/* Error message with animation */}
             {status === 'error' && formMessage && (
-              <div className="mt-4 p-3 rounded-md bg-red-500/10 border border-red-500/30 animate-shake">
+              <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 animate-shake">
                 <p className="text-sm text-red-400 flex items-center justify-center gap-2">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
