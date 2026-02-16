@@ -227,8 +227,7 @@ export default function Page() {
           className="relative"
         >
           {/* Abstract Background Elements */}
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[128px] pointer-events-none" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] pointer-events-none" />
+
 
           <Container className="relative z-10">
             <div className="mb-16">
@@ -244,7 +243,7 @@ export default function Page() {
 
               {/* LEFT: FORM */}
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-1000" />
+
                 <div className="relative bg-neutral-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
                   {status.type === 'success' ? (
                     <div className="flex flex-col items-center justify-center py-12 text-center animate-fadeInUp">

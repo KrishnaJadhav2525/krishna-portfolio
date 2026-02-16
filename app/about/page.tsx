@@ -72,10 +72,7 @@ export default function AboutPage() {
     <section className="min-h-screen bg-black text-neutral-200 selection:bg-indigo-500/30">
 
       {/* Background Elements */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px] opacity-50" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px] opacity-50" />
-      </div>
+
 
       {/* TOP SPACING FOR FIXED NAV */}
       <Container className="pt-32 relative z-10">
@@ -243,8 +240,7 @@ export default function AboutPage() {
             <div className="max-w-xl mx-auto bg-neutral-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden">
 
 
-              {/* Gradient glow */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500" />
+
 
               {status.type === 'success' ? (
                 <div className="flex flex-col items-center justify-center py-8 text-center animate-fadeInUp">

@@ -61,18 +61,20 @@ export default function BlogPage() {
           <div className="lg:sticky lg:top-32 space-y-12 h-fit">
             <CuratedBlogs />
 
-            {/* Minimal Newsletter in Sidebar */}
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-              <h3 className="text-lg font-bold text-white mb-2">Stay Updated</h3>
-              <p className="text-sm text-neutral-400 mb-6">Get the latest articles and AI insights delivered to your inbox.</p>
-              <NewsletterSection />
-            </div>
+
           </div>
         </FadeIn>
 
         {/* CONTACT - Client Component */}
         <FadeIn className="mt-32" delay={0.3}>
           <ContactSection />
+        </FadeIn>
+
+        {/* NEWSLETTER - Full Width */}
+        <FadeIn className="my-20">
+          <div className="rounded-3xl bg-neutral-900/50 border border-white/5 p-8 md:p-12 backdrop-blur-sm">
+            <NewsletterSection />
+          </div>
         </FadeIn>
       </Container>
     </section>
