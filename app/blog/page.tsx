@@ -70,7 +70,7 @@ export default function BlogPage() {
 
         {/* NEWSLETTER - Full Width */}
         <FadeIn className="my-20">
-          <div className="rounded-3xl bg-neutral-900/50 border border-white/5 p-8 md:p-12 backdrop-blur-sm">
+          <div className="rounded-3xl glass p-8 md:p-12">
             <NewsletterSection />
           </div>
         </FadeIn>

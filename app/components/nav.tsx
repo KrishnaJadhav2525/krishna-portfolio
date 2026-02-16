@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-md sm:max-w-xl px-4">
-      <nav className="flex items-center justify-between py-2 px-5 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50 ring-1 ring-white/5 transition-all hover:bg-black/50 hover:border-white/20">
+      <nav className="glass flex items-center justify-between py-2 px-5 rounded-full shadow-2xl shadow-black/50 ring-1 ring-white/5 transition-all hover:bg-white/[0.05] hover:border-white/20">
 
         {/* LEFT: NAME */}
         <Link

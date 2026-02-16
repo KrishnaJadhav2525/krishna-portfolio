@@ -57,27 +57,27 @@ export default function Skills() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[
                         {
-                            title: "AI & ML",
+                            title: "AI / ML",
                             icon: "🤖",
-                            items: ["PyTorch", "TensorFlow", "LangChain", "OpenAI API", "HuggingFace", "RAG Pipeline", "Pinecone", "CUDA"],
+                            items: ["LLMs", "RAG Systems", "Agentic Workflows", "LangChain", "LangGraph", "CrewAI", "Prompt Engineering", "Vector Databases", "Pinecone", "Embeddings", "NLP", "Machine Learning", "Deep Learning", "HuggingFace", "OpenAI API", "Gemini API"],
                             gradient: "from-indigo-500/10 to-blue-500/5"
                         },
                         {
                             title: "Frontend",
                             icon: "🎨",
-                            items: ["Next.js 15", "React", "TypeScript", "Tailwind v4", "Framer Motion", "Three.js", "Zustand", "Shadcn UI"],
+                            items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Shadcn UI", "Framer Motion", "Zustand", "Astro"],
                             gradient: "from-emerald-500/10 to-teal-500/5"
                         },
                         {
                             title: "Backend",
                             icon: "⚡",
-                            items: ["Node.js", "Python", "FastAPI", "PostgreSQL", "MongoDB", "Redis", "Docker", "GraphQL"],
+                            items: ["Node.js", "Express", "FastAPI", "Python", "Hono", "REST APIs", "GraphQL", "MongoDB", "PostgreSQL", "Mongoose", "Prisma"],
                             gradient: "from-orange-500/10 to-red-500/5"
                         },
                         {
-                            title: "DevOps/Cloud",
+                            title: "DevOps & Tools",
                             icon: "☁️",
-                            items: ["AWS", "Vercel", "GitHub Actions", "Terraform", "Nginx", "Linux", "Kubernetes", "Sentry"],
+                            items: ["Docker", "AWS", "Git", "GitHub Actions", "Vercel", "Render", "CI/CD", "Linux"],
                             gradient: "from-blue-500/10 to-cyan-500/5"
                         },
                     ].map((section, sectionIndex) => (
@@ -87,9 +87,8 @@ export default function Skills() {
                                 group relative
                                 flex flex-col items-start
                                 p-6 rounded-2xl
-                                border border-white/5
-                                bg-neutral-900/40 backdrop-blur-sm
-                                hover:border-white/10 hover:bg-white/[0.03]
+                                glass
+                                hover:bg-white/[0.05]
                                 transition-all duration-300
                                 hover:-translate-y-1
                             `}

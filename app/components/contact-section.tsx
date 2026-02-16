@@ -98,7 +98,7 @@ export function ContactSection() {
                         {/* LEFT: FORM */}
                         <div className="relative group">
 
-                            <div className="relative bg-white/5 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
+                            <div className="relative glass rounded-3xl p-8 md:p-10">
                                 {status.type === 'success' ? (
                                     <div className="flex flex-col items-center justify-center py-12 text-center animate-fadeInUp">
                                         <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20">
@@ -209,7 +209,7 @@ export function ContactSection() {
                                                 href={href}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="group relative flex items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                                                className="group relative flex items-center justify-center p-4 rounded-2xl glass hover:bg-white/[0.05] transition-all duration-300"
                                                 aria-label={label}
                                             >
                                                 <Icon size={24} className="text-neutral-400 group-hover:text-white transition-colors" />

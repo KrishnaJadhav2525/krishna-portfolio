@@ -47,7 +47,7 @@ export function BlogPosts({ posts }: Props) {
             className="group block"
             style={{ animationDelay: `${index * 100}ms` }}
           >
-            <div className="relative p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:scale-[1.01] hover:border-white/20 overflow-hidden">
+            <div className="relative p-8 rounded-3xl glass transition-all duration-300 hover:bg-white/10 hover:scale-[1.01] hover:border-white/20 overflow-hidden">
 
               {/* Hover Gradient */}
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

@@ -482,8 +482,7 @@ export default function ProjectCarousel() {
                                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
                                 className={`
                                     relative overflow-hidden
-                                    rounded-3xl border border-white/10
-                                    bg-neutral-900/40 backdrop-blur-md
+                                    rounded-3xl glass
                                     shadow-xl
                                     cursor-pointer
                                     group/card
