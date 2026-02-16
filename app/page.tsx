@@ -64,12 +64,7 @@ export default function Page() {
       {/* HERO - Replaced manual animation with FadeIn */}
       <FadeIn className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4" delay={0.1}>
         {/* AVAILABILITY BADGE */}
-        <div className="mb-8 relative inline-flex items-center justify-center animate-[float_4s_ease-in-out_infinite]">
-          <span className="relative z-10 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300 backdrop-blur-md">
-            Available for new opportunities
-          </span>
-          <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-xl animate-pulse" />
-        </div>
+
 
         {/* HEADLINE WITH GRADIENT & GLOW */}
         <div className="relative mb-8 max-w-4xl mx-auto">
