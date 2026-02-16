@@ -77,6 +77,34 @@
   }
 
   ;
+
+  --keyframes-float: {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  ;
+
+  --keyframes-gradient-x: {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  ;
   /* Colors */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -109,33 +137,39 @@
 
 /* ===== RESET & BASE ===== */
 :root {
-  --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%;
+  /* Deep Navy -> Black Base */
+  --background: 224 71% 4%;
+  /* #02040a */
+  --foreground: 210 40% 98%;
+  /* #f8fafc */
 
-  --card: 0 0% 3.9%;
-  --card-foreground: 0 0% 98%;
+  --card: 224 71% 4%;
+  --card-foreground: 210 40% 98%;
 
-  --popover: 0 0% 3.9%;
-  --popover-foreground: 0 0% 98%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 210 40% 98%;
 
-  --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
+  /* Electric Cyan Primary */
+  --primary: 190 100% 50%;
+  --primary-foreground: 224 71% 4%;
 
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
+  /* Digital Violet Secondary */
+  --secondary: 265 80% 65%;
+  --secondary-foreground: 210 40% 98%;
 
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
+  /* Cool Slate Muted */
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
 
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
+  --accent: 217 33% 17%;
+  --accent-foreground: 210 40% 98%;
 
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive-foreground: 210 40% 98%;
 
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 0% 83.1%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 190 100% 50%;
 
   --radius: 0.75rem;
 }
@@ -153,6 +187,28 @@ body {
   font-family: var(--font-geist-sans);
   overflow-x: hidden;
   position: relative;
+  line-height: 1.75;
+  /* Improved readability */
+  -webkit-font-smoothing: antialiased;
+
+  /* Stage 1: Deep layered gradient base */
+  background-image:
+    radial-gradient(circle at 50% 0%, hsl(var(--primary) / 0.15) 0%, transparent 60%),
+    linear-gradient(to bottom, hsl(var(--background)), #000000);
+  background-attachment: fixed;
+}
+
+/* ===== GLOBAL TYPOGRAPHY ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsl(var(--foreground));
+  letter-spacing: -0.02em;
+  /* Premium tight tracking */
+  font-weight: 700;
 }
 
 /* ===== PREMIUM TEXTURE ===== */
@@ -162,7 +218,8 @@ body::before {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.03;
+  /* Subtle texture */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
 }

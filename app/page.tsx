@@ -147,16 +147,21 @@ export default function Page() {
         className={`min-h-[90vh] flex flex-col items-center justify-center text-center px-4 transition-all duration-1000 ${heroSection.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
       >
-        <div className="mb-8 relative inline-flex items-center justify-center">
+        {/* AVAILABILITY BADGE */}
+        <div className="mb-8 relative inline-flex items-center justify-center animate-[float_4s_ease-in-out_infinite]">
           <span className="relative z-10 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300 backdrop-blur-md">
             Available for new opportunities
           </span>
           <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-xl animate-pulse" />
         </div>
 
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-400">
-          Krishna Jadhav
-        </h1>
+        {/* HEADLINE WITH GRADIENT & GLOW */}
+        <div className="relative mb-8">
+          <div className="absolute inset-0 blur-[100px] bg-indigo-500/20 pointer-events-none" />
+          <h1 className="relative z-10 text-6xl md:text-8xl font-bold tracking-tight text-white drop-shadow-2xl">
+            Krishna <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))]">Jadhav</span>
+          </h1>
+        </div>
 
         <p className="text-xl md:text-2xl text-neutral-400 max-w-2xl mb-12 leading-relaxed">
           Full Stack Developer & AI Engineer crafting <span className="text-white font-medium">high-performance</span> digital experiences.
@@ -164,13 +169,15 @@ export default function Page() {
 
         {/* BUTTONS */}
         <div className="flex flex-wrap items-center justify-center gap-6 mb-20">
-          <Link
-            href="/blog"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 text-lg font-medium bg-white rounded-full text-black overflow-hidden transition-all hover:scale-105"
-          >
-            <span className="relative z-10 flex items-center gap-2">Read My Blogs <span className="group-hover:translate-x-1 transition-transform">→</span></span>
-            <div className="absolute inset-0 bg-gradient-to-r from-neutral-200 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
-          </Link>
+          {/* Primary Button */}
+          <div className="p-[1px] rounded-full bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--secondary))] to-[hsl(var(--primary))] bg-[length:200%_auto] hover:animate-gradient-x transition-all duration-300 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)]">
+            <Link
+              href="/blog"
+              className="group relative inline-flex items-center gap-2 px-8 py-4 text-lg font-medium bg-black rounded-full text-white overflow-hidden transition-all hover:bg-black/80"
+            >
+              <span className="relative z-10 flex items-center gap-2">Read My Blogs <span className="group-hover:translate-x-1 transition-transform">→</span></span>
+            </Link>
+          </div>
 
           <Link
             href="#contact"
