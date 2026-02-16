@@ -66,12 +66,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        "bg-black text-white",
+        "bg-[var(--background)] text-[var(--foreground)]",
         GeistSans.variable,
         GeistMono.variable
       )}
     >
-      <body className="antialiased">
+      <body className="antialiased min-h-screen flex flex-col relative">
         {/* JSON-LD for SEO */}
         <Script
           id="json-ld"
