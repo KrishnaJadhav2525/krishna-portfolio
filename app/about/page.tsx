@@ -274,7 +274,6 @@ export default function AboutPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="bg-black/40 border-white/10 px-4 py-3 text-white focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 text-sm"
                         placeholder="hello@example.com"
                       />
                     </div>
@@ -286,7 +285,6 @@ export default function AboutPage() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="bg-black/40 border-white/10 px-4 py-3 text-white focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 text-sm"
                         placeholder="Inquiry"
                       />
                     </div>
@@ -300,7 +298,6 @@ export default function AboutPage() {
                       onChange={handleChange}
                       rows={4}
                       required
-                      className="bg-black/40 border-white/10 px-4 py-3 text-white focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 text-sm resize-none"
                       placeholder="Write your message here..."
                     />
                   </div>

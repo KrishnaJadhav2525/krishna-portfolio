@@ -277,7 +277,6 @@ export default function Page() {
                           onChange={handleChange}
                           placeholder="john@example.com"
                           required
-                          className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono focus:border-indigo-500/50 transition-colors"
                         />
                       </div>
 
@@ -291,7 +290,6 @@ export default function Page() {
                           onChange={handleChange}
                           placeholder="Project Inquiry"
                           required
-                          className="bg-black/40 border-white/10 px-5 py-6 text-white placeholder-neutral-600 font-mono focus:border-indigo-500/50 transition-colors"
                         />
                       </div>
 
@@ -305,7 +303,6 @@ export default function Page() {
                           rows={5}
                           placeholder="Tell me about your project..."
                           required
-                          className="bg-black/40 border-white/10 px-5 py-4 text-white placeholder-neutral-600 font-mono resize-none focus:border-indigo-500/50 transition-colors"
                         />
                       </div>
 

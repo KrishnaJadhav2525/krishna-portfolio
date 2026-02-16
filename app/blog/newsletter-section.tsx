@@ -1,5 +1,7 @@
 'use client';
 
+import { Input } from "@/app/components/ui/input"
+
 import { useState } from 'react';
 
 type Status = 'idle' | 'success' | 'error';
@@ -167,22 +169,25 @@ export function NewsletterSection() {
         </p>
 
         <form onSubmit={handleSubmit}>
+
+
+          // ... (in the form)
           <div className="flex flex-col sm:flex-row gap-4">
-            <input
+            <Input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="flex-1 rounded-md border border-neutral-800 bg-black px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-emerald-500 transition-colors"
+              className="flex-1"
               required
             />
 
-            <input
+            <Input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name (optional)"
-              className="flex-1 rounded-md border border-neutral-800 bg-black px-4 py-3 text-sm text-neutral-200 focus:outline-none focus:border-emerald-500 transition-colors"
+              className="flex-1"
             />
           </div>
 
