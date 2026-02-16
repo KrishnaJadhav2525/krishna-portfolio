@@ -8,65 +8,10 @@ import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 import { Container } from "@/app/components/ui/section"
 import { FadeIn } from "@/app/components/ui/fade-in"
+import { ContactSection } from "@/app/components/contact-section"
 
 export default function AboutPage() {
-  const [formData, setFormData] = useState({
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [status, setStatus] = useState({ type: '', message: '' });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.email || !formData.subject || !formData.message) {
-      setStatus({ type: 'error', message: 'Please fill in all fields' });
-      return;
-    }
-
-    // Store form data before clearing
-    const submittedData = { ...formData };
-
-    // Optimistic UI - show success immediately
-    setStatus({
-      type: 'success',
-      message: 'Message sent successfully! I will get back to you soon.'
-    });
-    setFormData({ email: '', subject: '', message: '' });
-
-    // API call in background
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submittedData),
-      });
-
-      const result = await response.json();
-
-      // Only update if there was an error
-      if (!result.success) {
-        setStatus({
-          type: 'error',
-          message: result.error || 'Failed to send message. Please try again.'
-        });
-      }
-    } catch (error) {
-      setStatus({
-        type: 'error',
-        message: 'Failed to send message. Please try again later.'
-      });
-      console.error('Contact form error:', error);
-    }
-  };
 
   return (
     <section className="min-h-screen bg-black text-neutral-200 selection:bg-indigo-500/30">
@@ -230,91 +175,7 @@ export default function AboutPage() {
         </FadeIn>
 
         {/* CONTACT FORM */}
-        <FadeIn delay={0.3}>
-          <div id="contact" className="py-20 border-t border-white/5">
-            <div className="max-w-xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Let's Start a Conversation</h2>
-              <p className="text-neutral-400">Have a project in mind or just want to chat? I'm actively looking for new opportunities.</p>
-            </div>
-
-            <div className="max-w-xl mx-auto bg-neutral-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden">
-
-
-
-
-              {status.type === 'success' ? (
-                <div className="flex flex-col items-center justify-center py-8 text-center animate-fadeInUp">
-                  <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4 border border-green-500/20">
-                    <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Sent!</h3>
-                  <p className="text-neutral-400 mb-6">{status.message}</p>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setStatus({ type: '', message: '' })}
-                    className="text-sm text-indigo-400 hover:text-white hover:bg-white/5"
-                  >
-                    Send another
-                  </Button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-medium text-neutral-500 ml-1 uppercase">Email</label>
-                      <Input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        placeholder="hello@example.com"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-medium text-neutral-500 ml-1 uppercase">Subject</label>
-                      <Input
-                        type="text"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        placeholder="Inquiry"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-neutral-500 ml-1 uppercase">Message</label>
-                    <Textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={4}
-                      required
-                      placeholder="Write your message here..."
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full text-base font-bold h-12 rounded-lg shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)]"
-                  >
-                    Send Message
-                  </Button>
-
-                  {status.type === 'error' && (
-                    <div className="text-center text-red-400 text-xs mt-2">
-                      {status.message}
-                    </div>
-                  )}
-                </form>
-              )}
-            </div>
-          </div>
-        </FadeIn>
+        <ContactSection />
       </Container>
     </section>
   )

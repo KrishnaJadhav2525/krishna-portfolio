@@ -1,7 +1,7 @@
 import { getAllPosts } from "./lib/get-posts"
 import { BlogPosts } from "./posts"
 import { CuratedBlogs } from "./curated"
-import { ContactSection } from "./contact-section"
+import { ContactSection } from "@/app/components/contact-section"
 import { NewsletterSection } from "./newsletter-section"
 import SemanticSearch from "@/app/components/semantic-search"
 import { Container } from "@/app/components/ui/section"
@@ -66,9 +66,7 @@ export default function BlogPage() {
         </FadeIn>
 
         {/* CONTACT - Client Component */}
-        <FadeIn className="mt-32" delay={0.3}>
-          <ContactSection />
-        </FadeIn>
+        <ContactSection />
 
         {/* NEWSLETTER - Full Width */}
         <FadeIn className="my-20">
