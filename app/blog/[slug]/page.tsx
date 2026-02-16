@@ -3,6 +3,7 @@ import path from "path"
 import matter from "gray-matter"
 import { remark } from "remark"
 import html from "remark-html"
+import Link from "next/link"
 
 function formatDate(date: string | Date) {
   const d = new Date(date)
