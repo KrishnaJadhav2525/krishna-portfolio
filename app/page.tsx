@@ -244,7 +244,7 @@ export default function Page() {
               {/* LEFT: FORM */}
               <div className="relative group">
 
-                <div className="relative bg-neutral-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
+                <div className="relative bg-white/5 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-10">
                   {status.type === 'success' ? (
                     <div className="flex flex-col items-center justify-center py-12 text-center animate-fadeInUp">
                       <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20">
@@ -307,7 +307,8 @@ export default function Page() {
 
                       <Button
                         type="submit"
-                        className="w-full text-base font-bold h-14 rounded-md bg-gradient-to-r from-emerald-500 to-teal-400 text-black hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-emerald-500/20 group/btn"
+                        size="lg"
+                        className="w-full text-base font-bold h-14 rounded-full shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] group/btn"
                       >
                         Send Message
                         <span className="group-hover/btn:translate-x-1 transition-transform ml-2">→</span>

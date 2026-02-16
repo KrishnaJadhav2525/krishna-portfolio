@@ -300,7 +300,7 @@ export default function AboutPage() {
 
                   <Button
                     type="submit"
-                    className="w-full text-base font-bold h-12 rounded-md bg-gradient-to-r from-emerald-500 to-teal-400 text-black hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-emerald-500/20"
+                    className="w-full text-base font-bold h-12 rounded-lg shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)]"
                   >
                     Send Message
                   </Button>
