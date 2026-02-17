@@ -36,7 +36,7 @@ export default function AboutPage() {
               Krishna Jadhav
             </h1>
             <p className="text-xl text-[var(--text-secondary)] max-w-2xl leading-relaxed">
-              Computer Science Undergraduate & AI Enthusiast.
+              Full-Stack Engineer & AI Agent Developer.
             </p>
           </div>
 
@@ -44,19 +44,21 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-12 gap-12 mb-24">
             <div className="md:col-span-8 space-y-6 text-lg text-[var(--text-secondary)] leading-relaxed font-light">
               <p>
-                I'm a Computer Science undergraduate based in Maharashtra, India,
-                passionate about architecting <span className="text-[var(--text-primary)] font-medium">intelligent software systems</span>.
-                My journey involves a deep dive into full-stack development, data analysis, and the emerging world of Agentic AI.
+                I'm a Full-Stack Engineer and AI Developer who enjoys building things that actually work — not just in demos, but in production.
+                Over the past couple of years I've shipped a <span className="text-[var(--text-primary)] font-medium">RAG-powered portfolio with semantic search</span>,
+                an AI resume matcher, a fully automated <span className="text-[var(--text-primary)] font-medium">AI video generation pipeline</span> orchestrated with n8n,
+                and a fraud detection system trained on 6.3M+ records.
               </p>
 
               <p>
-                Currently, I'm focused on building high-performance applications using <span className="text-[var(--text-primary)] font-medium">Next.js, Python, and C++</span>.
-                I am also developing a real-time facial recognition system using OpenCV and Qt, pushing the boundaries of accuracy and speed.
+                On the AI side, I work hands-on with <span className="text-[var(--text-primary)] font-medium">LLMs, vector embeddings, RAG, LangChain, and multi-API pipelines</span> —
+                integrating Gemini, Pexels, GitHub, and Pinecone to build systems that do real work end-to-end.
+                On the full-stack side I'm comfortable across React/Next.js, Django/Flask/Node, and PostgreSQL/MongoDB.
               </p>
 
               <p>
-                Beyond code, I bring experience from technical support and business development roles, which has refined my ability to
-                communicate complex technical ideas and drive projects with an ownership mindset.
+                I care about <span className="text-[var(--text-primary)] font-medium">clean code, observable systems, and writing software that's easy to hand off</span> —
+                and I'm looking for a team where those things matter too.
               </p>
 
               <div className="pt-4">
@@ -74,7 +76,7 @@ export default function AboutPage() {
               <div className="p-6 rounded-2xl glass">
                 <h3 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider mb-4">Focus Areas</h3>
                 <div className="flex flex-wrap gap-2">
-                  {['AI Agents', 'Full Stack', 'Computer Vision', 'Data Analysis'].map(tag => (
+                  {['AI / Agent Systems', 'Full-Stack Dev', 'Data & ML', 'DevOps & Cloud'].map(tag => (
                     <span key={tag} className="px-3 py-1 text-xs font-medium glass rounded-full text-[var(--text-secondary)]">
                       {tag}
                     </span>

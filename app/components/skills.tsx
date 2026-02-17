@@ -57,31 +57,49 @@ export default function Skills() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {[
                         {
-                            title: "AI / ML",
+                            title: "AI / Agent Systems",
                             icon: "🤖",
-                            items: ["LLMs", "RAG Systems", "Agentic Workflows", "LangChain", "LangGraph", "CrewAI", "Prompt Engineering", "Vector Databases", "Pinecone", "Embeddings", "NLP", "Machine Learning", "Deep Learning", "HuggingFace", "OpenAI API", "Gemini API"],
+                            items: ["LLMs", "RAG", "LangChain", "Tool Calling", "Structured Outputs", "Vector Embeddings", "Pinecone", "TF-IDF", "Cosine Similarity", "Prompt Engineering", "Semantic Search", "OpenAI API", "Gemini API", "n8n Workflow Automation", "Edge TTS", "Multi-API Integration"],
                             gradient: "from-indigo-500/10 to-blue-500/5"
                         },
                         {
                             title: "Frontend",
                             icon: "🎨",
-                            items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Shadcn UI", "Framer Motion", "Zustand", "Astro"],
+                            items: ["React.js", "Next.js 16", "TypeScript", "JavaScript (ES6+)", "TailwindCSS", "Bootstrap", "HTML5", "CSS3", "Responsive Design", "UI/UX (Figma)", "Astro", "SSR / SSG", "PostCSS", "ESLint", "Framer Motion", "Shadcn UI"],
                             gradient: "from-emerald-500/10 to-teal-500/5"
                         },
                         {
                             title: "Backend",
                             icon: "⚡",
-                            items: ["Node.js", "Express", "FastAPI", "Python", "Hono", "REST APIs", "GraphQL", "MongoDB", "PostgreSQL", "Mongoose", "Prisma"],
+                            items: ["Django", "Flask", "Node.js", "Express.js", "REST APIs", "GraphQL", "Gunicorn", "WhiteNoise", "Session Management", "JWT", "Flask-Mail", "python-dotenv"],
                             gradient: "from-orange-500/10 to-red-500/5"
+                        },
+                        {
+                            title: "Data & ML",
+                            icon: "📊",
+                            items: ["Scikit-learn", "TensorFlow", "PyTorch", "XGBoost", "Neural Networks", "Pandas", "NumPy", "Matplotlib", "SHAP", "Jupyter Notebook", "Feature Engineering", "EDA", "Hyperparameter Tuning"],
+                            gradient: "from-purple-500/10 to-pink-500/5"
+                        },
+                        {
+                            title: "Databases",
+                            icon: "🗄️",
+                            items: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Supabase", "SQLite", "Pinecone (Vector DB)", "PyMongo"],
+                            gradient: "from-amber-500/10 to-yellow-500/5"
                         },
                         {
                             title: "DevOps & Tools",
                             icon: "☁️",
-                            items: ["Docker", "AWS", "Git", "GitHub Actions", "Vercel", "Render", "CI/CD", "Linux"],
+                            items: ["Docker", "Git/GitHub", "CI/CD", "Vercel", "Render", "Railway", "AWS", "Netlify", "FFmpeg", "MoviePy", "Linux", "Postman"],
                             gradient: "from-blue-500/10 to-cyan-500/5"
+                        },
+                        {
+                            title: "Languages",
+                            icon: "💻",
+                            items: ["Python", "TypeScript", "JavaScript", "SQL", "Java", "HTML/CSS"],
+                            gradient: "from-rose-500/10 to-red-500/5"
                         },
                     ].map((section, sectionIndex) => (
                         <div
