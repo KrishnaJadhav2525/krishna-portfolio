@@ -39,17 +39,20 @@ export default function Skills() {
             className="py-32 relative overflow-hidden"
         >
             {/* Background Glow */}
-            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`} />
+            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[hsl(var(--primary)/0.1)] blur-[100px] rounded-full pointer-events-none transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`} />
 
             <Container>
                 <div className="mb-20 text-center md:text-left">
-                    <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
+                    <p className="text-sm font-mono text-[var(--text-accent)] mb-4 tracking-widest uppercase">
                         Technical Arsenal
                     </p>
-                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+                    <h2
+                        className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-6"
+                        style={{ fontFamily: "'Syne', system-ui, sans-serif" }}
+                    >
                         Technologies & Tools
                     </h2>
-                    <p className="text-neutral-400 max-w-2xl text-lg leading-relaxed">
+                    <p className="text-[var(--text-secondary)] max-w-2xl text-lg leading-relaxed">
                         A curated stack of modern tools and frameworks used to build scalable, production-ready applications.
                     </p>
                 </div>
@@ -88,7 +91,6 @@ export default function Skills() {
                                 flex flex-col items-start
                                 p-6 rounded-2xl
                                 glass
-                                hover:bg-white/[0.05]
                                 transition-all duration-300
                                 hover:-translate-y-1
                             `}
@@ -103,7 +105,7 @@ export default function Skills() {
 
                             <div className="flex items-center gap-3 mb-6">
                                 <span className="text-2xl filter grayscale group-hover:grayscale-0 transition-all duration-300 transform group-hover:scale-110">{section.icon}</span>
-                                <h3 className="text-lg font-bold text-white tracking-tight">
+                                <h3 className="text-lg font-bold text-[var(--text-primary)] tracking-tight">
                                     {section.title}
                                 </h3>
                             </div>
@@ -112,12 +114,12 @@ export default function Skills() {
                                 {section.items.map((skill) => (
                                     <Badge
                                         key={skill}
-                                        variant="secondary"
+                                        variant="glass"
                                         className="
                                             px-2.5 py-1 
                                             text-xs font-medium 
-                                            bg-white/5 border-white/5 text-neutral-400 
-                                            group-hover:text-white group-hover:bg-white/10 group-hover:border-white/10
+                                            text-[var(--text-secondary)]
+                                            group-hover:text-[var(--text-primary)]
                                             transition-all duration-300
                                             cursor-default
                                         "

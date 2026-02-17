@@ -5,13 +5,6 @@
  * 
  * A React component that provides semantic search functionality for blog posts.
  * Uses AI embeddings to find conceptually similar content, not just keyword matches.
- * 
- * Features:
- * - Debounced search input
- * - Loading and error states
- * - Displays relevance scores
- * - Links to blog posts
- * - Typewriter effect for "Streaming" feel
  */
 
 import { useState, useEffect, useCallback } from 'react';
@@ -94,7 +87,7 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
 
         setIsLoading(true);
         setError(null);
-        setResults([]); // Clear previous results to emphasize "new generation"
+        setResults([]);
 
         try {
             const response = await fetch(
@@ -105,9 +98,6 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
             if (!data.success) {
                 throw new Error(data.error || 'Search failed');
             }
-
-            // Simulate a slight network delay for dramatic effect if it's too fast
-            // await new Promise(resolve => setTimeout(resolve, 300));
 
             setResults(data.results || []);
             setHasSearched(true);
@@ -137,7 +127,7 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <svg
-                        className="h-5 w-5 text-neutral-500"
+                        className="h-5 w-5 text-[var(--text-tertiary)]"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -156,13 +146,13 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search blogs semantically..."
-                    className="w-full h-14 bg-white/5 backdrop-blur-md border-white/10 rounded-xl pl-12 pr-4 py-4 text-neutral-200 placeholder:text-neutral-500 focus-visible:border-indigo-500/50 focus-visible:ring-indigo-500/50 transition-all shadow-xl shadow-black/20"
+                    className="w-full h-14 glass-input rounded-xl pl-12 pr-4 py-4 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus-visible:ring-[hsl(var(--ring))] transition-all"
                 />
 
                 {/* Loading indicator */}
                 {isLoading && (
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
-                        <div className="w-5 h-5 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-[hsl(var(--primary)/0.3)] border-t-[hsl(var(--primary))] rounded-full animate-spin" />
                     </div>
                 )}
             </div>
@@ -183,12 +173,12 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
             {hasSearched && !error && (
                 <div className="mt-6 space-y-4">
                     {results.length === 0 ? (
-                        <p className="text-neutral-500 text-center py-8">
+                        <p className="text-[var(--text-tertiary)] text-center py-8">
                             No matching blogs found for &ldquo;{query}&rdquo;
                         </p>
                     ) : (
                         <>
-                            <p className="text-sm text-neutral-500">
+                            <p className="text-sm text-[var(--text-tertiary)]">
                                 Found {results.length} result{results.length !== 1 ? 's' : ''}
                             </p>
 
@@ -198,24 +188,24 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                                     href={`/blog/${blog.slug}`}
                                     className="block group"
                                 >
-                                    <div className="relative rounded-xl p-[1px] bg-gradient-to-br from-indigo-500/30 via-purple-500/20 to-transparent hover:from-indigo-500/50 hover:via-purple-500/40 transition-all duration-300">
-                                        <div className="relative rounded-xl bg-neutral-950/90 backdrop-blur-sm p-5 hover:bg-neutral-900/90 transition-colors">
+                                    <div className="relative rounded-xl p-[1px] bg-gradient-to-br from-[hsl(var(--primary)/0.3)] via-[hsl(var(--secondary)/0.2)] to-transparent hover:from-[hsl(var(--primary)/0.5)] hover:via-[hsl(var(--secondary)/0.4)] transition-all duration-300">
+                                        <div className="relative rounded-xl glass p-5 transition-colors">
                                             {/* Score badge */}
                                             <Badge
-                                                variant="secondary"
-                                                className="absolute top-4 right-4 bg-indigo-500/20 text-indigo-300 border-indigo-500/30 hover:bg-indigo-500/30"
+                                                variant="glass"
+                                                className="absolute top-4 right-4"
                                             >
                                                 {formatScore(score)}
                                             </Badge>
 
                                             {/* Title */}
-                                            <h3 className="text-lg font-medium text-white group-hover:text-indigo-300 transition-colors pr-24">
+                                            <h3 className="text-lg font-medium text-[var(--text-primary)] group-hover:text-[var(--text-accent)] transition-colors pr-24">
                                                 {blog.title}
                                             </h3>
 
                                             {/* Description - Streaming Effect */}
                                             {blog.description && (
-                                                <p className="mt-2 text-sm text-neutral-400 line-clamp-2 min-h-[40px]">
+                                                <p className="mt-2 text-sm text-[var(--text-secondary)] line-clamp-2 min-h-[40px]">
                                                     <Typewriter text={blog.description} speed={15} />
                                                 </p>
                                             )}
@@ -226,8 +216,8 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                                                     {blog.tags.slice(0, 4).map((tag) => (
                                                         <Badge
                                                             key={tag}
-                                                            variant="outline"
-                                                            className="bg-white/5 border-white/10 text-neutral-400 hover:text-white"
+                                                            variant="glass"
+                                                            className="text-[var(--text-secondary)]"
                                                         >
                                                             {tag}
                                                         </Badge>
@@ -245,7 +235,7 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
 
             {/* Help text when not searching */}
             {!hasSearched && !isLoading && (
-                <p className="mt-4 text-sm text-neutral-500 text-center">
+                <p className="mt-4 text-sm text-[var(--text-tertiary)] text-center">
                     Enter a topic or concept to find related blog posts using AI-powered semantic search
                 </p>
             )}

@@ -1,13 +1,12 @@
 import "./global.css"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
 import Navbar from "./components/nav"
 import Footer from "./components/footer"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { baseUrl } from "./blog/lib/site"
 import Script from "next/script"
+import { ThemeProvider } from "./components/theme-provider"
 
 import PageWrapper from "./components/page-wrapper"
 
@@ -43,8 +42,6 @@ export const metadata: Metadata = {
   },
 }
 
-const cx = (...classes: string[]) => classes.filter(Boolean).join(" ")
-
 export default function RootLayout({
   children,
 }: {
@@ -58,19 +55,27 @@ export default function RootLayout({
     "jobTitle": "Full Stack Developer",
     "sameAs": [
       "https://github.com/krishna-jadhav",
-      // Add other social links here if available
     ]
   }
 
   return (
     <html
       lang="en"
-      className={cx(
-        "bg-[var(--background)] text-[var(--foreground)]",
-        GeistSans.variable,
-        GeistMono.variable
-      )}
+      className="bg-[var(--background)] text-[var(--foreground)]"
     >
+      <head>
+        {/* Anti-FOUC: apply saved theme before paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const t = localStorage.getItem('theme');
+                if (t === 'light') document.documentElement.classList.add('light');
+              } catch(e) {}
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased min-h-screen flex flex-col relative">
         {/* JSON-LD for SEO */}
         <Script
@@ -79,16 +84,18 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        {/* NAVBAR — FULL WIDTH */}
-        <div className="px-6 md:px-12">
-          <Navbar />
-        </div>
+        <ThemeProvider>
+          {/* NAVBAR — FULL WIDTH */}
+          <div className="px-6 md:px-12">
+            <Navbar />
+          </div>
 
-        {/* PAGE CONTENT (WIDTH CONTROLLED INSIDE) */}
-        <PageWrapper>
-          {children}
-          <Footer />
-        </PageWrapper>
+          {/* PAGE CONTENT (WIDTH CONTROLLED INSIDE) */}
+          <PageWrapper>
+            {children}
+            <Footer />
+          </PageWrapper>
+        </ThemeProvider>
 
         <Analytics />
         <SpeedInsights />

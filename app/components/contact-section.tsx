@@ -76,7 +76,7 @@ export function ContactSection() {
 
     return (
         <FadeIn
-            className="py-24 border-t border-white/5 bg-black/50 relative overflow-hidden"
+            className="py-24 border-t border-[var(--glass-border)] relative overflow-hidden"
             fullWidth
         >
             <section
@@ -85,11 +85,14 @@ export function ContactSection() {
             >
                 <Container className="relative z-10">
                     <div className="mb-16">
-                        <p className="text-sm font-mono text-indigo-400 mb-4 tracking-widest uppercase">
+                        <p className="text-sm font-mono text-[var(--text-accent)] mb-4 tracking-widest uppercase">
                             Get In Touch
                         </p>
-                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
-                            Let's create something <span className="text-neutral-500">extraordinary.</span>
+                        <h2
+                            className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--text-primary)] mb-4"
+                            style={{ fontFamily: "'Syne', system-ui, sans-serif" }}
+                        >
+                            Let's create something <span className="text-[var(--text-tertiary)]">extraordinary.</span>
                         </h2>
                     </div>
 
@@ -106,14 +109,14 @@ export function ContactSection() {
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
-                                        <p className="text-neutral-400 max-w-xs mx-auto mb-8">
+                                        <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Message Received!</h3>
+                                        <p className="text-[var(--text-secondary)] max-w-xs mx-auto mb-8">
                                             {status.message}
                                         </p>
                                         <Button
                                             onClick={() => setStatus({ type: '', message: '' })}
                                             variant="outline"
-                                            className="bg-white/5 border-white/10 hover:bg-white/10"
+                                            className="glass"
                                         >
                                             Send another
                                         </Button>
@@ -121,7 +124,7 @@ export function ContactSection() {
                                 ) : (
                                     <form onSubmit={handleSubmit} className="space-y-6">
                                         <div className="space-y-2">
-                                            <label htmlFor="email" className="text-sm font-medium text-neutral-400 ml-1">Email Address</label>
+                                            <label htmlFor="email" className="text-sm font-medium text-[var(--text-secondary)] ml-1">Email Address</label>
                                             <Input
                                                 type="email"
                                                 id="email"
@@ -134,7 +137,7 @@ export function ContactSection() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label htmlFor="subject" className="text-sm font-medium text-neutral-400 ml-1">Subject</label>
+                                            <label htmlFor="subject" className="text-sm font-medium text-[var(--text-secondary)] ml-1">Subject</label>
                                             <Input
                                                 type="text"
                                                 id="subject"
@@ -147,7 +150,7 @@ export function ContactSection() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label htmlFor="message" className="text-sm font-medium text-neutral-400 ml-1">Message</label>
+                                            <label htmlFor="message" className="text-sm font-medium text-[var(--text-secondary)] ml-1">Message</label>
                                             <Textarea
                                                 id="message"
                                                 name="message"
@@ -162,7 +165,7 @@ export function ContactSection() {
                                         <Button
                                             type="submit"
                                             size="lg"
-                                            className="w-full text-base font-bold h-14 rounded-full shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] group/btn"
+                                            className="w-full text-base font-bold h-14 rounded-full group/btn"
                                         >
                                             Send Message
                                             <span className="group-hover/btn:translate-x-1 transition-transform ml-2">→</span>
@@ -183,23 +186,23 @@ export function ContactSection() {
                         <div className="flex flex-col justify-between py-4">
                             <div className="space-y-12">
                                 <div>
-                                    <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
-                                        <span className="w-8 h-px bg-indigo-500"></span>
+                                    <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-6 flex items-center gap-3">
+                                        <span className="w-8 h-px bg-[hsl(var(--primary))]"></span>
                                         Contact Info
                                     </h3>
                                     <div className="space-y-4">
-                                        <a href="mailto:jadhavkrishna475@gmail.com" className="block text-2xl md:text-3xl font-light text-neutral-300 hover:text-white transition-colors">
+                                        <a href="mailto:jadhavkrishna475@gmail.com" className="block text-2xl md:text-3xl font-light text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                                             jadhavkrishna475@gmail.com
                                         </a>
-                                        <p className="text-neutral-500">
+                                        <p className="text-[var(--text-tertiary)]">
                                             Based in India • Available Worldwide
                                         </p>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
-                                        <span className="w-8 h-px bg-purple-500"></span>
+                                    <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-6 flex items-center gap-3">
+                                        <span className="w-8 h-px bg-[hsl(var(--secondary))]"></span>
                                         Connect
                                     </h3>
                                     <div className="flex flex-wrap gap-4">
@@ -209,11 +212,11 @@ export function ContactSection() {
                                                 href={href}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="group relative flex items-center justify-center p-4 rounded-2xl glass hover:bg-white/[0.05] transition-all duration-300"
+                                                className="group relative flex items-center justify-center p-4 rounded-2xl glass transition-all duration-300"
                                                 aria-label={label}
                                             >
-                                                <Icon size={24} className="text-neutral-400 group-hover:text-white transition-colors" />
-                                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-black border border-white/10 rounded-lg text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                                <Icon size={24} className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
+                                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 glass rounded-lg text-xs text-[var(--text-primary)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
                                                     {label}
                                                 </span>
                                             </a>
@@ -223,7 +226,7 @@ export function ContactSection() {
                             </div>
 
                             <div className="hidden md:block">
-                                <p className="text-neutral-600 text-sm max-w-xs leading-relaxed">
+                                <p className="text-[var(--text-tertiary)] text-sm max-w-xs leading-relaxed">
                                     I'm currently opening to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
                                 </p>
                             </div>
