@@ -75,3 +75,4 @@
 - [2026-02-18T05:14:28.796Z] feat: add form validation logic
 - [2026-02-18T17:18:57.796Z] docs: fix typos in documentation
 - [2026-02-18T03:30:12.796Z] chore: update .gitignore
+- [2026-02-18T15:39:25.796Z] fix: fix memory leak in event listener
