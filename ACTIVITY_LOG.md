@@ -60,3 +60,4 @@
 - [2026-02-12T14:07:11.230Z] feat: add support for image optimization
 - [2026-02-12T07:33:53.230Z] feat: create animated hero section
 - [2026-02-18T16:40:11.796Z] fix: resolve api timeout error
+- [2026-02-18T07:28:00.796Z] fix: fix overflow issue on small screens
