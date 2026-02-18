@@ -85,3 +85,4 @@
 - [2026-02-18T13:45:05.796Z] test: setup jest configuration
 - [2026-02-18T17:46:36.796Z] refactor: optimize image loading strategy
 - [2026-02-18T09:24:22.796Z] feat: integrate newsletter subscription form
+- [2026-02-18T14:36:06.796Z] fix: resolve hydration mismatch error
