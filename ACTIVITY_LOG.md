@@ -88,3 +88,4 @@
 - [2026-02-18T14:36:06.796Z] fix: resolve hydration mismatch error
 - [2026-02-18T14:21:44.796Z] fix: fix infinite loop in useEffect
 - [2026-02-18T12:28:23.796Z] fix: fix memory leak in event listener
+- [2026-02-18T11:33:48.796Z] feat: add support for image optimization
