@@ -64,3 +64,4 @@
 - [2026-02-18T14:09:51.796Z] feat: create responsive navigation bar
 - [2026-02-18T09:38:59.796Z] chore: update npm dependencies
 - [2026-02-18T16:00:15.796Z] chore: update test command scripts
+- [2026-02-18T04:18:51.796Z] fix: fix memory leak in event listener
