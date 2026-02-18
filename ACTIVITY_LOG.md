@@ -76,3 +76,4 @@
 - [2026-02-18T17:18:57.796Z] docs: fix typos in documentation
 - [2026-02-18T03:30:12.796Z] chore: update .gitignore
 - [2026-02-18T15:39:25.796Z] fix: fix memory leak in event listener
+- [2026-02-18T11:48:42.796Z] feat: add analytics tracking
