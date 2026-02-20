@@ -25,7 +25,8 @@ Features a fully integrated blog system, SEO optimization, and production-ready 
 - Curated sidebar section
 
 ### 🎨 Portfolio
-- Minimal, modern dark UI with glassmorphism effects
+- Minimal, modern dark/light UI with glassmorphism effects
+- Full Themeable UI support (Dark & Light modes)
 - Home, About, and Blog pages
 - Skills, experience, and education sections
 - Contact form with email integration
