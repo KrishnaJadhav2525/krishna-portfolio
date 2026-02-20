@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot, X, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
@@ -21,6 +21,78 @@ interface Project {
 }
 
 const projects: Project[] = [
+    {
+        title: "AI-Powered Ad Creator",
+        description: "Fully automated ad generation pipeline. Researches via Tavily, scripts with Gemini 2.0, generates video with Kling v2 (Fal.ai), and assembles with FFmpeg.",
+        features: [
+            "Gemini 2.0 Scripting",
+            "Kling v2 Video Gen",
+            "Tavily Market Research",
+            "Auto-Google Drive Upload"
+        ],
+        stats: [
+            { label: "Video", value: "Kling v2", icon: Video },
+            { label: "Script", value: "Gemini", icon: Zap },
+            { label: "Pipeline", value: "Auto", icon: Activity }
+        ],
+        links: { github: "https://github.com/KrishnaJadhav2525/ai-powered-ad-creator" },
+        tags: ['Python', 'Gemini 2.0', 'Fal.ai', 'Tavily', 'FFmpeg', 'Google Drive API'],
+        gradient: "from-violet-600/50 via-purple-500/30 to-transparent",
+        iconBg: "bg-violet-500/10",
+        iconBorder: "border-violet-500/20",
+        iconColor: "text-violet-400",
+        iconPath: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        )
+    },
+    {
+        title: "Venture Scout Platform",
+        description: "VC Intelligence Platform for startup discovery. Features live AI enrichment via Jina AI & Groq (Llama 3), searchable company database, and analyst notes.",
+        features: [
+            "Live AI Enrichment",
+            "Groq Llama 3 Analysis",
+            "Jina AI Web Scraping",
+            "Curated Lists & Notes"
+        ],
+        stats: [
+            { label: "AI", value: "Llama 3", icon: Zap },
+            { label: "Scraper", value: "Jina AI", icon: Activity },
+            { label: "Cost", value: "$0", icon: BarChart3 }
+        ],
+        links: { github: "https://github.com/KrishnaJadhav2525/venture-scout-enrichment-platform" },
+        tags: ['Next.js 14', 'Groq Llama 3', 'Jina AI', 'Tailwind', 'LocalStorage'],
+        gradient: "from-blue-600/50 via-indigo-500/30 to-transparent",
+        iconBg: "bg-blue-500/10",
+        iconBorder: "border-blue-500/20",
+        iconColor: "text-blue-400",
+        iconPath: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        )
+    },
+    {
+        title: "WhatsApp AI Agent",
+        description: "Fully automated WhatsApp bot for managing availability. Features sleep mode, busy status, and smart auto-replies using n8n & PostgreSQL.",
+        features: [
+            "Automated Availability Mgmt",
+            "Sleep/Busy Modes",
+            "PostgreSQL State Persistence",
+            "n8n Workflow Automation"
+        ],
+        stats: [
+            { label: "Stack", value: "n8n", icon: Zap },
+            { label: "DB", value: "Postgres", icon: Database },
+            { label: "Uptime", value: "24/7", icon: Activity }
+        ],
+        links: { github: "https://github.com/KrishnaJadhav2525/whatsapp-ai-agent-n8n" },
+        tags: ['n8n', 'PostgreSQL', 'WhatsApp API', 'JavaScript'],
+        gradient: "from-green-500/50 via-emerald-500/30 to-transparent",
+        iconBg: "bg-green-500/10",
+        iconBorder: "border-green-500/20",
+        iconColor: "text-green-400",
+        iconPath: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        )
+    },
     {
         title: "Binance Futures Bot",
         description: "Production-quality CLI trading bot for Binance Futures Testnet (USDT-M). Features robust validation, structured logging, and market/limit order support.",
