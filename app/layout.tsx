@@ -9,6 +9,7 @@ import Script from "next/script"
 import { ThemeProvider } from "./components/theme-provider"
 
 import PageWrapper from "./components/page-wrapper"
+import ChatWidget from "./components/chat-widget"
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -95,6 +96,8 @@ export default function RootLayout({
             {children}
             <Footer />
           </PageWrapper>
+
+          <ChatWidget />
         </ThemeProvider>
 
         <Analytics />

@@ -24,6 +24,13 @@ Features a fully integrated blog system, SEO optimization, and production-ready 
 - Tags, descriptions, and read time
 - Curated sidebar section
 
+### 💬 AI Conversational Chatbot
+- Integrated **OpenRouter API** to provide access to hundreds of LLMs
+- Fetches from a pool of high-quality free models (Llama 3, Qwen 2.5, Nemotron, etc.)
+- Graceful API error handling with automatic model fallback algorithms (handles 404, 429, 5xx)
+- Custom system prompt loaded with portfolio and resume context 
+- Sliding, responsive UI widget built with Framer Motion and Tailwind CSS
+
 ### 🎨 Portfolio
 - Minimal, modern dark/light UI with glassmorphism effects
 - Full Themeable UI support (Dark & Light modes)
@@ -51,7 +58,8 @@ Features a fully integrated blog system, SEO optimization, and production-ready 
 | **Styling** | Tailwind CSS |
 | **Database** | MongoDB (Mongoose) |
 | **Vector DB** | Pinecone |
-| **AI/Embeddings** | Google Generative AI |
+| **Search AI** | Google Generative AI |
+| **Chatbot AI** | OpenRouter (Multiple Models) |
 | **Content** | Markdown (`.md`) |
 | **Package Manager** | pnpm |
 | **Deployment** | Vercel |
@@ -158,6 +166,28 @@ User Query → Google AI (embed) → Pinecone (similarity search) → MongoDB (f
 2. **Storage**: Vectors stored in Pinecone with MongoDB IDs as references
 3. **Search**: Query is embedded, compared against all vectors, ranked by similarity
 4. **Results**: Matching blog IDs fetched from MongoDB with full content
+
+---
+
+## 🤖 How the AI Chatbot Works
+
+```
+User Message → Next.js API Route → OpenRouter (LLM routing) → Model Response → UI Widget
+```
+
+### Implementation Steps
+
+1. **System Prompt Design**: A comprehensive system prompt is defined in the API route containing resume details, tech stack, and project history to give the AI its persona.
+2. **Model Pool Configuration**: A configured array of reliable, free endpoints from OpenRouter is established (e.g., `nvidia/nemotron-3-nano-30b-a3b:free`, `qwen/qwen-2.5-72b-instruct:free`). 
+3. **API Route Architecture (`api/chat/route.ts`)**: 
+   - Receives the message array from the frontend.
+   - Iterates through the `FREE_MODELS` array.
+   - Attempts to send a request to OpenRouter with the current model.
+4. **Resilient Error Handling**: 
+   - If a model responds with a structural success (`response.ok`), the reply is parsed and sent to the client.
+   - If an endpoint returns an error (like `404 Not Found` for deprecated models, `429 Rate Limit`, or `5xx Server Error`), the loop seamlessly catches it and **falls back to the next model in the list**.
+   - If an `401 Unauthorized` is returned, it halts immediately (indicating an implementation error with the API Key).
+5. **Frontend UI Widget**: A floating, toggleable chat interface built using standard React state (`useState`) and animated gracefully using `framer-motion` to handle expanding, collapsing, and message streaming.
 
 ---
 
