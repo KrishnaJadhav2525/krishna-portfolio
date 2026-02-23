@@ -93,3 +93,4 @@
 - [2026-02-23T14:28:57.641Z] fix: fix infinite loop in useEffect
 - [2026-02-23T07:12:40.641Z] feat: add loading skeletons for dashboard
 - [2026-02-23T11:39:02.641Z] refactor: modernize css usage
+- [2026-02-23T09:34:50.641Z] docs: add structure diagram
