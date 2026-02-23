@@ -109,3 +109,4 @@
 - [2026-02-23T10:05:22.641Z] docs: document environment variables
 - [2026-02-23T03:39:40.641Z] fix: resolve race condition in data fetching
 - [2026-02-23T17:48:58.641Z] feat: add analytics tracking
+- [2026-02-23T05:15:07.641Z] fix: fix infinite loop in useEffect
