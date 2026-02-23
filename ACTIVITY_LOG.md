@@ -102,3 +102,4 @@
 - [2026-02-23T16:21:35.641Z] fix: fix overflow issue on small screens
 - [2026-02-23T05:59:27.641Z] chore: update test command scripts
 - [2026-02-23T09:50:07.641Z] feat: update user profile layout
+- [2026-02-23T06:43:48.641Z] feat: add dark mode toggle
