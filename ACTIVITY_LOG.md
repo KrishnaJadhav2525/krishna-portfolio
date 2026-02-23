@@ -118,3 +118,4 @@
 - [2026-02-23T14:55:41.641Z] docs: document environment variables
 - [2026-02-23T09:32:03.641Z] refactor: update dependency versions
 - [2026-02-23T16:42:04.641Z] feat: implement secure authentication flow
+- [2026-02-23T05:39:15.641Z] chore: update test command scripts
