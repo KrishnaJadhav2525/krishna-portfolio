@@ -91,3 +91,4 @@
 - [2026-02-18T11:33:48.796Z] feat: add support for image optimization
 - [2026-02-23T04:55:27.641Z] feat: add form validation logic
 - [2026-02-23T14:28:57.641Z] fix: fix infinite loop in useEffect
+- [2026-02-23T07:12:40.641Z] feat: add loading skeletons for dashboard
