@@ -98,3 +98,4 @@
 - [2026-02-23T15:02:24.641Z] refactor: update dependency versions
 - [2026-02-23T06:09:32.641Z] fix: correct margin on mobile devices
 - [2026-02-23T16:05:48.641Z] refactor: improve code readability
+- [2026-02-23T11:53:56.641Z] fix: fix typo in landing page copy
