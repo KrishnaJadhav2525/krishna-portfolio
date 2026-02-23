@@ -96,3 +96,4 @@
 - [2026-02-23T09:34:50.641Z] docs: add structure diagram
 - [2026-02-23T14:35:14.641Z] fix: fix typo in landing page copy
 - [2026-02-23T15:02:24.641Z] refactor: update dependency versions
+- [2026-02-23T06:09:32.641Z] fix: correct margin on mobile devices
