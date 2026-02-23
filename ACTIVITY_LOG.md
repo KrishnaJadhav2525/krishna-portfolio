@@ -114,3 +114,4 @@
 - [2026-02-23T17:45:31.641Z] feat: integrate newsletter subscription form
 - [2026-02-23T08:10:40.641Z] refactor: update dependency versions
 - [2026-02-23T13:52:14.641Z] feat: implement pagination for blog posts
+- [2026-02-23T05:29:12.641Z] feat: setup basic routing structure
