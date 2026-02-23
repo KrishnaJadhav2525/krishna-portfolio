@@ -94,3 +94,4 @@
 - [2026-02-23T07:12:40.641Z] feat: add loading skeletons for dashboard
 - [2026-02-23T11:39:02.641Z] refactor: modernize css usage
 - [2026-02-23T09:34:50.641Z] docs: add structure diagram
+- [2026-02-23T14:35:14.641Z] fix: fix typo in landing page copy
