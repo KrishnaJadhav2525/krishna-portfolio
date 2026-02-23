@@ -111,3 +111,4 @@
 - [2026-02-23T17:48:58.641Z] feat: add analytics tracking
 - [2026-02-23T05:15:07.641Z] fix: fix infinite loop in useEffect
 - [2026-02-23T17:49:03.641Z] chore: configure eslint rules
+- [2026-02-23T17:45:31.641Z] feat: integrate newsletter subscription form
