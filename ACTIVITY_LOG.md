@@ -89,3 +89,4 @@
 - [2026-02-18T14:21:44.796Z] fix: fix infinite loop in useEffect
 - [2026-02-18T12:28:23.796Z] fix: fix memory leak in event listener
 - [2026-02-18T11:33:48.796Z] feat: add support for image optimization
+- [2026-02-23T04:55:27.641Z] feat: add form validation logic
