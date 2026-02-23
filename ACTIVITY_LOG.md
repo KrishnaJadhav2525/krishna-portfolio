@@ -100,3 +100,4 @@
 - [2026-02-23T16:05:48.641Z] refactor: improve code readability
 - [2026-02-23T11:53:56.641Z] fix: fix typo in landing page copy
 - [2026-02-23T16:21:35.641Z] fix: fix overflow issue on small screens
+- [2026-02-23T05:59:27.641Z] chore: update test command scripts
