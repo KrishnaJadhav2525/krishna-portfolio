@@ -123,3 +123,4 @@
 - [2026-02-24T13:05:15.812Z] fix: fix typo in landing page copy
 - [2026-02-24T17:35:35.812Z] fix: handle null state in user card
 - [2026-02-24T04:45:35.812Z] feat: add dark mode toggle
+- [2026-02-24T13:36:47.812Z] fix: fix z-index issue on modal
