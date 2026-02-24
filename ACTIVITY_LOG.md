@@ -138,3 +138,4 @@
 - [2026-02-24T10:48:21.812Z] feat: add support for image optimization
 - [2026-02-24T18:03:49.812Z] fix: resolve race condition in data fetching
 - [2026-02-24T14:56:09.812Z] refactor: modernize css usage
+- [2026-02-24T15:28:48.812Z] chore: modify typescript config
