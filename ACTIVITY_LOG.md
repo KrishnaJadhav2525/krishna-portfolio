@@ -128,3 +128,4 @@
 - [2026-02-24T15:58:20.812Z] fix: handle null state in user card
 - [2026-02-24T17:37:06.812Z] refactor: restructure folder hierarchy
 - [2026-02-24T07:31:56.812Z] refactor: extract helper functions to utils
+- [2026-02-24T11:25:12.812Z] feat: setup basic routing structure
