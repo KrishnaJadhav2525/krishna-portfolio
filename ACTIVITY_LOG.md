@@ -129,3 +129,4 @@
 - [2026-02-24T17:37:06.812Z] refactor: restructure folder hierarchy
 - [2026-02-24T07:31:56.812Z] refactor: extract helper functions to utils
 - [2026-02-24T11:25:12.812Z] feat: setup basic routing structure
+- [2026-02-24T04:05:27.812Z] docs: add comments to complex logic
