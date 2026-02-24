@@ -144,3 +144,4 @@
 - [2026-02-24T07:28:26.812Z] feat: update user profile layout
 - [2026-02-24T17:14:00.812Z] fix: correct date formatting
 - [2026-02-24T15:52:27.812Z] fix: correct date formatting
+- [2026-02-24T07:02:49.812Z] feat: implement pagination for blog posts
