@@ -124,3 +124,4 @@
 - [2026-02-24T17:35:35.812Z] fix: handle null state in user card
 - [2026-02-24T04:45:35.812Z] feat: add dark mode toggle
 - [2026-02-24T13:36:47.812Z] fix: fix z-index issue on modal
+- [2026-02-24T04:50:28.812Z] docs: update README with setup instructions
