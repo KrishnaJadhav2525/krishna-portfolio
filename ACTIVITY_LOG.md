@@ -153,3 +153,4 @@
 - [2026-02-25T08:09:07.000Z] chore: update vercel configuration
 - [2026-02-25T05:53:11.000Z] refactor: improve code readability
 - [2026-02-25T07:40:57.000Z] fix: fix overflow issue on small screens
+- [2026-02-25T05:50:42.000Z] fix: fix infinite loop in useEffect
