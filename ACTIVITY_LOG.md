@@ -173,3 +173,4 @@
 - [2026-02-25T17:25:03.000Z] fix: fix infinite loop in useEffect
 - [2026-02-25T14:29:50.000Z] refactor: optimize image loading strategy
 - [2026-02-25T06:43:17.000Z] refactor: rename components for clarity
+- [2026-02-25T17:45:25.000Z] chore: update npm dependencies
