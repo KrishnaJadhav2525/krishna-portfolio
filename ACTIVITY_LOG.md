@@ -163,3 +163,4 @@
 - [2026-02-25T18:20:55.000Z] feat: integrate newsletter subscription form
 - [2026-02-25T05:53:42.000Z] test: mock api response for testing
 - [2026-02-25T10:39:56.000Z] fix: fix typo in landing page copy
+- [2026-02-25T04:08:57.000Z] fix: correct color contrast for accessibility
