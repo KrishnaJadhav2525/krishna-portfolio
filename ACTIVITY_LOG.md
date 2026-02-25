@@ -169,3 +169,4 @@
 - [2026-02-25T08:28:59.000Z] chore: cleanup temporary files
 - [2026-02-25T08:32:39.000Z] feat: add support for image optimization
 - [2026-02-25T04:21:39.000Z] docs: update README with setup instructions
+- [2026-02-25T04:49:38.000Z] feat: add support for image optimization
