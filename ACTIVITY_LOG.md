@@ -149,3 +149,4 @@
 - [2026-02-24T18:03:44.812Z] fix: fix typo in landing page copy
 - [2026-02-24T14:23:33.812Z] chore: configure eslint rules
 - [2026-02-24T11:10:19.812Z] fix: fix broken link in footer
+- [2026-02-25T12:28:27.000Z] refactor: clean up unused imports
