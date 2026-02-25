@@ -167,3 +167,4 @@
 - [2026-02-25T15:08:13.000Z] docs: add comments to complex logic
 - [2026-02-25T10:59:56.000Z] feat: integrate newsletter subscription form
 - [2026-02-25T08:28:59.000Z] chore: cleanup temporary files
+- [2026-02-25T08:32:39.000Z] feat: add support for image optimization
