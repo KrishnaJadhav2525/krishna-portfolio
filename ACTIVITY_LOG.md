@@ -160,3 +160,4 @@
 - [2026-02-25T09:01:45.000Z] refactor: restructure folder hierarchy
 - [2026-02-25T10:27:11.000Z] chore: organize assets folder
 - [2026-02-25T08:10:17.000Z] feat: integrate newsletter subscription form
+- [2026-02-25T18:20:55.000Z] feat: integrate newsletter subscription form
