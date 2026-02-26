@@ -182,3 +182,4 @@
 - [2026-02-26T07:02:25.000Z] fix: fix broken link in footer
 - [2026-02-26T13:52:41.000Z] chore: tweak prettier config
 - [2026-02-26T09:02:34.000Z] test: mock api response for testing
+- [2026-02-26T05:09:48.000Z] feat: add analytics tracking
