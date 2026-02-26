@@ -203,3 +203,4 @@
 - [2026-02-26T13:14:24.000Z] refactor: remove deprecated api calls
 - [2026-02-26T11:19:43.000Z] feat: add form validation logic
 - [2026-02-26T17:25:09.000Z] chore: update npm dependencies
+- [2026-02-26T15:03:40.000Z] refactor: rename components for clarity
