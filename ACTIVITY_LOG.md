@@ -201,3 +201,4 @@
 - [2026-02-26T10:31:29.000Z] fix: resolve api timeout error
 - [2026-02-26T14:58:31.000Z] docs: update README with setup instructions
 - [2026-02-26T13:14:24.000Z] refactor: remove deprecated api calls
+- [2026-02-26T11:19:43.000Z] feat: add form validation logic
