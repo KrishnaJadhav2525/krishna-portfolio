@@ -191,3 +191,4 @@
 - [2026-02-26T11:01:08.000Z] fix: fix typo in landing page copy
 - [2026-02-26T10:09:22.000Z] fix: resolve race condition in data fetching
 - [2026-02-26T06:55:26.000Z] feat: update user profile layout
+- [2026-02-26T03:39:41.000Z] feat: update user profile layout
