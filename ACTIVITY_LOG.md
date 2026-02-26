@@ -187,3 +187,4 @@
 - [2026-02-26T15:25:22.000Z] feat: create responsive navigation bar
 - [2026-02-26T05:54:19.000Z] refactor: unify color palette variables
 - [2026-02-26T04:36:02.000Z] chore: tweak prettier config
+- [2026-02-26T03:41:32.000Z] refactor: clean up unused imports
