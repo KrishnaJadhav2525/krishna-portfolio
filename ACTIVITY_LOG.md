@@ -186,3 +186,4 @@
 - [2026-02-26T18:12:19.000Z] fix: fix memory leak in event listener
 - [2026-02-26T15:25:22.000Z] feat: create responsive navigation bar
 - [2026-02-26T05:54:19.000Z] refactor: unify color palette variables
+- [2026-02-26T04:36:02.000Z] chore: tweak prettier config
