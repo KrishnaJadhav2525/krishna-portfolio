@@ -195,3 +195,4 @@
 - [2026-02-26T16:33:41.000Z] feat: add social media sharing links
 - [2026-02-26T13:37:33.000Z] feat: implement pagination for blog posts
 - [2026-02-26T14:17:43.000Z] fix: handle null state in user card
+- [2026-02-26T06:05:15.000Z] feat: create reusable button component
