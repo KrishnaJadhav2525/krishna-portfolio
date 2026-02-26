@@ -189,3 +189,4 @@
 - [2026-02-26T04:36:02.000Z] chore: tweak prettier config
 - [2026-02-26T03:41:32.000Z] refactor: clean up unused imports
 - [2026-02-26T11:01:08.000Z] fix: fix typo in landing page copy
+- [2026-02-26T10:09:22.000Z] fix: resolve race condition in data fetching
