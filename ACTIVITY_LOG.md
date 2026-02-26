@@ -179,3 +179,4 @@
 - [2026-02-25T05:56:04.000Z] refactor: remove deprecated api calls
 - [2026-02-25T15:56:01.000Z] fix: fix typo in landing page copy
 - [2026-02-25T13:37:35.000Z] fix: fix infinite loop in useEffect
+- [2026-02-26T07:02:25.000Z] fix: fix broken link in footer
