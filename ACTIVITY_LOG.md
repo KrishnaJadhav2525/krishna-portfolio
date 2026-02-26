@@ -199,3 +199,4 @@
 - [2026-02-26T07:36:33.000Z] feat: implement search functionality
 - [2026-02-26T06:01:05.000Z] refactor: unify color palette variables
 - [2026-02-26T10:31:29.000Z] fix: resolve api timeout error
+- [2026-02-26T14:58:31.000Z] docs: update README with setup instructions
