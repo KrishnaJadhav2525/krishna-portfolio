@@ -194,3 +194,4 @@
 - [2026-02-26T03:39:41.000Z] feat: update user profile layout
 - [2026-02-26T16:33:41.000Z] feat: add social media sharing links
 - [2026-02-26T13:37:33.000Z] feat: implement pagination for blog posts
+- [2026-02-26T14:17:43.000Z] fix: handle null state in user card
