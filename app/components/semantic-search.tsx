@@ -2,15 +2,13 @@
 
 /**
  * SemanticSearch Component
- * 
+ *
  * A React component that provides semantic search functionality for blog posts.
  * Uses AI embeddings to find conceptually similar content, not just keyword matches.
  */
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Input } from "@/app/components/ui/input";
-import { Badge } from "@/app/components/ui/badge";
 
 // TypeScript interfaces
 interface Blog {
@@ -50,7 +48,7 @@ function Typewriter({ text, speed = 10 }: { text: string; speed?: number }) {
     const [displayedText, setDisplayedText] = useState('');
 
     useEffect(() => {
-        setDisplayedText(''); // Reset on text change
+        setDisplayedText('');
         let i = 0;
         const timer = setInterval(() => {
             if (i < text.length) {
@@ -74,10 +72,8 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
     const [error, setError] = useState<string | null>(null);
     const [hasSearched, setHasSearched] = useState(false);
 
-    // Debounce search query by 500ms
     const debouncedQuery = useDebounce(query, 500);
 
-    // Perform search when debounced query changes
     const performSearch = useCallback(async (searchQuery: string) => {
         if (!searchQuery || searchQuery.length < 2) {
             setResults([]);
@@ -111,12 +107,10 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
         }
     }, []);
 
-    // Trigger search when debounced query changes
     useEffect(() => {
         performSearch(debouncedQuery);
     }, [debouncedQuery, performSearch]);
 
-    // Format similarity score as percentage
     const formatScore = (score: number): string => {
         return `${Math.round(score * 100)}% match`;
     };
@@ -125,107 +119,74 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
         <div className={`w-full max-w-2xl mx-auto ${className}`}>
             {/* Search Input */}
             <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg
-                        className="h-5 w-5 text-[var(--text-tertiary)]"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                    </svg>
-                </div>
-
-                <Input
+                <input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search blogs semantically..."
-                    className="w-full h-14 glass-input rounded-xl pl-12 pr-4 py-4 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus-visible:ring-[hsl(var(--ring))] transition-all"
+                    placeholder="Search articles semantically by concept..."
+                    className="w-full bg-transparent border border-[var(--color-border)] px-4 py-3 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-colors duration-150"
                 />
 
-                {/* Loading indicator */}
                 {isLoading && (
-                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
-                        <div className="w-5 h-5 border-2 border-[hsl(var(--primary)/0.3)] border-t-[hsl(var(--primary))] rounded-full animate-spin" />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-xs text-[var(--color-subtle)]">
+                        Searching...
                     </div>
                 )}
             </div>
 
             {/* Error Message */}
             {error && (
-                <div className="mt-4 p-4 rounded-xl bg-red-500/10 border border-red-500/30">
-                    <p className="text-sm text-red-400 flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {error}
-                    </p>
+                <div className="mt-3 p-3 border border-red-500/30 text-xs font-mono text-red-500">
+                    {error}
                 </div>
             )}
 
-            {/* Results */}
+            {/* Results List */}
             {hasSearched && !error && (
-                <div className="mt-6 space-y-4">
+                <div className="mt-4 border border-[var(--color-border)] divide-y divide-[var(--color-border)] bg-[var(--color-bg)]">
                     {results.length === 0 ? (
-                        <p className="text-[var(--text-tertiary)] text-center py-8">
-                            No matching blogs found for &ldquo;{query}&rdquo;
+                        <p className="text-xs font-mono text-[var(--color-subtle)] text-center py-6">
+                            No semantic matches found for &ldquo;{query}&rdquo;
                         </p>
                     ) : (
                         <>
-                            <p className="text-sm text-[var(--text-tertiary)]">
-                                Found {results.length} result{results.length !== 1 ? 's' : ''}
-                            </p>
+                            <div className="px-4 py-2 bg-[var(--color-surface)] border-b border-[var(--color-border)] font-mono text-[11px] text-[var(--color-subtle)] uppercase tracking-wider">
+                                {results.length} semantic result{results.length !== 1 ? 's' : ''}
+                            </div>
 
                             {results.map(({ score, blog }) => (
                                 <Link
                                     key={blog._id}
                                     href={`/blog/${blog.slug}`}
-                                    className="block group"
+                                    className="block p-4 hover:bg-[var(--color-surface)] transition-colors duration-150 group"
                                 >
-                                    <div className="relative rounded-xl p-[1px] bg-gradient-to-br from-[hsl(var(--primary)/0.3)] via-[hsl(var(--secondary)/0.2)] to-transparent hover:from-[hsl(var(--primary)/0.5)] hover:via-[hsl(var(--secondary)/0.4)] transition-all duration-300">
-                                        <div className="relative rounded-xl glass p-5 transition-colors">
-                                            {/* Score badge */}
-                                            <Badge
-                                                variant="glass"
-                                                className="absolute top-4 right-4"
-                                            >
-                                                {formatScore(score)}
-                                            </Badge>
-
-                                            {/* Title */}
-                                            <h3 className="text-lg font-medium text-[var(--text-primary)] group-hover:text-[var(--text-accent)] transition-colors pr-24">
-                                                {blog.title}
-                                            </h3>
-
-                                            {/* Description - Streaming Effect */}
-                                            {blog.description && (
-                                                <p className="mt-2 text-sm text-[var(--text-secondary)] line-clamp-2 min-h-[40px]">
-                                                    <Typewriter text={blog.description} speed={15} />
-                                                </p>
-                                            )}
-
-                                            {/* Tags */}
-                                            {blog.tags && blog.tags.length > 0 && (
-                                                <div className="mt-3 flex flex-wrap gap-2">
-                                                    {blog.tags.slice(0, 4).map((tag) => (
-                                                        <Badge
-                                                            key={tag}
-                                                            variant="glass"
-                                                            className="text-[var(--text-secondary)]"
-                                                        >
-                                                            {tag}
-                                                        </Badge>
-                                                    ))}
-                                                </div>
-                                            )}
-                                        </div>
+                                    <div className="flex items-center justify-between gap-4 mb-1">
+                                        <h3 className="text-sm font-medium text-[var(--color-fg)] group-hover:underline underline-offset-4 decoration-[var(--color-border-strong)]">
+                                            {blog.title}
+                                        </h3>
+                                        <span className="font-mono text-[10px] text-[var(--color-subtle)] border border-[var(--color-border)] px-1.5 py-0.5 shrink-0">
+                                            {formatScore(score)}
+                                        </span>
                                     </div>
+
+                                    {blog.description && (
+                                        <p className="text-xs text-[var(--color-muted)] line-clamp-2 leading-relaxed mb-2">
+                                            <Typewriter text={blog.description} speed={12} />
+                                        </p>
+                                    )}
+
+                                    {blog.tags && blog.tags.length > 0 && (
+                                        <div className="flex flex-wrap gap-1.5 pt-1">
+                                            {blog.tags.slice(0, 4).map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="font-mono text-[10px] text-[var(--color-subtle)] border border-[var(--color-border)] px-1 py-0.2"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
                                 </Link>
                             ))}
                         </>
@@ -233,10 +194,9 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                 </div>
             )}
 
-            {/* Help text when not searching */}
             {!hasSearched && !isLoading && (
-                <p className="mt-4 text-sm text-[var(--text-tertiary)] text-center">
-                    Enter a topic or concept to find related blog posts using AI-powered semantic search
+                <p className="mt-2 text-xs font-mono text-[var(--color-subtle)] text-center">
+                    Enter a topic or concept to run RAG vector search across articles
                 </p>
             )}
         </div>

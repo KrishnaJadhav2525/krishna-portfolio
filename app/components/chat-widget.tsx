@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { MessageCircle, X, Send, Loader2, Bot } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { scaleIn } from '@/lib/animations'
 
 export default function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false)
@@ -50,43 +50,48 @@ export default function ChatWidget() {
     }
 
     return (
-        <div className="fixed bottom-6 right-6 z-50">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="fixed bottom-6 right-6 z-50"
+        >
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="absolute bottom-16 right-0 w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] flex flex-col bg-[var(--background)]/80 backdrop-blur-xl border border-[var(--border)] rounded-2xl shadow-2xl overflow-hidden"
+                        variants={scaleIn}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        style={{ transformOrigin: "bottom right" }}
+                        className="absolute bottom-14 right-0 w-[320px] sm:w-[380px] h-[460px] max-h-[80vh] flex flex-col bg-[var(--color-bg)] border border-[var(--color-border)] overflow-hidden"
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between px-4 py-4 border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur">
-                            <div className="flex items-center gap-3">
-                                <div className="bg-blue-600/10 p-2 rounded-full">
-                                    <Bot className="w-5 h-5 text-blue-500" />
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-sm text-[var(--foreground)]">Krishna's AI</h3>
-                                    <p className="text-xs text-[var(--muted)]">Ask about my resume</p>
-                                </div>
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+                            <div>
+                                <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-fg)] flex items-center gap-2 select-none">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-fg)] animate-[pulse-dot_2s_ease-in-out_infinite]" />
+                                    AI ASSISTANT
+                                </h3>
+                                <p className="text-[10px] font-mono text-[var(--color-subtle)] select-none">KRISHNA'S RESUME & PORTFOLIO</p>
                             </div>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="p-2 rounded-full hover:bg-[var(--foreground)]/10 text-[var(--muted)] transition-colors"
+                                className="font-mono text-[10px] text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors p-1 uppercase tracking-wider"
                                 aria-label="Close chat"
                             >
-                                <X className="w-5 h-5" />
+                                [CLOSE]
                             </button>
                         </div>
 
                         {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-3 font-sans">
                             {messages.map((msg, i) => (
                                 <div key={i} className={"flex " + (msg.role === 'user' ? 'justify-end' : 'justify-start')}>
-                                    <div className={"max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed " + (
+                                    <div className={"max-w-[88%] p-3 text-xs leading-relaxed border " + (
                                         msg.role === 'user'
-                                            ? 'bg-blue-600 text-white rounded-br-sm'
-                                            : 'bg-[var(--foreground)]/5 text-[var(--foreground)] border border-[var(--border)] rounded-bl-sm'
+                                            ? 'bg-[var(--color-fg)] text-[var(--color-bg)] border-[var(--color-fg)]'
+                                            : 'bg-[var(--color-surface)] text-[var(--color-fg)] border-[var(--color-border)]'
                                     )}>
                                         {msg.content}
                                     </div>
@@ -94,9 +99,8 @@ export default function ChatWidget() {
                             ))}
                             {isLoading && (
                                 <div className="flex justify-start">
-                                    <div className="bg-[var(--foreground)]/5 border border-[var(--border)] rounded-2xl rounded-bl-sm px-4 py-2.5 flex items-center gap-2">
-                                        <Loader2 className="w-4 h-4 animate-spin text-[var(--muted)]" />
-                                        <span className="text-sm text-[var(--muted)]">Thinking...</span>
+                                    <div className="bg-[var(--color-surface)] border border-[var(--color-border)] p-3 text-[11px] font-mono text-[var(--color-subtle)]">
+                                        Thinking...
                                     </div>
                                 </div>
                             )}
@@ -104,37 +108,35 @@ export default function ChatWidget() {
                         </div>
 
                         {/* Input Form */}
-                        <form onSubmit={handleSubmit} className="p-3 border-t border-[var(--border)] bg-[var(--background)]/90 backdrop-blur">
-                            <div className="relative flex items-center">
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Ask a question..."
-                                    className="w-full bg-[var(--foreground)]/5 border border-[var(--border)] text-[var(--foreground)] rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-[var(--muted)]"
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={!input.trim() || isLoading}
-                                    className="absolute right-2 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:hover:bg-blue-600 transition-colors"
-                                    aria-label="Send message"
-                                >
-                                    <Send className="w-4 h-4" />
-                                </button>
-                            </div>
+                        <form onSubmit={handleSubmit} className="p-3 border-t border-[var(--color-border)] bg-[var(--color-bg)] flex gap-2">
+                            <input
+                                type="text"
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                placeholder="Ask a question..."
+                                className="flex-1 bg-transparent border border-[var(--color-border)] text-[var(--color-fg)] px-3 py-2 text-xs focus:outline-none focus:border-[var(--color-fg)] transition-colors placeholder:text-[var(--color-subtle)]"
+                            />
+                            <button
+                                type="submit"
+                                disabled={!input.trim() || isLoading}
+                                className="bg-[var(--color-fg)] text-[var(--color-bg)] px-3 py-2 text-[10px] font-mono uppercase tracking-[0.15em] hover:opacity-90 disabled:opacity-50 transition-opacity"
+                            >
+                                SEND
+                            </button>
                         </form>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Floating Toggle Button */}
+            {/* Inverted Toggle Button with Pulse Dot */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-xl shadow-blue-500/20 hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all duration-200"
+                className="bg-[var(--color-fg)] text-[var(--color-bg)] border border-[var(--color-border)] h-10 px-4 text-[10px] font-mono uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--color-fg)] active:scale-[0.98] transition-all duration-150 flex items-center gap-2 select-none"
                 aria-label="Toggle chat"
             >
-                {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+                <span className="w-1.5 h-1.5 rounded-full bg-current animate-[pulse-dot_2s_ease-in-out_infinite]" />
+                <span>{isOpen ? "CLOSE AI" : "ASK AI"}</span>
             </button>
-        </div>
+        </motion.div>
     )
 }

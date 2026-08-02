@@ -7,37 +7,34 @@ export function CuratedBlogs() {
   return (
     <aside className="space-y-6">
       {/* HEADER */}
-      <div className="flex items-center gap-2 text-sm font-medium text-white">
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-yellow-500/10 text-yellow-400">
-          ✨
-        </span>
-        Curated Blogs
+      <div className="font-mono text-xs tracking-[0.12em] uppercase text-[var(--color-muted)]">
+        Featured Writing
       </div>
 
       {/* CARDS */}
-      <div className="space-y-4">
+      <div className="divide-y divide-[var(--color-border)] border-t border-b border-[var(--color-border)]">
         {featured.map(post => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group block rounded-xl border border-neutral-800 bg-neutral-900/40 p-4 hover:border-emerald-400/40 transition"
+            className="group block py-4 hover:bg-[var(--color-surface)] px-2 transition-colors duration-150"
           >
-            <div className="space-y-2">
-              <p className="text-xs text-emerald-400 uppercase tracking-wide">
+            <div className="space-y-1.5">
+              <span className="font-mono text-[10px] text-[var(--color-subtle)] uppercase tracking-wider block">
                 Featured
-              </p>
+              </span>
 
-              <h3 className="text-sm font-medium text-white leading-snug group-hover:text-emerald-400 transition">
+              <h3 className="text-sm font-medium text-[var(--color-fg)] leading-snug group-hover:underline underline-offset-4 decoration-[var(--color-border-strong)]">
                 {post.title}
               </h3>
 
-              <p className="text-xs text-neutral-400 line-clamp-2">
+              <p className="text-xs text-[var(--color-muted)] line-clamp-2">
                 {post.description}
               </p>
 
-              <div className="pt-2 text-xs text-neutral-500 flex items-center justify-between">
+              <div className="pt-1 text-[11px] font-mono text-[var(--color-subtle)] flex items-center justify-between">
                 <span>{post.date}</span>
-                <span className="group-hover:translate-x-1 transition">
+                <span className="group-hover:translate-x-0.5 transition-transform">
                   Read →
                 </span>
               </div>

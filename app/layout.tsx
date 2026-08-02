@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { baseUrl } from "./blog/lib/site"
 import Script from "next/script"
 import { ThemeProvider } from "./components/theme-provider"
+import { CursorSpotlight } from "./components/cursor-spotlight"
 
 import PageWrapper from "./components/page-wrapper"
 import ChatWidget from "./components/chat-widget"
@@ -62,7 +63,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="bg-[var(--background)] text-[var(--foreground)]"
+      suppressHydrationWarning
+      className="bg-[var(--color-bg)] text-[var(--color-fg)]"
     >
       <head>
         {/* Anti-FOUC: apply saved theme before paint */}
@@ -77,7 +79,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased min-h-screen flex flex-col relative">
+      <body className="antialiased min-h-screen flex flex-col relative bg-[var(--color-bg)] text-[var(--color-fg)]">
         {/* JSON-LD for SEO */}
         <Script
           id="json-ld"
@@ -86,12 +88,13 @@ export default function RootLayout({
         />
 
         <ThemeProvider>
-          {/* NAVBAR — FULL WIDTH */}
-          <div className="px-6 md:px-12">
-            <Navbar />
-          </div>
+          {/* CURSOR SPOTLIGHT LIGHTING LAYER */}
+          <CursorSpotlight />
 
-          {/* PAGE CONTENT (WIDTH CONTROLLED INSIDE) */}
+          {/* NAVBAR */}
+          <Navbar />
+
+          {/* PAGE CONTENT */}
           <PageWrapper>
             {children}
             <Footer />

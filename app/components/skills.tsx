@@ -1,155 +1,167 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { Badge } from "@/app/components/ui/badge";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/app/components/ui/section";
+import { inViewFadeUp, clipReveal, fadeIn } from "@/lib/animations";
 
-function useInView(threshold = 0.1) {
-    const ref = useRef<HTMLElement>(null);
-    const [isInView, setIsInView] = useState(false);
+const skillSections = [
+  {
+    category: "AI & AGENTS",
+    title: "AI & Agent Systems",
+    items: ["LLMs", "RAG", "LangChain", "Tool Calling", "Structured Outputs", "Vector Embeddings", "Pinecone", "TF-IDF", "Cosine Similarity", "Prompt Engineering", "Semantic Search", "OpenAI API", "Gemini API", "n8n Workflow Automation", "Edge TTS"]
+  },
+  {
+    category: "FRONTEND",
+    title: "Frontend Engineering",
+    items: ["React.js", "Next.js 16", "TypeScript", "JavaScript (ES6+)", "TailwindCSS", "HTML5/CSS3", "Responsive Design", "SSR / SSG", "PostCSS", "Framer Motion"]
+  },
+  {
+    category: "BACKEND",
+    title: "Backend Development",
+    items: ["Django", "Flask", "Node.js", "Express.js", "REST APIs", "GraphQL", "Gunicorn", "Session Management", "JWT"]
+  },
+  {
+    category: "DATA & ML",
+    title: "Data & Machine Learning",
+    items: ["Scikit-learn", "TensorFlow", "PyTorch", "XGBoost", "Neural Networks", "Pandas", "NumPy", "Matplotlib", "SHAP", "Feature Engineering"]
+  },
+  {
+    category: "DATABASES",
+    title: "Databases & Storage",
+    items: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Supabase", "SQLite", "Pinecone (Vector DB)", "PyMongo"]
+  },
+  {
+    category: "DEVOPS",
+    title: "DevOps & Tooling",
+    items: ["Docker", "Git/GitHub", "CI/CD", "Vercel", "Render", "Railway", "AWS", "FFmpeg", "MoviePy", "Linux", "Postman"]
+  },
+  {
+    category: "LANGUAGES",
+    title: "Programming Languages",
+    items: ["Python", "TypeScript", "JavaScript", "SQL", "Java", "C++", "HTML/CSS"]
+  }
+];
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsInView(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold }
-        );
+const categories = ["ALL", "AI & AGENTS", "FRONTEND", "BACKEND", "DATA & ML", "DATABASES", "DEVOPS", "LANGUAGES"];
 
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-
-        return () => observer.disconnect();
-    }, [threshold]);
-
-    return { ref, isInView };
-}
+const techKeywords = [
+  "PYTHON", "TYPESCRIPT", "NEXT.JS 16", "LANGCHAIN", "PINECONE", "RAG", "DJANGO", "POSTGRESQL", "DOCKER", "FASTAPI", "TAILWINDCSS", "N8N", "TENSORFLOW", "SCIKIT-LEARN", "OPENAI", "GEMINI 2.0"
+];
 
 export default function Skills() {
-    const { ref, isInView } = useInView(0.1);
+  const [activeCategory, setActiveCategory] = useState("ALL");
 
-    return (
-        <section
-            id="skills"
-            ref={ref}
-            className="py-32 relative overflow-hidden"
+  const filteredSections = activeCategory === "ALL"
+    ? skillSections
+    : skillSections.filter(section => section.category === activeCategory);
+
+  return (
+    <section id="skills" className="py-24">
+      <Container variant="wide">
+        <motion.div
+          variants={clipReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-12 border-b border-[var(--color-border)] pb-6"
         >
-            {/* Background Glow */}
-            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[hsl(var(--primary)/0.1)] blur-[100px] rounded-full pointer-events-none transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`} />
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-2">
+            04 / TECHNICAL STACK & TOOLING
+          </p>
+          <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal text-[var(--color-fg)]">
+            Technologies & Frameworks
+          </h2>
+        </motion.div>
 
-            <Container>
-                <div className="mb-20 text-center md:text-left">
-                    <p className="text-sm font-mono text-[var(--text-accent)] mb-4 tracking-widest uppercase">
-                        Technical Arsenal
-                    </p>
-                    <h2
-                        className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] mb-6"
-                        style={{ fontFamily: "'Syne', system-ui, sans-serif" }}
-                    >
-                        Technologies & Tools
-                    </h2>
-                    <p className="text-[var(--text-secondary)] max-w-2xl text-lg leading-relaxed">
-                        A curated stack of modern tools and frameworks used to build scalable, production-ready applications.
-                    </p>
-                </div>
+        {/* Interactive Category Filter Bar */}
+        <div className="flex flex-wrap gap-2 mb-12 border-b border-[var(--color-border)] pb-6 select-none">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`font-mono text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 border transition-all duration-150 ${
+                activeCategory === cat
+                  ? "bg-[var(--color-fg)] text-[var(--color-bg)] border-[var(--color-fg)] font-medium"
+                  : "bg-transparent text-[var(--color-muted)] border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-fg)]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {[
-                        {
-                            title: "AI / Agent Systems",
-                            icon: "🤖",
-                            items: ["LLMs", "RAG", "LangChain", "Tool Calling", "Structured Outputs", "Vector Embeddings", "Pinecone", "TF-IDF", "Cosine Similarity", "Prompt Engineering", "Semantic Search", "OpenAI API", "Gemini API", "n8n Workflow Automation", "Edge TTS", "Multi-API Integration"],
-                            gradient: "from-indigo-500/10 to-blue-500/5"
-                        },
-                        {
-                            title: "Frontend",
-                            icon: "🎨",
-                            items: ["React.js", "Next.js 16", "TypeScript", "JavaScript (ES6+)", "TailwindCSS", "Bootstrap", "HTML5", "CSS3", "Responsive Design", "UI/UX (Figma)", "Astro", "SSR / SSG", "PostCSS", "ESLint", "Framer Motion", "Shadcn UI"],
-                            gradient: "from-emerald-500/10 to-teal-500/5"
-                        },
-                        {
-                            title: "Backend",
-                            icon: "⚡",
-                            items: ["Django", "Flask", "Node.js", "Express.js", "REST APIs", "GraphQL", "Gunicorn", "WhiteNoise", "Session Management", "JWT", "Flask-Mail", "python-dotenv"],
-                            gradient: "from-orange-500/10 to-red-500/5"
-                        },
-                        {
-                            title: "Data & ML",
-                            icon: "📊",
-                            items: ["Scikit-learn", "TensorFlow", "PyTorch", "XGBoost", "Neural Networks", "Pandas", "NumPy", "Matplotlib", "SHAP", "Jupyter Notebook", "Feature Engineering", "EDA", "Hyperparameter Tuning"],
-                            gradient: "from-purple-500/10 to-pink-500/5"
-                        },
-                        {
-                            title: "Databases",
-                            icon: "🗄️",
-                            items: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Supabase", "SQLite", "Pinecone (Vector DB)", "PyMongo"],
-                            gradient: "from-amber-500/10 to-yellow-500/5"
-                        },
-                        {
-                            title: "DevOps & Tools",
-                            icon: "☁️",
-                            items: ["Docker", "Git/GitHub", "CI/CD", "Vercel", "Render", "Railway", "AWS", "Netlify", "FFmpeg", "MoviePy", "Linux", "Postman"],
-                            gradient: "from-blue-500/10 to-cyan-500/5"
-                        },
-                        {
-                            title: "Languages",
-                            icon: "💻",
-                            items: ["Python", "TypeScript", "JavaScript", "SQL", "Java", "HTML/CSS"],
-                            gradient: "from-rose-500/10 to-red-500/5"
-                        },
-                    ].map((section, sectionIndex) => (
-                        <div
-                            key={section.title}
-                            className={`
-                                group relative
-                                flex flex-col items-start
-                                p-6 rounded-2xl
-                                glass
-                                transition-all duration-300
-                                hover:-translate-y-1
-                            `}
-                            style={{
-                                transitionDelay: isInView ? `${sectionIndex * 50}ms` : '0ms',
-                                opacity: isInView ? 1 : 0,
-                                transform: isInView ? 'translateY(0)' : 'translateY(20px)'
-                            }}
-                        >
-                            {/* Hover Gradient */}
-                            <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${section.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10`} />
+        {/* Filtered Skill Groups Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[300px]">
+          <AnimatePresence mode="popLayout">
+            {filteredSections.map((section, idx) => {
+              const sectionNumber = String(idx + 1).padStart(2, '0');
 
-                            <div className="flex items-center gap-3 mb-6">
-                                <span className="text-2xl filter grayscale group-hover:grayscale-0 transition-all duration-300 transform group-hover:scale-110">{section.icon}</span>
-                                <h3 className="text-lg font-bold text-[var(--text-primary)] tracking-tight">
-                                    {section.title}
-                                </h3>
-                            </div>
+              return (
+                <motion.div
+                  key={section.title}
+                  layout
+                  variants={fadeIn}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  transition={{ duration: 0.3 }}
+                  className="border border-[var(--color-border)] p-6 bg-[var(--color-bg)] space-y-4"
+                >
+                  <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+                    <h3 className="text-sm font-medium text-[var(--color-fg)]">
+                      {section.title}
+                    </h3>
+                    <span className="font-mono text-[10px] text-[var(--color-subtle)] tabular-nums">
+                      {sectionNumber}
+                    </span>
+                  </div>
 
-                            <div className="flex flex-wrap gap-2">
-                                {section.items.map((skill) => (
-                                    <Badge
-                                        key={skill}
-                                        variant="glass"
-                                        className="
-                                            px-2.5 py-1 
-                                            text-xs font-medium 
-                                            text-[var(--text-secondary)]
-                                            group-hover:text-[var(--text-primary)]
-                                            transition-all duration-300
-                                            cursor-default
-                                        "
-                                    >
-                                        {skill}
-                                    </Badge>
-                                ))}
-                            </div>
-                        </div>
+                  <div className="flex flex-wrap gap-2">
+                    {section.items.map((skill) => (
+                      <span
+                        key={skill}
+                        className="font-mono text-[10px] text-[var(--color-muted)] px-2.5 py-1 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-fg)] transition-colors duration-150 tracking-wider uppercase"
+                      >
+                        {skill}
+                      </span>
                     ))}
-                </div>
-            </Container>
-        </section>
-    );
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+
+        {/* Marquee with Edge Fade Masks */}
+        <div className="relative overflow-hidden mt-20 border-t border-b border-[var(--color-border)] py-4 select-none">
+          {/* Left Fade Mask */}
+          <div
+            aria-hidden="true"
+            className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(90deg, var(--color-bg) 0%, transparent 100%)' }}
+          />
+          {/* Right Fade Mask */}
+          <div
+            aria-hidden="true"
+            className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(-90deg, var(--color-bg) 0%, transparent 100%)' }}
+          />
+
+          {/* Scrolling Track */}
+          <div
+            className="animate-marquee flex gap-8 font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.2em] uppercase whitespace-nowrap"
+            style={{ width: 'max-content' }}
+          >
+            {techKeywords.concat(techKeywords).map((keyword, index) => (
+              <span key={index} className="flex items-center gap-8">
+                <span>{keyword}</span>
+                <span className="text-[var(--color-border-strong)]">·</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
 }

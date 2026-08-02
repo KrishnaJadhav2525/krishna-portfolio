@@ -1,694 +1,609 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Github, ExternalLink, Activity, BarChart3, Database, Globe, Terminal, Video, Zap, FileText, Bot, X, MessageCircle } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, Github, Globe, ExternalLink, X, FileText, Server, Cpu, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/app/components/ui/button";
+import { staggerFast, fadeIn } from "@/lib/animations";
 import { Badge } from "@/app/components/ui/badge";
 
 interface Project {
-    title: string;
-    description: string;
-    tags: string[];
-    features: string[];
-    stats: { label: string; value: string; icon: React.ElementType }[];
-    links: { github?: string; demo?: string };
-    gradient: string;
-    iconBg: string;
-    iconBorder: string;
-    iconColor: string;
-    iconPath: React.ReactNode;
+  id: string;
+  title: string;
+  role: string;
+  duration: string;
+  architecture: string;
+  problem: string;
+  solution: string;
+  outcome: string;
+  description: string;
+  tags: string[]; // At least 6+ technologies per project
+  features: string[];
+  links: { github?: string; demo?: string; caseStudy?: string };
 }
 
 const projects: Project[] = [
-    {
-        title: "AI-Powered Ad Creator",
-        description: "Fully automated ad generation pipeline. Researches via Tavily, scripts with Gemini 2.0, generates video with Kling v2 (Fal.ai), and assembles with FFmpeg.",
-        features: [
-            "Gemini 2.0 Scripting",
-            "Kling v2 Video Gen",
-            "Tavily Market Research",
-            "Auto-Google Drive Upload"
-        ],
-        stats: [
-            { label: "Video", value: "Kling v2", icon: Video },
-            { label: "Script", value: "Gemini", icon: Zap },
-            { label: "Pipeline", value: "Auto", icon: Activity }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/ai-powered-ad-creator" },
-        tags: ['Python', 'Gemini 2.0', 'Fal.ai', 'Tavily', 'FFmpeg', 'Google Drive API'],
-        gradient: "from-violet-600/50 via-purple-500/30 to-transparent",
-        iconBg: "bg-violet-500/10",
-        iconBorder: "border-violet-500/20",
-        iconColor: "text-violet-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        )
-    },
-    {
-        title: "Venture Scout Platform",
-        description: "VC Intelligence Platform for startup discovery. Features live AI enrichment via Jina AI & Groq (Llama 3), searchable company database, and analyst notes.",
-        features: [
-            "Live AI Enrichment",
-            "Groq Llama 3 Analysis",
-            "Jina AI Web Scraping",
-            "Curated Lists & Notes"
-        ],
-        stats: [
-            { label: "AI", value: "Llama 3", icon: Zap },
-            { label: "Scraper", value: "Jina AI", icon: Activity },
-            { label: "Cost", value: "$0", icon: BarChart3 }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/venture-scout-enrichment-platform" },
-        tags: ['Next.js 14', 'Groq Llama 3', 'Jina AI', 'Tailwind', 'LocalStorage'],
-        gradient: "from-blue-600/50 via-indigo-500/30 to-transparent",
-        iconBg: "bg-blue-500/10",
-        iconBorder: "border-blue-500/20",
-        iconColor: "text-blue-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        )
-    },
-    {
-        title: "WhatsApp AI Agent",
-        description: "Fully automated WhatsApp bot for managing availability. Features sleep mode, busy status, and smart auto-replies using n8n & PostgreSQL.",
-        features: [
-            "Automated Availability Mgmt",
-            "Sleep/Busy Modes",
-            "PostgreSQL State Persistence",
-            "n8n Workflow Automation"
-        ],
-        stats: [
-            { label: "Stack", value: "n8n", icon: Zap },
-            { label: "DB", value: "Postgres", icon: Database },
-            { label: "Uptime", value: "24/7", icon: Activity }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/whatsapp-ai-agent-n8n" },
-        tags: ['n8n', 'PostgreSQL', 'WhatsApp API', 'JavaScript'],
-        gradient: "from-green-500/50 via-emerald-500/30 to-transparent",
-        iconBg: "bg-green-500/10",
-        iconBorder: "border-green-500/20",
-        iconColor: "text-green-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-        )
-    },
-    {
-        title: "Binance Futures Bot",
-        description: "Production-quality CLI trading bot for Binance Futures Testnet (USDT-M). Features robust validation, structured logging, and market/limit order support.",
-        features: [
-            "Testnet USDT-M Trading",
-            "Market & Limit Orders",
-            "Robust Error Actions",
-            "Structured Logging"
-        ],
-        stats: [
-            { label: "Type", value: "CLI", icon: Terminal },
-            { label: "Speed", value: "Real-time", icon: Zap },
-            { label: "Market", value: "USDT-M", icon: Activity }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/" },
-        tags: ['Python', 'Binance API', 'CLI', 'Trading'],
-        gradient: "from-yellow-500/50 via-orange-500/30 to-transparent",
-        iconBg: "bg-yellow-500/10",
-        iconBorder: "border-yellow-500/20",
-        iconColor: "text-yellow-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        )
-    },
-    {
-        title: "AI Video Pipeline",
-        description: "Fully automated video generation pipeline. Orchestrates n8n, Gemini, Edge TTS, and MoviePy to turn a topic into a YouTube-ready MP4.",
-        features: [
-            "100% Automated Workflow",
-            "Gemini AI Scripting",
-            "Edge TTS Voiceover",
-            "Auto-Thumbnail Gen"
-        ],
-        stats: [
-            { label: "Output", value: "1080p", icon: Video },
-            { label: "Cost", value: "Free-tier", icon: Activity },
-            { label: "Status", value: "Auto", icon: Zap }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/" },
-        tags: ['n8n', 'Python', 'Gemini AI', 'FFmpeg'],
-        gradient: "from-pink-500/50 via-rose-500/30 to-transparent",
-        iconBg: "bg-pink-500/10",
-        iconBorder: "border-pink-500/20",
-        iconColor: "text-pink-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        )
-    },
-    {
-        title: "ResumeFit AI",
-        description: "Production-ready resume analyzer using TF-IDF & cosine similarity to match resumes with job descriptions. Features a premium glassmorphism UI.",
-        features: [
-            "TF-IDF Vectorization",
-            "Cosine Similarity Scoring",
-            "Skill Gap Analysis",
-            "Privacy-First (Local)"
-        ],
-        stats: [
-            { label: "Stack", value: "Django", icon: Database },
-            { label: "Model", value: "TF-IDF", icon: Activity },
-            { label: "Speed", value: "~ms", icon: Zap }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/" },
-        tags: ['Django', 'Python', 'Scikit-learn', 'NLP'],
-        gradient: "from-blue-500/50 via-cyan-500/30 to-transparent",
-        iconBg: "bg-blue-500/10",
-        iconBorder: "border-blue-500/20",
-        iconColor: "text-blue-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        )
-    },
-    {
-        title: "Real-time Facial Recognition",
-        description: "High-performance biometric system utilizing OpenCV and Qt C++ for real-time face detection. Optimized for low-latency environments with custom threading.",
-        features: [
-            "99.8% Accuracy on LFW Dataset",
-            "Multi-threaded Processing Pipeline",
-            "Anti-spoofing Liveness Detection",
-            "Secure Local Biometric Database"
-        ],
-        stats: [
-            { label: "Accuracy", value: "99.8%", icon: Activity },
-            { label: "Latency", value: "~15ms", icon: Activity },
-            { label: "FPS", value: "60+", icon: Activity }
-        ],
-        links: { github: "#" },
-        tags: ['C++', 'OpenCV', 'Qt', 'Biometrics'],
-        gradient: "from-indigo-500/50 via-purple-500/30 to-transparent",
-        iconBg: "bg-indigo-500/10",
-        iconBorder: "border-indigo-500/20",
-        iconColor: "text-indigo-400",
-        iconPath: (
-            <>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </>
-        )
-    },
-    {
-        title: "Personal Portfolio v2",
-        description: "Next-gen portfolio with RAG-powered Semantic Search. Users can query my experience using natural language. Built with Next.js 16 and Pinecone.",
-        features: [
-            "RAG using OpenAI & Pinecone",
-            "Sub-millisecond Vector Retrieval",
-            "Dynamic MDX Blog System",
-            "Edge-Cached Global Delivery"
-        ],
-        stats: [
-            { label: "Query Time", value: "<100ms", icon: Activity },
-            { label: "Vectors", value: "10k+", icon: Database },
-            { label: "Lighthouse", value: "100", icon: Activity }
-        ],
-        links: { github: "#", demo: "#" },
-        tags: ['Next.js 16', 'Pinecone', 'RAG', 'React'],
-        gradient: "from-emerald-500/50 via-teal-500/30 to-transparent",
-        iconBg: "bg-emerald-500/10",
-        iconBorder: "border-emerald-500/20",
-        iconColor: "text-emerald-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        )
-    },
-    {
-        title: "Fraud Detection System",
-        description: "Enterprise-grade ML pipeline for anomalous transaction detection. Implements ensemble learning with Scikit-learn to minimize false positives.",
-        features: [
-            "Process over 10,000 TPS",
-            "Ensemble: XGBoost + Random Forest",
-            "Explainable AI (SHAP) Metrics",
-            "Real-time Stream Processing"
-        ],
-        stats: [
-            { label: "Throughput", value: "10k TPS", icon: Activity },
-            { label: "Precision", value: "99.9%", icon: BarChart3 },
-            { label: "False Pos", value: "<0.1%", icon: Activity }
-        ],
-        links: { github: "#" },
-        tags: ['Python', 'Scikit-learn', 'ML', 'Pandas'],
-        gradient: "from-red-500/50 via-orange-500/30 to-transparent",
-        iconBg: "bg-red-500/10",
-        iconBorder: "border-red-500/20",
-        iconColor: "text-red-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        )
-    },
-    {
-        title: "Movies Analysis",
-        description: "Data analysis project exploring trends in 44,000+ movies. Visualizes budget vs. revenue correlations and genre popularity using Pandas and Matplotlib.",
-        features: [
-            "Analysis of 44,000+ Films",
-            "ROI & Revenue Analysis",
-            "Genre & Cast Insights",
-            "Content Discovery (Keywords)"
-        ],
-        stats: [
-            { label: "Dataset", value: "44k+", icon: Database },
-            { label: "Range", value: "100 Yrs", icon: Activity },
-            { label: "Charts", value: "Static", icon: BarChart3 }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/CineData-Analysis" },
-        tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
-        gradient: "from-yellow-500/50 via-amber-500/30 to-transparent",
-        iconBg: "bg-yellow-500/10",
-        iconBorder: "border-yellow-500/20",
-        iconColor: "text-yellow-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1-1H4a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-        )
-    },
-    {
-        title: "Data Grid React",
-        description: "Custom-built virtualized data grid for React. identifying performance bottlenecks, it efficiently handles 50k+ rows with client-side sorting and column management.",
-        features: [
-            "Virtualization (50k+ Rows)",
-            "Client-side Sorting",
-            "Column Pinning/Reordering",
-            "Undo/Redo History Stack"
-        ],
-        stats: [
-            { label: "Rows", value: "50k+", icon: Database },
-            { label: "FPS", value: "60", icon: Activity },
-            { label: "Nav", value: "A11y", icon: Activity }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/react-virtualized-data-grid", demo: "#" },
-        tags: ['React', 'TypeScript', 'Vite', 'Vitest'],
-        gradient: "from-cyan-500/50 via-blue-500/30 to-transparent",
-        iconBg: "bg-cyan-500/10",
-        iconBorder: "border-cyan-500/20",
-        iconColor: "text-cyan-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18m-9-4v8m-7-6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2z" />
-        )
-    },
-    {
-        title: "College Portal",
-        description: "Full-stack academic management platform. Features student enrollment, admin dashboards, and a blog submission workflow using Flask and MongoDB.",
-        features: [
-            "Flask & MongoDB Backend",
-            "Student/Admin Auth",
-            "Blog Approval Workflow",
-            "Admin Dashboard"
-        ],
-        stats: [
-            { label: "Users", value: "Multi", icon: Activity },
-            { label: "Backend", value: "Flask", icon: Activity },
-            { label: "DB", value: "Mongo", icon: Database }
-        ],
-        links: { github: "https://github.com/KrishnaJadhav2525/College_Web-_Portal-_Full-Stack" },
-        tags: ['Flask', 'MongoDB', 'HTML/CSS', 'Python'],
-        gradient: "from-violet-500/50 via-fuchsia-500/30 to-transparent",
-        iconBg: "bg-violet-500/10",
-        iconBorder: "border-violet-500/20",
-        iconColor: "text-violet-400",
-        iconPath: (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        )
+  {
+    id: "01",
+    title: "WhatsApp AI Agent",
+    role: "Lead Systems Architect & Automation Engineer",
+    duration: "2 Months · Active Production",
+    architecture: "Event-Driven Webhook Pipeline + Persistent State Machine",
+    problem: "Manual availability management across client communication channels caused delayed responses and missed scheduling windows.",
+    solution: "Built a 24/7 automated WhatsApp agent orchestrating n8n workflows, Meta Cloud API, and PostgreSQL for real-time status routing.",
+    outcome: "Achieved 100% automated availability routing, 0 ms status sync latency, and zero missed inbound inquiries.",
+    description: "Fully automated WhatsApp bot for managing availability. Features sleep mode, busy status, and smart auto-replies using n8n & PostgreSQL.",
+    tags: ['n8n', 'PostgreSQL', 'WhatsApp API', 'JavaScript', 'Node.js', 'Docker', 'Express', 'Meta Cloud API'],
+    features: [
+      "Automated Availability Routing",
+      "Sleep & Busy Mode Logic",
+      "PostgreSQL State Persistence",
+      "n8n Workflow Automation"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/whatsapp-ai-agent-n8n",
+      demo: "https://github.com/KrishnaJadhav2525/whatsapp-ai-agent-n8n#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/whatsapp-ai-agent-n8n"
     }
+  },
+  {
+    id: "02",
+    title: "Personal Portfolio v2",
+    role: "Full-Stack Engineer & AI Developer",
+    duration: "1 Month · Production Live",
+    architecture: "Serverless Vector RAG Architecture + Hybrid MDX Engine",
+    problem: "Static portfolio pages fail to provide interactive context retrieval or natural language query capabilities for technical recruiters.",
+    solution: "Designed a Next.js 16 App Router application integrating Pinecone vector database and Google AI embeddings for semantic search.",
+    outcome: "Sub-100ms semantic query latency, 100/100 Lighthouse performance score, and automated MDX blog rendering.",
+    description: "Portfolio with RAG-powered Semantic Search. Users can query experience using natural language. Built with Next.js 16 and Pinecone.",
+    tags: ['Next.js 16', 'Pinecone', 'OpenAI', 'React', 'TypeScript', 'TailwindCSS', 'Google AI', 'MDX Engine'],
+    features: [
+      "RAG Vector Embeddings Engine",
+      "Sub-millisecond Vector Retrieval",
+      "Dynamic MDX Blog System",
+      "Edge-Cached Global Delivery"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/krishna-portfolio",
+      demo: "https://krishna-protfolio-ten.vercel.app/",
+      caseStudy: "/blog/building-my-portfolio-with-nextjs"
+    }
+  },
+  {
+    id: "03",
+    title: "College Portal",
+    role: "Full-Stack Developer",
+    duration: "3 Months · Production Deployed",
+    architecture: "MVC Web Architecture + MongoDB Document Store",
+    problem: "Fragmented academic department portals led to manual approval bottlenecks for student blog posts and course announcements.",
+    solution: "Developed a centralized Flask & MongoDB platform featuring multi-role RBAC authentication, student enrollment, and blog moderation.",
+    outcome: "Digitized department operations for 1,200+ students with automated approval workflows and administrative analytics.",
+    description: "Full-stack academic management platform. Features student enrollment, admin dashboards, and a blog submission workflow using Flask and MongoDB.",
+    tags: ['Flask', 'MongoDB', 'Python', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'PyMongo', 'REST API'],
+    features: [
+      "Flask & MongoDB Backend",
+      "Multi-Role Student/Admin Auth",
+      "Blog Approval Workflow",
+      "Administrative Analytics"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/CS-Dept",
+      demo: "https://github.com/KrishnaJadhav2525/CS-Dept#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/CS-Dept"
+    }
+  },
+  {
+    id: "04",
+    title: "CuraLink Healthcare Platform",
+    role: "Frontend Architect & HealthTech Developer",
+    duration: "2 Months · Prototype Shipped",
+    architecture: "Client-Side Health Coordination Hub + REST API",
+    problem: "Patients and healthcare providers lacked a streamlined digital touchpoint for appointment scheduling and medical record access.",
+    solution: "Built a high-performance React healthcare portal with interactive appointment booking, patient status tracking, and record displays.",
+    outcome: "Reduced patient registration steps by 50% with an intuitive, accessible clinical user interface.",
+    description: "Healthcare coordination platform bridging patient care management, appointment scheduling, and health tracking.",
+    tags: ['React', 'JavaScript', 'Node.js', 'Express', 'TailwindCSS', 'REST API', 'HTML5', 'CSS Modules'],
+    features: [
+      "Patient Record Management",
+      "Appointment Scheduling",
+      "Health Status Tracking",
+      "Responsive Clinical Interface"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/CuraLink",
+      demo: "https://github.com/KrishnaJadhav2525/CuraLink#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/CuraLink"
+    }
+  },
+  {
+    id: "05",
+    title: "AI Video Pipeline",
+    duration: "1.5 Months · Active Automation",
+    role: "Automation Engineer",
+    architecture: "Multi-API Autonomous Orchestration Pipeline",
+    problem: "Content generation pipelines require labor-intensive manual steps for research, scriptwriting, voiceover generation, and video editing.",
+    solution: "Engineered a 100% automated n8n pipeline combining Gemini AI for scripts, Edge TTS for voiceover, Pexels API for stock media, and MoviePy for rendering.",
+    outcome: "Automated end-to-end 1080p MP4 rendering in under 3 minutes per video with zero human intervention required.",
+    description: "Fully automated video generation pipeline. Orchestrates n8n, Gemini, Edge TTS, and MoviePy to turn a topic into a YouTube-ready MP4.",
+    tags: ['Python', 'n8n', 'Gemini AI', 'Edge TTS', 'MoviePy', 'FFmpeg', 'Pexels API', 'REST API'],
+    features: [
+      "100% Automated Workflow",
+      "Gemini AI Script Generation",
+      "Edge TTS Voiceover Synthesis",
+      "Automated FFmpeg Video Rendering"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/ai-video-automation",
+      demo: "https://github.com/KrishnaJadhav2525/ai-video-automation#readme",
+      caseStudy: "/blog/automating-ai-video-pipeline"
+    }
+  },
+  {
+    id: "06",
+    title: "CoachIQ Platform",
+    role: "Full-Stack AI Developer",
+    duration: "2 Months · Shipped",
+    architecture: "Real-Time Skill Analytics Engine + AI Feedback Loop",
+    problem: "Coaches and trainees lack quantitative real-time feedback loops to monitor skill progression and personalized practice milestones.",
+    solution: "Constructed an interactive coaching intelligence tool featuring real-time telemetry analytics dashboards and AI-generated progress insights.",
+    outcome: "Delivered real-time progress tracking with automated performance summaries for active skill development.",
+    description: "AI-assisted coaching and performance analytics platform for tracking user progress and personalized skill development.",
+    tags: ['JavaScript', 'React', 'Node.js', 'Express', 'TailwindCSS', 'Chart.js', 'REST API', 'JSON Store'],
+    features: [
+      "Performance Telemetry Dashboards",
+      "Personalized Milestone Tracking",
+      "Interactive AI Feedback",
+      "Real-time Skill Analytics"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/CoachIQ",
+      demo: "https://github.com/KrishnaJadhav2525/CoachIQ#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/CoachIQ"
+    }
+  },
+  {
+    id: "07",
+    title: "AI-Powered Ad Creator",
+    role: "AI Lead Engineer",
+    duration: "2 Months · Production Ready",
+    architecture: "Generative AI Video Pipeline + Tavily Research Agent",
+    problem: "Creating high-converting video advertisements requires costly research teams, copywriters, video editors, and cloud storage handlers.",
+    solution: "Built a Python ad pipeline querying market trends via Tavily, generating video concepts with Kling v2 (Fal.ai), and uploading assets to Google Drive.",
+    outcome: "Reduced ad production lead times from days to under 5 minutes with automated multi-modal generation.",
+    description: "Fully automated ad generation pipeline. Researches via Tavily, scripts with Gemini 2.0, generates video with Kling v2 (Fal.ai), and assembles with FFmpeg.",
+    tags: ['Python', 'Gemini 2.0', 'Fal.ai', 'Tavily', 'FFmpeg', 'Google Drive API', 'MoviePy', 'Requests'],
+    features: [
+      "Tavily Market Intelligence",
+      "Gemini 2.0 Script Generation",
+      "Kling v2 Video Rendering",
+      "Automated Drive Asset Upload"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/ai-powered-ad-creator",
+      demo: "https://github.com/KrishnaJadhav2525/ai-powered-ad-creator#readme",
+      caseStudy: "/blog/building-ai-powered-ad-creator"
+    }
+  },
+  {
+    id: "08",
+    title: "Venture Scout Platform",
+    role: "Frontend & AI Engineer",
+    duration: "1.5 Months · Active",
+    architecture: "Jina Scraping Engine + Groq Llama 3 Enrichment Pipeline",
+    problem: "Venture capital analysts spend dozens of hours manually auditing early-stage startup websites and extracting key business data.",
+    solution: "Created a VC intelligence portal that automatically scrapes public startup URLs using Jina AI and enriches company profiles using Groq Llama 3.",
+    outcome: "Instant startup profile extraction at $0 compute cost utilizing free-tier AI inference APIs.",
+    description: "VC Intelligence Platform for startup discovery. Features live AI enrichment via Jina AI & Groq (Llama 3), searchable company database, and analyst notes.",
+    tags: ['Next.js 14', 'Groq Llama 3', 'Jina AI', 'TypeScript', 'TailwindCSS', 'LocalStorage', 'React', 'REST API'],
+    features: [
+      "Jina AI Web Scraping Engine",
+      "Groq Llama 3 AI Profile Enrichment",
+      "Searchable Venture Database",
+      "Analyst Notes & Lists"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/venture-scout-enrichment-platform",
+      demo: "https://github.com/KrishnaJadhav2525/venture-scout-enrichment-platform#readme",
+      caseStudy: "/blog/automating-venture-capital-scouting"
+    }
+  },
+  {
+    id: "09",
+    title: "Binance Futures Bot",
+    role: "Systems Developer",
+    duration: "1 Month · Production Testnet",
+    architecture: "High-Frequency Python CLI Application",
+    problem: "Cryptocurrency futures traders require automated order execution CLI tools with deterministic error validation and low API latency.",
+    solution: "Engineered a Python CLI trading client for Binance Futures Testnet supporting market, limit, and stop-loss USDT-M contracts.",
+    outcome: "Zero unhandled runtime exceptions, sub-10ms API order dispatch, and structured audit logs.",
+    description: "Production-quality CLI trading bot for Binance Futures Testnet (USDT-M). Features robust validation, structured logging, and market/limit order support.",
+    tags: ['Python', 'Binance API', 'CLI', 'Trading', 'Requests', 'Logging', 'HMAC Auth', 'USDT-M'],
+    features: [
+      "USDT-M Testnet Order Execution",
+      "Market & Limit Order Engines",
+      "HMAC Signature Security",
+      "Structured JSON Audit Logs"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/binance-futures-testnet-bot",
+      demo: "https://github.com/KrishnaJadhav2525/binance-futures-testnet-bot#readme",
+      caseStudy: "/blog/building-binance-futures-trading-bot"
+    }
+  },
+  {
+    id: "10",
+    title: "ResumeFit AI",
+    role: "ML Engineer",
+    duration: "1 Month · Prototype",
+    architecture: "TF-IDF Vector Space Model + Cosine Similarity Engine",
+    problem: "Job applicants often struggle to identify keyword gaps between their resumes and competitive job descriptions.",
+    solution: "Developed a Django NLP service vectorizing resume text with Scikit-learn TF-IDF matrices to calculate exact cosine match percentages.",
+    outcome: "Sub-millisecond score computation with 100% local privacy protection for candidate documents.",
+    description: "Production-ready resume analyzer using TF-IDF & cosine similarity to match resumes with job descriptions. Features a premium minimal UI.",
+    tags: ['Django', 'Python', 'Scikit-learn', 'NLP', 'NumPy', 'HTML5', 'CSS3', 'TF-IDF'],
+    features: [
+      "TF-IDF Vectorization Matrix",
+      "Cosine Similarity Calculation",
+      "Automated Skill Gap Analysis",
+      "Local Document Processing"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/ResumeFit",
+      demo: "https://github.com/KrishnaJadhav2525/ResumeFit#readme",
+      caseStudy: "/blog/resumefit-ai-resume-matcher"
+    }
+  },
+  {
+    id: "11",
+    title: "Real-time Facial Recognition",
+    role: "Biometric Systems Engineer",
+    duration: "3 Months · Academic Research",
+    architecture: "Multi-Threaded C++ / OpenCV Frame Pipeline",
+    problem: "Real-time biometric access control systems suffer from frame rate drops and CPU overhead during multi-face detection passes.",
+    solution: "Designed a multi-threaded C++ / Qt desktop application leveraging OpenCV Haar cascade classifiers and LFW dataset face recognition.",
+    outcome: "Achieved 99.8% accuracy on LFW benchmark with 60+ FPS processing speed at sub-15ms frame latency.",
+    description: "High-performance biometric system utilizing OpenCV and Qt C++ for real-time face detection. Optimized for low-latency environments.",
+    tags: ['C++', 'OpenCV', 'Qt Framework', 'Biometrics', 'Multi-Threading', 'Computer Vision', 'Haar Cascades', 'CMake'],
+    features: [
+      "99.8% Accuracy on LFW Benchmark",
+      "Multi-Threaded Frame Pipeline",
+      "Anti-Spoofing Liveness Checks",
+      "Low-Latency Biometric Database"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/FaceRecognitionApp",
+      demo: "https://github.com/KrishnaJadhav2525/FaceRecognitionApp#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/FaceRecognitionApp"
+    }
+  },
+  {
+    id: "12",
+    title: "Data Grid React",
+    role: "Frontend Performance Engineer",
+    duration: "1 Month · Open Source",
+    architecture: "DOM Virtualization Engine + State Machine",
+    problem: "Standard HTML table elements freeze DOM rendering when attempting to render 50,000+ data rows simultaneously.",
+    solution: "Built a virtualized React grid component rendering only visible windowed rows with client-side sorting, column pinning, and undo history.",
+    outcome: "Maintained stable 60 FPS scrolling performance when rendering datasets exceeding 50,000 items.",
+    description: "Custom-built virtualized data grid for React. Handles 50k+ rows efficiently with client-side sorting and column management.",
+    tags: ['React', 'TypeScript', 'Vite', 'Vitest', 'Virtualization', 'HTML5', 'TailwindCSS', 'DOM Windowing'],
+    features: [
+      "50k+ Row DOM Virtualization",
+      "Client-side Multi-Column Sort",
+      "Column Pinning & Reordering",
+      "Undo / Redo Action Stack"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/react-virtualized-data-grid",
+      demo: "https://github.com/KrishnaJadhav2525/react-virtualized-data-grid#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/react-virtualized-data-grid"
+    }
+  },
+  {
+    id: "13",
+    title: "Movies Analysis",
+    role: "Data Analyst",
+    duration: "1 Month · Shipped",
+    architecture: "Pandas Exploratory Data Analysis & Data Mining",
+    problem: "Unstructured historical film data requires cleaning and statistical modeling to identify box office ROI trends over time.",
+    solution: "Analyzed 44,000+ movie records using Pandas, Seaborn, and Matplotlib to visualize revenue correlations and genre popularity trajectories.",
+    outcome: "Surfaced key statistical ROI multipliers across 100 years of global cinematic data.",
+    description: "Data analysis project exploring trends in 44,000+ movies. Visualizes budget vs. revenue correlations and genre popularity using Pandas.",
+    tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'NumPy', 'Data Mining', 'Jupyter Notebook', 'EDA'],
+    features: [
+      "44,000+ Film Record Cleaning",
+      "ROI & Revenue Correlation Analysis",
+      "Genre Popularity Trajectories",
+      "Keyword Content Discovery"
+    ],
+    links: {
+      github: "https://github.com/KrishnaJadhav2525/CineData-Analysis",
+      demo: "https://github.com/KrishnaJadhav2525/CineData-Analysis#readme",
+      caseStudy: "https://github.com/KrishnaJadhav2525/CineData-Analysis"
+    }
+  }
 ];
 
-const variants = {
-    enter: (direction: number) => ({
-        x: direction > 0 ? 100 : -100,
-        opacity: 0,
-        scale: 0.9,
-        filter: "blur(4px)",
-    }),
-    center: {
-        zIndex: 1,
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px)",
-    },
-    exit: (direction: number) => ({
-        zIndex: 0,
-        x: direction < 0 ? 100 : -100,
-        opacity: 0,
-        scale: 0.9,
-        filter: "blur(4px)",
-    }),
-};
+// Specification Inspector Modal
+function SystemSpecModal({ project, isOpen, onClose }: { project: Project; isOpen: boolean; onClose: () => void }) {
+  if (!project) return null;
 
-// Mobile Project Modal Component
-function MobileProjectModal({ project, isOpen, onClose }: { project: Project; isOpen: boolean; onClose: () => void }) {
-    if (!project) return null;
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/75 backdrop-blur-md"
+          />
 
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={onClose}
-                        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-                    />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-10 shadow-2xl"
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-6 right-6 font-mono text-xs text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors p-1 uppercase tracking-wider"
+              aria-label="Close case study"
+            >
+              [ESC / CLOSE]
+            </button>
 
-                    {/* Modal Content */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        onClick={(e) => e.stopPropagation()}
-                        className={`
-                            relative w-full max-w-lg max-h-[90vh] overflow-y-auto
-                            rounded-3xl border border-white/10
-                            bg-neutral-900 shadow-2xl
-                        `}
-                    >
-                        {/* Gradient Header */}
-                        <div className={`absolute top-0 inset-x-0 h-32 bg-gradient-to-b ${project.gradient} opacity-20`} />
+            {/* Spec Header */}
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2 font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.15em] uppercase select-none">
+                <span>{project.id} / SYSTEM CASE STUDY</span>
+                <span>·</span>
+                <span>{project.duration}</span>
+              </div>
 
-                        {/* Close Button */}
-                        <button
-                            onClick={onClose}
-                            className="absolute top-4 right-4 p-2 rounded-full bg-black/20 hover:bg-black/40 text-neutral-400 hover:text-white transition-colors z-10"
-                        >
-                            <X size={20} />
-                        </button>
+              <h3 className="text-2xl sm:text-3xl font-normal text-[var(--color-fg)] tracking-tight mb-2">
+                {project.title}
+              </h3>
 
-                        <div className="relative p-6 md:p-8 flex flex-col items-center">
-                            {/* Icon */}
-                            <div className={`relative w-16 h-16 rounded-2xl ${project.iconBg} border ${project.iconBorder} flex items-center justify-center shadow-[0_0_20px_-5px_rgba(0,0,0,0.3)] mb-4`}>
-                                <svg className={`w-8 h-8 ${project.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    {project.iconPath}
-                                </svg>
-                            </div>
+              <p className="font-mono text-xs text-[var(--color-muted)]">
+                ROLE: {project.role}
+              </p>
+            </div>
 
-                            {/* Title */}
-                            <h3 className="text-2xl font-bold text-white text-center mb-1">
-                                {project.title}
-                            </h3>
+            {/* Case Study Sections */}
+            <div className="space-y-6 border-t border-[var(--color-border)] pt-6">
 
-                            {/* Tags */}
-                            <div className="flex flex-wrap items-center justify-center gap-2 mt-3 mb-6">
-                                {project.tags.map(tag => (
-                                    <span
-                                        key={tag}
-                                        className="px-2.5 py-0.5 text-[10px] font-medium tracking-wide uppercase rounded-full bg-white/5 border border-white/10 text-neutral-300"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
+              {/* Architecture */}
+              <div>
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-2 select-none flex items-center gap-2">
+                  <Server size={12} /> ARCHITECTURE & PATTERN
+                </h4>
+                <p className="text-xs font-mono text-[var(--color-fg)] border border-[var(--color-border)] p-3 bg-[var(--color-surface)]">
+                  {project.architecture}
+                </p>
+              </div>
 
-                            {/* Description */}
-                            <p className="text-neutral-400 text-sm leading-relaxed text-center mb-8">
-                                {project.description}
-                            </p>
+              {/* Problem */}
+              <div>
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-2 select-none flex items-center gap-2">
+                  <Cpu size={12} /> PROBLEM & CHALLENGE
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] leading-relaxed">
+                  {project.problem}
+                </p>
+              </div>
 
-                            {/* Stats */}
-                            <div className="grid grid-cols-3 gap-3 w-full mb-8">
-                                {project.stats.map((stat, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="bg-neutral-800/50 rounded-xl p-3 border border-white/5 text-center flex flex-col items-center justify-center"
-                                    >
-                                        <stat.icon className={`w-4 h-4 ${project.iconColor} mb-1.5`} />
-                                        <div className="text-sm font-bold text-white leading-none mb-1">{stat.value}</div>
-                                        <div className="text-[9px] text-neutral-500 uppercase tracking-wide">{stat.label}</div>
-                                    </div>
-                                ))}
-                            </div>
+              {/* Solution */}
+              <div>
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-2 select-none flex items-center gap-2">
+                  <FileText size={12} /> ARCHITECTURAL SOLUTION
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] leading-relaxed">
+                  {project.solution}
+                </p>
+              </div>
 
-                            {/* Features */}
-                            <div className="w-full bg-white/5 rounded-2xl p-5 border border-white/5 mb-8">
-                                <h4 className="flex items-center gap-2 text-xs font-semibold text-neutral-200 mb-3 uppercase tracking-wider">
-                                    <Activity className="w-3.5 h-3.5 text-emerald-400" /> Key Features
-                                </h4>
-                                <ul className="space-y-2.5">
-                                    {project.features.map((feature, idx) => (
-                                        <li
-                                            key={idx}
-                                            className="flex items-start text-sm text-neutral-400"
-                                        >
-                                            <span className={`mt-1.5 w-1.5 h-1.5 rounded-full mr-3 ${project.iconBg.replace('bg-', 'bg-').split('/')[0]} flex-shrink-0`} />
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+              {/* Outcome */}
+              <div>
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-2 select-none flex items-center gap-2">
+                  <CheckCircle size={12} /> OUTCOME & IMPACT
+                </h4>
+                <p className="text-xs text-[var(--color-fg)] leading-relaxed border-l-2 border-[var(--color-fg)] pl-3">
+                  {project.outcome}
+                </p>
+              </div>
 
-                            {/* Action Buttons */}
-                            <div className="flex gap-3 w-full">
-                                {project.links.github && (
-                                    <a
-                                        href={project.links.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-2 bg-white text-black py-3 rounded-xl font-semibold hover:bg-neutral-200 transition-colors text-sm"
-                                    >
-                                        <Github size={18} /> View Code
-                                    </a>
-                                )}
-                                {project.links.demo && (
-                                    <a
-                                        href={project.links.demo}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-2 bg-neutral-800 text-white py-3 rounded-xl font-semibold border border-neutral-700 hover:bg-neutral-700 transition-colors text-sm"
-                                    >
-                                        <Globe size={18} /> Live Demo
-                                    </a>
-                                )}
-                            </div>
-                        </div>
-                    </motion.div>
+              {/* 6+ Tech Pills */}
+              <div>
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-3 select-none">
+                  COMPLETE STACK ({project.tags.length} TECHNOLOGIES)
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map(tag => (
+                    <Badge key={tag} variant="secondary">
+                      {tag}
+                    </Badge>
+                  ))}
                 </div>
-            )}
-        </AnimatePresence>
-    );
+              </div>
+
+            </div>
+
+            {/* Modal Visible Links */}
+            <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-[var(--color-border)] mt-8">
+              {project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="animated-link font-mono text-xs text-[var(--color-fg)] inline-flex items-center gap-1.5 pb-0.5"
+                >
+                  <Globe size={13} /> Live Deployment →
+                </a>
+              )}
+              {project.links.github && (
+                <a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="animated-link font-mono text-xs text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors inline-flex items-center gap-1.5 pb-0.5"
+                >
+                  <Github size={13} /> GitHub Repository →
+                </a>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
 }
 
 export default function ProjectCarousel() {
-    const [[page, direction], setPage] = useState([1, 0]);
-    const [isHovered, setIsHovered] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-    // Wrap index effectively
-    const projectIndex = Math.abs(page % projects.length);
-    const project = projects[projectIndex];
+  const totalPages = Math.ceil(projects.length / 4);
 
-    const paginate = useCallback((newDirection: number) => {
-        setPage([page + newDirection, newDirection]);
-        setIsHovered(false); // Reset hover state on navigation
-    }, [page]);
+  const nextPage = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalPages);
+  };
 
-    // Handle Mobile Detection
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+  const prevPage = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
+  };
 
-    // Handle Card Click
-    const handleCardClick = () => {
-        if (isMobile) {
-            setSelectedProject(project);
-        } else {
-            setIsHovered(!isHovered);
-        }
-    };
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
+  }
 
-    return (
-        <>
-            <div className="relative w-full max-w-7xl mx-auto h-[600px] md:h-[700px] flex items-center justify-center">
-                {/* Navigation Buttons */}
-                <div className={`absolute inset-x-2 md:-inset-x-12 flex items-center justify-between z-20 pointer-events-none top-1/2 -translate-y-1/2 transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
-                    <button
-                        className="pointer-events-auto p-3 md:p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
-                        onClick={() => paginate(-1)}
-                        aria-label="Previous project"
+  const visibleProjects = projects.slice(currentIndex * 4, currentIndex * 4 + 4);
+
+  return (
+    <div className="w-full">
+      {/* Swiss Desktop 2-Column Border Grid */}
+      <motion.div
+        variants={staggerFast}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[var(--color-border)] border border-[var(--color-border)] mb-8"
+      >
+        {visibleProjects.map((project, idx) => {
+          const globalIndex = currentIndex * 4 + idx + 1;
+          const formattedIndex = String(globalIndex).padStart(2, '0');
+
+          return (
+            <motion.article
+              key={project.title}
+              variants={fadeIn}
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              onMouseMove={handleMouseMove}
+              onClick={() => setSelectedProject(project)}
+              className="card-hover-glow group bg-[var(--color-surface)] p-6 md:p-8 flex flex-col justify-between hover:bg-[var(--color-surface-hover)] transition-all duration-200 cursor-pointer relative z-10 overflow-hidden"
+            >
+              <div className="relative z-10">
+                {/* Header: Tabular Index & Roles */}
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <span className="font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.15em] tabular-nums select-none">
+                    {formattedIndex} / SYSTEM CASE STUDY
+                  </span>
+                  <span className="font-mono text-[9px] text-[var(--color-subtle)] border border-[var(--color-border)] px-1.5 py-0.5 uppercase tracking-wider">
+                    {project.duration.split('·')[0].trim()}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl font-normal text-[var(--color-fg)] mb-2 leading-tight tracking-tight group-hover:underline underline-offset-4 decoration-[var(--color-border-strong)] transition-all">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs text-[var(--color-muted)] leading-relaxed mb-6 line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* 6+ Compact Tech Stack Pills (Always Visible) */}
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  {project.tags.map(tag => (
+                    <Badge key={tag} variant="secondary">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* IMMEDIATELY VISIBLE LINKS FOOTER */}
+              <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--color-border)] font-mono text-[11px]">
+                <div className="flex items-center gap-4">
+                  {project.links.demo && (
+                    <a
+                      href={project.links.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="animated-link font-mono text-[11px] text-[var(--color-fg)] inline-flex items-center gap-1"
                     >
-                        <ChevronLeft size={24} className="md:w-8 md:h-8" />
-                    </button>
-                    <button
-                        className="pointer-events-auto p-3 md:p-4 rounded-full bg-neutral-900/50 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600 hover:bg-neutral-800 transition-all duration-300 backdrop-blur-sm"
-                        onClick={() => paginate(1)}
-                        aria-label="Next project"
+                      Live Demo →
+                    </a>
+                  )}
+                  {project.links.github && (
+                    <a
+                      href={project.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="animated-link font-mono text-[11px] text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors inline-flex items-center gap-1"
                     >
-                        <ChevronRight size={24} className="md:w-8 md:h-8" />
-                    </button>
+                      GitHub →
+                    </a>
+                  )}
                 </div>
 
-                {/* Card Container */}
-                <div className="relative w-full h-full flex items-center justify-center perspective-1000 px-4">
-                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                        <motion.div
-                            key={page}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{
-                                x: { type: "spring", stiffness: 300, damping: 30 },
-                                opacity: { duration: 0.4 },
-                                scale: { duration: 0.4 },
-                                filter: { duration: 0.3 },
-                            }}
-                            className="absolute w-full flex justify-center items-center"
-                            style={{ zIndex: isHovered ? 50 : 1 }}
-                        >
-                            {/* The Card - Glass Shard Design */}
-                            <motion.div
-                                layout
-                                onMouseEnter={() => !isMobile && setIsHovered(true)}
-                                onMouseLeave={() => !isMobile && setIsHovered(false)}
-                                onClick={handleCardClick}
-                                whileHover={{ y: isMobile ? 0 : -8 }}
-                                transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                                className={`
-                                    relative overflow-hidden
-                                    rounded-3xl glass
-                                    shadow-xl
-                                    cursor-pointer
-                                    group/card
-                                    ${isHovered ? 'w-full max-w-4xl shadow-indigo-500/20' : 'w-full max-w-sm md:max-w-lg hover:border-white/20'}
-                                `}
-                                animate={{
-                                    scale: isHovered ? 1 : 0.98,
-                                }}
-                            >
-                                {/* Dynamic Gradient Glow Background */}
-                                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover/card:opacity-10 transition-opacity duration-700`} />
+                <span className="font-mono text-[10px] text-[var(--color-subtle)] group-hover:text-[var(--color-fg)] transition-colors uppercase tracking-wider inline-flex items-center gap-1">
+                  Case Study <span className="transform transition-transform duration-150 group-hover:translate-x-1">→</span>
+                </span>
+              </div>
+            </motion.article>
+          );
+        })}
+      </motion.div>
 
-                                <div className={`relative p-8 md:p-10 flex flex-col h-full ${isHovered ? 'min-h-[550px]' : 'min-h-[450px]'}`}>
+      {/* Pagination Controls */}
+      <div className="flex items-center justify-between font-mono text-xs text-[var(--color-muted)]">
+        <span className="tabular-nums">
+          INDEX {String(currentIndex * 4 + 1).padStart(2, '0')}–{String(Math.min((currentIndex + 1) * 4, projects.length)).padStart(2, '0')} / TOTAL {projects.length} REPOSITORIES
+        </span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={prevPage}
+            className="px-3 py-1.5 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-fg)] transition-colors tracking-wider uppercase"
+            aria-label="Previous projects"
+          >
+            ← PREV
+          </button>
+          <span className="tabular-nums">{currentIndex + 1} / {totalPages}</span>
+          <button
+            onClick={nextPage}
+            className="px-3 py-1.5 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-fg)] transition-colors tracking-wider uppercase"
+            aria-label="Next projects"
+          >
+            NEXT →
+          </button>
+        </div>
+      </div>
 
-                                    {/* HEADER: Icon & Title */}
-                                    <motion.div layout className="flex flex-col items-start gap-4 mb-6">
-                                        <div className={`p-3 rounded-xl ${project.iconBg} border ${project.iconBorder} ${project.iconColor}`}>
-                                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                {project.iconPath}
-                                            </svg>
-                                        </div>
-                                        <motion.h3 layout className="text-2xl md:text-4xl font-bold text-white tracking-tight">
-                                            {project.title}
-                                        </motion.h3>
-                                    </motion.div>
-
-                                    {/* CONTENT: Description */}
-                                    <motion.div layout className="mb-6 flex-grow">
-                                        <p className="text-neutral-400 text-sm md:text-base leading-relaxed line-clamp-3 md:line-clamp-none">
-                                            {project.description}
-                                        </p>
-                                    </motion.div>
-
-                                    {/* TECH STACK (Visible always) */}
-                                    <motion.div layout className="flex flex-wrap gap-2 mb-6">
-                                        {(isHovered ? project.tags : project.tags.slice(0, 3)).map(tag => (
-                                            <Badge
-                                                key={tag}
-                                                variant="secondary"
-                                                className="px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider bg-white/5 border-white/5 text-neutral-400 group-hover/card:text-white transition-colors"
-                                            >
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                        {!isHovered && project.tags.length > 3 && (
-                                            <span className="text-[10px] text-neutral-600 self-center">+{project.tags.length - 3}</span>
-                                        )}
-                                    </motion.div>
-
-                                    {/* EXPANDED CONTENT (Desktop Only) */}
-                                    <AnimatePresence>
-                                        {isHovered && !isMobile && (
-                                            <motion.div
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: "auto" }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                className="overflow-hidden"
-                                            >
-                                                <div className="pt-6 border-t border-white/5 grid grid-cols-2 gap-8">
-                                                    {/* Key Features */}
-                                                    <div>
-                                                        <h4 className="text-xs font-semibold text-white/60 uppercase tracking-widest mb-3">Highlights</h4>
-                                                        <ul className="space-y-2">
-                                                            {project.features.slice(0, 3).map((feature, idx) => (
-                                                                <li key={idx} className="flex items-center text-sm text-neutral-300">
-                                                                    <div className={`w-1 h-1 rounded-full mr-2 ${project.iconColor.replace('text-', 'bg-')}`} />
-                                                                    {feature}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-
-                                                    {/* Actions */}
-                                                    <div className="flex flex-col justify-end gap-3">
-                                                        {project.links.github && (
-                                                            <a
-                                                                href={project.links.github}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="flex items-center justify-center gap-2 py-3 rounded-lg bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors"
-                                                            >
-                                                                <Github size={16} /> View Code
-                                                            </a>
-                                                        )}
-                                                        {project.links.demo && (
-                                                            <a
-                                                                href={project.links.demo}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="flex items-center justify-center gap-2 py-3 rounded-lg border border-white/10 bg-white/5 text-white font-medium text-sm hover:bg-white/10 transition-colors"
-                                                            >
-                                                                <Globe size={16} /> Live Demo
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-
-                                    {/* Mobile Tap Hint */}
-                                    <div className="md:hidden mt-2 text-center">
-                                        <span className="text-[10px] text-neutral-600 uppercase tracking-widest">Tap for details</span>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-
-                {/* Pagination Indicators */}
-                <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-20">
-                    {projects.map((_, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => setPage([idx, idx > projectIndex ? 1 : -1])}
-                            className={`
-                  w-2 h-2 rounded-full transition-all duration-300 
-                  ${idx === projectIndex
-                                    ? 'w-8 bg-white'
-                                    : 'bg-neutral-800 hover:bg-neutral-600'}
-                `}
-                            aria-label={`Go to project ${idx + 1}`}
-                        />
-                    ))}
-                </div>
-            </div>
-
-            {/* Mobile Modal */}
-            <MobileProjectModal
-                project={selectedProject!}
-                isOpen={!!selectedProject}
-                onClose={() => setSelectedProject(null)}
-            />
-        </>
-    );
+      {/* Details Modal */}
+      <SystemSpecModal
+        project={selectedProject!}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+    </div>
+  );
 }

@@ -4,6 +4,7 @@ import matter from "gray-matter"
 import { remark } from "remark"
 import html from "remark-html"
 import Link from "next/link"
+import { ReadingProgress } from "@/app/components/reading-progress"
 
 function formatDate(date: string | Date) {
   const d = new Date(date)
@@ -29,13 +30,14 @@ export default async function BlogSlugPage({
 
   if (!fs.existsSync(filePath)) {
     return (
-      <section className="pt-28 px-6">
-        <div className="mx-auto max-w-2xl">
-          <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
-            Blog not found
-          </h1>
-        </div>
-      </section>
+      <main className="pt-28 px-4 max-w-[680px] mx-auto">
+        <h1 className="text-xl font-normal text-[var(--color-fg)]">
+          Blog post not found
+        </h1>
+        <Link href="/blog" className="text-sm text-[var(--color-muted)] underline mt-4 inline-block">
+          Return to blog index
+        </Link>
+      </main>
     )
   }
 
@@ -47,51 +49,40 @@ export default async function BlogSlugPage({
     .process(content)
 
   return (
-    <section className="min-h-screen text-[var(--text-primary)] selection:bg-indigo-500/30">
-
-      {/* Background Elements */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--primary)/0.05)] rounded-full blur-[100px] opacity-40" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[hsl(var(--secondary)/0.05)] rounded-full blur-[100px] opacity-40" />
-      </div>
-
-      <div className="relative z-10 pt-32 px-6 max-w-4xl mx-auto">
-
+    <>
+      <ReadingProgress />
+      <main className="min-h-screen pt-28 pb-20 px-4 max-w-[680px] mx-auto">
         {/* BACK LINK */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors mb-12 group"
+          className="font-mono text-xs text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors mb-10 inline-block uppercase tracking-wider"
         >
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Blog
+          ← Back to Writing
         </Link>
 
         {/* HEADER */}
-        <header className="mb-16 text-center">
-          <div className="mb-6 flex justify-center">
-            <span className="px-3 py-1 rounded-full glass text-xs font-medium text-[var(--text-accent)]">
-              {formatDate(data.date)}
-            </span>
+        <header className="mb-12">
+          <div className="font-mono text-xs text-[var(--color-subtle)] mb-3">
+            {formatDate(data.date)}
           </div>
 
-          <h1
-            className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] mb-8 leading-tight"
-            style={{ fontFamily: "'Syne', system-ui, sans-serif" }}
-          >
+          <h1 className="text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-fg)] mb-4 leading-tight">
             {data.title}
           </h1>
 
-          {/* Tags if available in data */}
           {data.tags && (
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap gap-2 pt-2">
               {data.tags.map((tag: string) => (
-                <span key={tag} className="text-sm text-[var(--text-tertiary)]">#{tag}</span>
+                <span key={tag} className="font-mono text-[10px] text-[var(--color-subtle)] border border-[var(--color-border)] px-2 py-0.5 tracking-wider uppercase">
+                  {tag}
+                </span>
               ))}
             </div>
           )}
         </header>
 
-        {/* CONTENT */}
-        <article className="prose prose-invert prose-lg prose-neutral max-w-none glass rounded-3xl p-8 md:p-12">
+        {/* ARTICLE CONTENT */}
+        <article className="prose border-t border-[var(--color-border)] pt-8">
           <div
             dangerouslySetInnerHTML={{
               __html: processedContent.toString(),
@@ -100,17 +91,15 @@ export default async function BlogSlugPage({
         </article>
 
         {/* FOOTER */}
-        <div className="mt-20 border-t border-[var(--glass-border)] pt-10 pb-20 text-center">
-          <p className="text-[var(--text-tertiary)] mb-6">Enjoyed this article?</p>
+        <div className="mt-16 border-t border-[var(--color-border)] pt-8">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-semibold hover:opacity-90 transition-colors"
+            className="text-sm font-medium text-[var(--color-fg)] underline underline-offset-4 decoration-[var(--color-border-strong)] hover:opacity-80"
           >
-            Read more articles
+            ← Read all articles
           </Link>
         </div>
-
-      </div>
-    </section>
+      </main>
+    </>
   )
 }
