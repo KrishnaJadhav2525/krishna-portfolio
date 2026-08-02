@@ -32,7 +32,7 @@ const projects: Project[] = [
     solution: "Built a 24/7 automated WhatsApp agent orchestrating n8n workflows, Meta Cloud API, and PostgreSQL for real-time status routing.",
     outcome: "Achieved 100% automated availability routing, 0 ms status sync latency, and zero missed inbound inquiries.",
     description: "Fully automated WhatsApp bot for managing availability. Features sleep mode, busy status, and smart auto-replies using n8n & PostgreSQL.",
-    tags: ['n8n', 'PostgreSQL', 'WhatsApp API', 'JavaScript', 'Node.js', 'Docker', 'Express', 'Meta Cloud API'],
+    tags: ['n8n Workflows', 'PostgreSQL', 'Meta Cloud API', 'Node.js', 'Docker'],
     features: [
       "Automated Availability Routing",
       "Sleep & Busy Mode Logic",
@@ -55,7 +55,7 @@ const projects: Project[] = [
     solution: "Designed a Next.js 16 App Router application integrating Pinecone vector database and Google AI embeddings for semantic search.",
     outcome: "Sub-100ms semantic query latency, 100/100 Lighthouse performance score, and automated MDX blog rendering.",
     description: "Portfolio with RAG-powered Semantic Search. Users can query experience using natural language. Built with Next.js 16 and Pinecone.",
-    tags: ['Next.js 16', 'Pinecone', 'OpenAI', 'React', 'TypeScript', 'TailwindCSS', 'Google AI', 'MDX Engine'],
+    tags: ['Next.js 16', 'Pinecone Vector DB', 'Google AI Embeddings', 'OpenRouter API', 'TypeScript', 'TailwindCSS', 'MDX Engine'],
     features: [
       "RAG Vector Embeddings Engine",
       "Sub-millisecond Vector Retrieval",
@@ -77,40 +77,40 @@ const projects: Project[] = [
     problem: "Fragmented academic department portals led to manual approval bottlenecks for student blog posts and course announcements.",
     solution: "Developed a centralized Flask & MongoDB platform featuring multi-role RBAC authentication, student enrollment, and blog moderation.",
     outcome: "Digitized department operations for 1,200+ students with automated approval workflows and administrative analytics.",
-    description: "Full-stack academic management platform. Features student enrollment, admin dashboards, and a blog submission workflow using Flask and MongoDB.",
-    tags: ['Flask', 'MongoDB', 'Python', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'PyMongo', 'REST API'],
+    description: "Full-stack academic management platform for Rajarshi Shahu Mahavidyalaya. Features student enrollment, admin dashboards, and GridFS storage.",
+    tags: ['Flask', 'MongoDB', 'Python', 'GridFS', 'REST API', 'RBAC Auth'],
     features: [
       "Flask & MongoDB Backend",
+      "GridFS File & Media Storage",
       "Multi-Role Student/Admin Auth",
-      "Blog Approval Workflow",
-      "Administrative Analytics"
+      "Blog Approval & Notice System"
     ],
     links: {
       github: "https://github.com/KrishnaJadhav2525/CS-Dept",
-      demo: "https://github.com/KrishnaJadhav2525/CS-Dept#readme",
+      demo: "https://cs-dept-ivory.vercel.app/",
       caseStudy: "https://github.com/KrishnaJadhav2525/CS-Dept"
     }
   },
   {
     id: "04",
     title: "CuraLink Healthcare Platform",
-    role: "Frontend Architect & HealthTech Developer",
-    duration: "2 Months · Prototype Shipped",
-    architecture: "Client-Side Health Coordination Hub + REST API",
-    problem: "Patients and healthcare providers lacked a streamlined digital touchpoint for appointment scheduling and medical record access.",
-    solution: "Built a high-performance React healthcare portal with interactive appointment booking, patient status tracking, and record displays.",
-    outcome: "Reduced patient registration steps by 50% with an intuitive, accessible clinical user interface.",
-    description: "Healthcare coordination platform bridging patient care management, appointment scheduling, and health tracking.",
-    tags: ['React', 'JavaScript', 'Node.js', 'Express', 'TailwindCSS', 'REST API', 'HTML5', 'CSS Modules'],
+    role: "Full-Stack AI & HealthTech Developer",
+    duration: "2 Months · Shipped",
+    architecture: "5-Stage Hybrid AI Retrieval Pipeline + Llama 3.3 70B Reasoning",
+    problem: "Patients and healthcare researchers lack a unified tool to synthesize findings across 180+ live academic databases with strict citation validation.",
+    solution: "Built a 5-stage research intelligence platform using BM25, MiniLM ONNX embeddings, RRF rank fusion, and Llama 3.3 70B via Groq Cloud.",
+    outcome: "Sub-15s multi-database synthesis with evidence-graded answers and 100% cited research transparency.",
+    description: "AI medical research platform retrieving 180+ papers across PubMed, OpenAlex, and ClinicalTrials.gov, synthesizing evidence-graded answers.",
+    tags: ['React 18', 'Node.js', 'Express', 'MongoDB Atlas', 'Groq (Llama 3.3 70B)', 'ONNX Embeddings', 'RRF Re-ranking'],
     features: [
-      "Patient Record Management",
-      "Appointment Scheduling",
-      "Health Status Tracking",
-      "Responsive Clinical Interface"
+      "Tri-Source Parallel Paper Retrieval",
+      "5-Stage Hybrid Ranking Pipeline",
+      "Evidence-Graded AI Synthesis",
+      "Real-time SSE Streaming Results"
     ],
     links: {
       github: "https://github.com/KrishnaJadhav2525/CuraLink",
-      demo: "https://github.com/KrishnaJadhav2525/CuraLink#readme",
+      demo: "https://cura-link-xi.vercel.app/",
       caseStudy: "https://github.com/KrishnaJadhav2525/CuraLink"
     }
   },
@@ -124,7 +124,7 @@ const projects: Project[] = [
     solution: "Engineered a 100% automated n8n pipeline combining Gemini AI for scripts, Edge TTS for voiceover, Pexels API for stock media, and MoviePy for rendering.",
     outcome: "Automated end-to-end 1080p MP4 rendering in under 3 minutes per video with zero human intervention required.",
     description: "Fully automated video generation pipeline. Orchestrates n8n, Gemini, Edge TTS, and MoviePy to turn a topic into a YouTube-ready MP4.",
-    tags: ['Python', 'n8n', 'Gemini AI', 'Edge TTS', 'MoviePy', 'FFmpeg', 'Pexels API', 'REST API'],
+    tags: ['n8n Workflows', 'Python', 'Gemini AI', 'Edge TTS', 'MoviePy / FFmpeg'],
     features: [
       "100% Automated Workflow",
       "Gemini AI Script Generation",
@@ -147,7 +147,7 @@ const projects: Project[] = [
     solution: "Constructed an interactive coaching intelligence tool featuring real-time telemetry analytics dashboards and AI-generated progress insights.",
     outcome: "Delivered real-time progress tracking with automated performance summaries for active skill development.",
     description: "AI-assisted coaching and performance analytics platform for tracking user progress and personalized skill development.",
-    tags: ['JavaScript', 'React', 'Node.js', 'Express', 'TailwindCSS', 'Chart.js', 'REST API', 'JSON Store'],
+    tags: ['React', 'Node.js', 'Express', 'TailwindCSS', 'Chart.js'],
     features: [
       "Performance Telemetry Dashboards",
       "Personalized Milestone Tracking",
@@ -170,7 +170,7 @@ const projects: Project[] = [
     solution: "Built a Python ad pipeline querying market trends via Tavily, generating video concepts with Kling v2 (Fal.ai), and uploading assets to Google Drive.",
     outcome: "Reduced ad production lead times from days to under 5 minutes with automated multi-modal generation.",
     description: "Fully automated ad generation pipeline. Researches via Tavily, scripts with Gemini 2.0, generates video with Kling v2 (Fal.ai), and assembles with FFmpeg.",
-    tags: ['Python', 'Gemini 2.0', 'Fal.ai', 'Tavily', 'FFmpeg', 'Google Drive API', 'MoviePy', 'Requests'],
+    tags: ['Python', 'Gemini 2.0', 'Fal.ai (Kling v2)', 'Tavily API', 'FFmpeg'],
     features: [
       "Tavily Market Intelligence",
       "Gemini 2.0 Script Generation",
@@ -193,7 +193,7 @@ const projects: Project[] = [
     solution: "Created a VC intelligence portal that automatically scrapes public startup URLs using Jina AI and enriches company profiles using Groq Llama 3.",
     outcome: "Instant startup profile extraction at $0 compute cost utilizing free-tier AI inference APIs.",
     description: "VC Intelligence Platform for startup discovery. Features live AI enrichment via Jina AI & Groq (Llama 3), searchable company database, and analyst notes.",
-    tags: ['Next.js 14', 'Groq Llama 3', 'Jina AI', 'TypeScript', 'TailwindCSS', 'LocalStorage', 'React', 'REST API'],
+    tags: ['Next.js 14', 'Groq (Llama 3)', 'Jina AI', 'TypeScript', 'TailwindCSS'],
     features: [
       "Jina AI Web Scraping Engine",
       "Groq Llama 3 AI Profile Enrichment",
@@ -216,7 +216,7 @@ const projects: Project[] = [
     solution: "Engineered a Python CLI trading client for Binance Futures Testnet supporting market, limit, and stop-loss USDT-M contracts.",
     outcome: "Zero unhandled runtime exceptions, sub-10ms API order dispatch, and structured audit logs.",
     description: "Production-quality CLI trading bot for Binance Futures Testnet (USDT-M). Features robust validation, structured logging, and market/limit order support.",
-    tags: ['Python', 'Binance API', 'CLI', 'Trading', 'Requests', 'Logging', 'HMAC Auth', 'USDT-M'],
+    tags: ['Python', 'Binance Futures API', 'HMAC Security', 'CLI', 'Requests'],
     features: [
       "USDT-M Testnet Order Execution",
       "Market & Limit Order Engines",
@@ -239,7 +239,7 @@ const projects: Project[] = [
     solution: "Developed a Django NLP service vectorizing resume text with Scikit-learn TF-IDF matrices to calculate exact cosine match percentages.",
     outcome: "Sub-millisecond score computation with 100% local privacy protection for candidate documents.",
     description: "Production-ready resume analyzer using TF-IDF & cosine similarity to match resumes with job descriptions. Features a premium minimal UI.",
-    tags: ['Django', 'Python', 'Scikit-learn', 'NLP', 'NumPy', 'HTML5', 'CSS3', 'TF-IDF'],
+    tags: ['Django', 'Python', 'Scikit-Learn (TF-IDF)', 'Cosine Similarity', 'NLP'],
     features: [
       "TF-IDF Vectorization Matrix",
       "Cosine Similarity Calculation",
@@ -262,7 +262,7 @@ const projects: Project[] = [
     solution: "Designed a multi-threaded C++ / Qt desktop application leveraging OpenCV Haar cascade classifiers and LFW dataset face recognition.",
     outcome: "Achieved 99.8% accuracy on LFW benchmark with 60+ FPS processing speed at sub-15ms frame latency.",
     description: "High-performance biometric system utilizing OpenCV and Qt C++ for real-time face detection. Optimized for low-latency environments.",
-    tags: ['C++', 'OpenCV', 'Qt Framework', 'Biometrics', 'Multi-Threading', 'Computer Vision', 'Haar Cascades', 'CMake'],
+    tags: ['C++', 'OpenCV', 'Qt Framework', 'Multi-Threading', 'Haar Cascades'],
     features: [
       "99.8% Accuracy on LFW Benchmark",
       "Multi-Threaded Frame Pipeline",
@@ -285,7 +285,7 @@ const projects: Project[] = [
     solution: "Built a virtualized React grid component rendering only visible windowed rows with client-side sorting, column pinning, and undo history.",
     outcome: "Maintained stable 60 FPS scrolling performance when rendering datasets exceeding 50,000 items.",
     description: "Custom-built virtualized data grid for React. Handles 50k+ rows efficiently with client-side sorting and column management.",
-    tags: ['React', 'TypeScript', 'Vite', 'Vitest', 'Virtualization', 'HTML5', 'TailwindCSS', 'DOM Windowing'],
+    tags: ['React', 'TypeScript', 'DOM Virtualization', 'Vite', 'TailwindCSS'],
     features: [
       "50k+ Row DOM Virtualization",
       "Client-side Multi-Column Sort",
@@ -308,7 +308,7 @@ const projects: Project[] = [
     solution: "Analyzed 44,000+ movie records using Pandas, Seaborn, and Matplotlib to visualize revenue correlations and genre popularity trajectories.",
     outcome: "Surfaced key statistical ROI multipliers across 100 years of global cinematic data.",
     description: "Data analysis project exploring trends in 44,000+ movies. Visualizes budget vs. revenue correlations and genre popularity using Pandas.",
-    tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'NumPy', 'Data Mining', 'Jupyter Notebook', 'EDA'],
+    tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'NumPy'],
     features: [
       "44,000+ Film Record Cleaning",
       "ROI & Revenue Correlation Analysis",

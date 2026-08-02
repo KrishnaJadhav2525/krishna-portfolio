@@ -9,37 +9,37 @@ const skillSections = [
   {
     category: "AI & AGENTS",
     title: "AI & Agent Systems",
-    items: ["LLMs", "RAG", "LangChain", "Tool Calling", "Structured Outputs", "Vector Embeddings", "Pinecone", "TF-IDF", "Cosine Similarity", "Prompt Engineering", "Semantic Search", "OpenAI API", "Gemini API", "n8n Workflow Automation", "Edge TTS"]
+    items: ["Groq (Llama 3.3 70B)", "RAG Architecture", "Pinecone Vector DB", "Google AI Embeddings", "ONNX Embeddings", "RRF Re-ranking", "LangChain", "OpenRouter LLMs", "n8n Workflows", "Meta Cloud API", "TF-IDF / Cosine Similarity", "Gemini 2.0", "Edge TTS"]
   },
   {
     category: "FRONTEND",
     title: "Frontend Engineering",
-    items: ["React.js", "Next.js 16", "TypeScript", "JavaScript (ES6+)", "TailwindCSS", "HTML5/CSS3", "Responsive Design", "SSR / SSG", "PostCSS", "Framer Motion"]
+    items: ["Next.js 16", "React 18", "TypeScript", "TailwindCSS", "Framer Motion", "Shadcn UI", "MDX Engine", "DOM Virtualization"]
   },
   {
     category: "BACKEND",
     title: "Backend Development",
-    items: ["Django", "Flask", "Node.js", "Express.js", "REST APIs", "GraphQL", "Gunicorn", "Session Management", "JWT"]
+    items: ["Node.js", "Express.js", "Python", "Flask", "Django", "REST APIs", "SSE Streaming", "JWT & RBAC Auth"]
   },
   {
     category: "DATA & ML",
     title: "Data & Machine Learning",
-    items: ["Scikit-learn", "TensorFlow", "PyTorch", "XGBoost", "Neural Networks", "Pandas", "NumPy", "Matplotlib", "SHAP", "Feature Engineering"]
+    items: ["Scikit-learn", "OpenCV", "NLP", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Computer Vision"]
   },
   {
     category: "DATABASES",
     title: "Databases & Storage",
-    items: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Supabase", "SQLite", "Pinecone (Vector DB)", "PyMongo"]
+    items: ["MongoDB Atlas", "PostgreSQL", "GridFS Storage", "Pinecone Vector DB", "MySQL", "Redis"]
   },
   {
     category: "DEVOPS",
     title: "DevOps & Tooling",
-    items: ["Docker", "Git/GitHub", "CI/CD", "Vercel", "Render", "Railway", "AWS", "FFmpeg", "MoviePy", "Linux", "Postman"]
+    items: ["Docker", "Git & GitHub", "Vercel", "Linux", "FFmpeg / MoviePy", "CI/CD Pipelines"]
   },
   {
     category: "LANGUAGES",
     title: "Programming Languages",
-    items: ["Python", "TypeScript", "JavaScript", "SQL", "Java", "C++", "HTML/CSS"]
+    items: ["Python", "TypeScript", "JavaScript", "C++", "SQL"]
   }
 ];
 

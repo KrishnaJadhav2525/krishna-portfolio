@@ -61,5 +61,18 @@ export function ScrambleText({
     }
   }, [text, delay, duration])
 
-  return <span className={className}>{displayedText}</span>
+  const handleMouseMove = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
+  }
+
+  return (
+    <span
+      className={`metallic-text-shine inline-block cursor-default ${className}`}
+      onMouseMove={handleMouseMove}
+    >
+      {displayedText}
+    </span>
+  )
 }

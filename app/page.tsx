@@ -22,19 +22,19 @@ const socialLinks = [
 const coreTechnologies = [
   {
     category: "AI & AUTOMATION",
-    items: ["LLMs", "RAG", "LangChain", "AI Agents", "Tool Calling", "Structured Outputs", "Vector Embeddings", "Pinecone", "OpenAI", "Claude", "Gemini 2.0", "n8n Automation", "Edge TTS"]
+    items: ["Llama 3.3 70B", "RAG & Pinecone", "Google AI Embeddings", "ONNX Embeddings", "RRF Re-ranking", "n8n Workflows", "Meta Cloud API"]
   },
   {
-    category: "FRONTEND & MERN",
-    items: ["React.js", "Next.js 16", "TypeScript", "JavaScript (ES6+)", "TailwindCSS", "HTML5", "CSS3", "SSR / SSG", "Framer Motion", "Shadcn UI"]
+    category: "FRONTEND & ARCHITECTURE",
+    items: ["Next.js 16", "React 18", "TypeScript", "TailwindCSS", "Framer Motion", "MDX Engine"]
   },
   {
     category: "BACKEND & DATABASES",
-    items: ["Node.js", "Express.js", "MongoDB", "PostgreSQL", "Redis", "Python", "Django", "Flask", "REST APIs", "GraphQL", "JWT Auth", "PyMongo"]
+    items: ["Node.js", "Express", "Python", "Flask", "Django", "MongoDB Atlas", "GridFS", "PostgreSQL", "REST APIs"]
   },
   {
-    category: "TOOLS & INFRASTRUCTURE",
-    items: ["Docker", "Git", "GitHub", "Linux", "Vercel", "Render", "Railway", "AWS", "FFmpeg", "Postman", "CI/CD"]
+    category: "INFRASTRUCTURE & DEVOPS",
+    items: ["Docker", "Git & GitHub", "Linux", "Vercel", "FFmpeg / MoviePy", "CI/CD"]
   }
 ]
 
@@ -68,7 +68,7 @@ export default function Page() {
         {/* Ambient Page Lighting */}
         <div className="ambient-page-lighting" aria-hidden="true" />
 
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 w-full flex-1 flex flex-col justify-center relative z-10">
 
           {/* 2-Column Asymmetric Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -135,8 +135,8 @@ export default function Page() {
                   <span>19.0760° N, 72.8777° E</span>
                 </div>
 
-                {/* Intro Body Text: 16px, warm off-white #F0EDE6, line-height 1.7 */}
-                <p className="text-base text-[var(--color-fg)] leading-[1.7] max-w-[460px]">
+                {/* Intro Body Text: 16px, line-height 1.7 */}
+                <p className="text-base text-[var(--color-muted)] leading-[1.7] max-w-[460px]">
                   Crafting high-performance web applications, resilient backend architectures, and intelligent automation systems with Swiss design discipline.
                 </p>
 
@@ -206,7 +206,7 @@ export default function Page() {
 
       {/* FEATURED PROJECTS SECTION — What I Built */}
       <section id="projects" className="py-24">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -243,7 +243,7 @@ export default function Page() {
 
       {/* ENGINEERING PHILOSOPHY SECTION — How I Think */}
       <section className="py-24 bg-line-grid">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -296,7 +296,7 @@ export default function Page() {
 
       {/* CORE TECHNOLOGIES SECTION — What I Use (Single Source of Truth) */}
       <section className="py-24">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <motion.div
             variants={clipReveal}
             initial="hidden"

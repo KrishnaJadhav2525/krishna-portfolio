@@ -20,7 +20,7 @@ export default function Footer() {
       viewport={{ once: true, margin: "-50px" }}
       className="border-t border-[var(--color-border)] py-10 mt-20"
     >
-      <div className="max-w-[680px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span className="font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.15em] uppercase select-none">
           © {new Date().getFullYear()} KRISHNA JADHAV
         </span>

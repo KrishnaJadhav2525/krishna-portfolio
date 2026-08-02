@@ -15,30 +15,32 @@ The portfolio is designed as a **Swiss-Inspired Editorial Digital Product** that
 
 ---
 
-## 2. Color System & Theme Specifications
+## 2. Independent Theme Architecture (`lib/theme/*`)
 
-### Dark Theme System (`:root`)
-- **Background (`--color-bg`)**: `#0A0A0A` (Deep Off-Black)
-- **Foreground (`--color-fg`)**: `#FAFAFA` (High-Contrast White)
-- **Muted Text (`--color-muted`)**: `#A3A3A3` (Neutral Mid-Gray)
-- **Subtle Metadata (`--color-subtle`)**: `#737373` (Low-Contrast Tabular Gray)
-- **Border (`--color-border`)**: `#262626` (Subtle Structural Hairline)
-- **Border Strong (`--color-border-strong`)**: `#404040` (Active Border)
-- **Surface / Card (`--color-surface`)**: `#111111` (Elevated Off-Black Surface)
+### Cinematic Dark Theme System (`lib/theme/dark/`)
+- **Background (`--color-bg`)**: `#000000` (Pure Deep Black Canvas)
+- **Foreground (`--color-fg`)**: `#EDEDED` (Pure Crisp White Headings)
+- **Muted Text (`--color-muted`)**: `#A1A1AA` (Medium Neutral Gray Body Text)
+- **Subtle Metadata (`--color-subtle`)**: `#71717A` (Light Neutral Gray Captions)
+- **Border Hairline (`--color-border`)**: `#1F1F23` (Subtle Hairline Border)
+- **Border Strong (`--color-border-strong`)**: `#27272A` (Active Border)
+- **Surface / Card (`--color-surface`)**: `#0A0A0B` (Elevated Deep Black Surface)
+- **Hover Surface (`--color-surface-hover`)**: `#121215` (Subtle Elevated Hover Surface)
+- **Cursor Spotlight**: Windows 10 Spotlight / Fluent acrylic white shimmer (`rgba(255, 255, 255, 0.04)`).
+- **Text Shimmer**: Brushed aluminum light reflection tracking mouse position over display headings (`Krishna`, `Jadhav`).
 
-### Standalone Editorial Light Theme System (`html.light`)
-Inspired by *Apple*, *Linear*, *Stripe Docs*, *Vercel*, *Resend*, *Notion*, *Framer*, and *Awwwards* portfolios:
-- **Background (`--color-bg`)**: `#F7F5F0` (Warm Editorial Alabaster/Paper Base)
-- **Foreground (`--color-fg`)**: `#141312` (Near-Black Dark Espresso — Sharp, Crisp Editorial Headings)
-- **Muted Text (`--color-muted`)**: `#57544D` (Rich Warm Dark Gray — High Typography Contrast Body Text)
-- **Subtle Metadata (`--color-subtle`)**: `#8C887E` (Warm Tabular Gray)
-- **Border (`--color-border`)**: `#E6E2D8` (Soft Warm Editorial Hairline)
-- **Border Strong (`--color-border-strong`)**: `#CDC8BC` (Active Warm Border)
+### Editorial Light Theme System (`lib/theme/light/`)
+- **Background (`--color-bg`)**: `#F5F4F0` (Warm Editorial Paper Base Canvas)
+- **Foreground (`--color-fg`)**: `#111111` (Near-Black Display Headings)
+- **Muted Text (`--color-muted`)**: `#525252` (Medium Dark Gray Body Text)
+- **Subtle Metadata (`--color-subtle`)**: `#71717A` (Light Neutral Gray Captions)
+- **Border Hairline (`--color-border`)**: `#E4E4E7` (Soft Hairline Border)
+- **Border Strong (`--color-border-strong`)**: `#D4D4D8` (Active Hairline Border)
 - **Surface / Card (`--color-surface`)**: `#FFFFFF` (Elevated Warm White Surface)
-- **Hover Surface (`--color-surface-hover`)**: `#F0EDE4` (Elevated Hover Surface)
-- **Glass Navy / Header (`--glass-bg`)**: `rgba(247, 245, 240, 0.82)` with `backdrop-filter: blur(24px) saturate(180%)`
-- **Elevated Shadows**: `box-shadow: 0 1px 3px rgba(20, 19, 18, 0.03), 0 4px 12px rgba(20, 19, 18, 0.04)`
-- **Floating Nav Shadow**: `box-shadow: 0 4px 20px -2px rgba(20, 19, 18, 0.04), 0 0 1px 0 rgba(20, 19, 18, 0.08)`
+- **Hover Surface (`--color-surface-hover`)**: `#EBE9E2` (Subtle Elevated Hover Surface)
+- **Glass Header (`--glass-bg`)**: `rgba(245, 244, 240, 0.85)` with `backdrop-filter: blur(24px)`
+- **Subtle Shadows**: `box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03)`
+- **Floating Nav Shadow**: `box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03)`
 
 ---
 

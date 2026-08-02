@@ -47,7 +47,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 h-14 bg-[var(--glass-bg)] backdrop-blur-xl border-b border-[var(--glass-border)] transition-all duration-300">
-      <nav className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+      <nav className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 h-full flex items-center justify-between">
         {/* Monogram Logo */}
         <Link
           href="/"

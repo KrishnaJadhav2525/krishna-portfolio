@@ -10,15 +10,15 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, as: Component = "section", variant = "wide", ...props }, ref) => {
     const maxWidthClass =
       variant === "narrow"
-        ? "max-w-[720px]"
+        ? "max-w-[800px]"
         : variant === "full"
-        ? "max-w-[1400px]"
-        : "max-w-[1200px]";
+        ? "w-full"
+        : "max-w-[1400px]";
 
     return (
       <Component
         ref={ref}
-        className={cn("mx-auto w-full px-4 sm:px-6 lg:px-8", maxWidthClass, className)}
+        className={cn("mx-auto w-full px-6 sm:px-8 lg:px-12", maxWidthClass, className)}
         {...props}
       />
     )

@@ -17,46 +17,46 @@
 }
 
 /* ============================================
-   DARK EDITORIAL × KINETIC PALETTE (DEFAULT)
+   PURE NEUTRAL DARK THEME (#000000) — VERCEL INSPIRED
    ============================================ */
 :root {
-  /* Deep Charcoal Near-Black (#0D0D0D) */
-  --color-bg: #0D0D0D;
-  /* Surface Cards (#141414) */
-  --color-surface: #141414;
-  --color-surface-hover: #1c1c1c;
-  /* Primary Text: Warm Off-White (#F0EDE6) */
-  --color-fg: #F0EDE6;
-  /* Accent: Electric Lime / Acid Yellow (#C8F04D) */
-  --color-accent: #C8F04D;
-  /* Muted Text (#888880) & Subtle Text (#555550) */
-  --color-muted: #a0a098;
-  --color-subtle: #555550;
-  /* Border / Divider (#222220) */
-  --color-border: #222220;
-  --color-border-strong: #383835;
+  /* Pure Deep Black Canvas */
+  --color-bg: #000000;
+  /* Surface Cards (#0A0A0A) */
+  --color-surface: #0A0A0A;
+  --color-surface-hover: #121212;
+  /* Primary Text: Crisp Pure White (#EDEDED) */
+  --color-fg: #EDEDED;
+  /* Monochrome Accent: Pure White */
+  --color-accent: #FFFFFF;
+  /* Muted Body Text (#A1A1AA) & Subtle Metadata (#71717A) */
+  --color-muted: #A1A1AA;
+  --color-subtle: #71717A;
+  /* Hairline Border (#1F1F22) & Strong Border (#27272A) */
+  --color-border: #1F1F22;
+  --color-border-strong: #27272A;
 
-  /* Legacy HSL Mapping */
-  --background: 0 0% 5%;
-  --foreground: 40 20% 92%;
-  --card: 0 0% 8%;
-  --card-foreground: 40 20% 92%;
-  --popover: 0 0% 8%;
-  --popover-foreground: 40 20% 92%;
-  --primary: 76 84% 62%;
-  --primary-foreground: 0 0% 5%;
-  --secondary: 0 0% 12%;
-  --secondary-foreground: 40 20% 92%;
-  --muted: 0 0% 12%;
-  --muted-foreground: 0 0% 60%;
-  --accent: 76 84% 62%;
-  --accent-foreground: 0 0% 5%;
-  --border: 0 0% 13%;
-  --input: 0 0% 13%;
-  --ring: 76 84% 62%;
+  /* HSL Mapping */
+  --background: 0 0% 0%;
+  --foreground: 0 0% 93%;
+  --card: 0 0% 4%;
+  --card-foreground: 0 0% 93%;
+  --popover: 0 0% 4%;
+  --popover-foreground: 0 0% 93%;
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 93%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 0 0% 100%;
+  --accent-foreground: 0 0% 0%;
+  --border: 240 5% 13%;
+  --input: 240 5% 13%;
+  --ring: 0 0% 100%;
 
-  --glass-bg: rgba(13, 13, 13, 0.85);
-  --glass-border: #222220;
+  --glass-bg: rgba(0, 0, 0, 0.8);
+  --glass-border: #1F1F22;
 
   --text-primary: var(--color-fg);
   --text-secondary: var(--color-muted);
@@ -65,40 +65,39 @@
 }
 
 /* ============================================
-   LIGHT MODE: STANDALONE WARM EDITORIAL (#F7F5F0)
-   Handcrafted Paper Canvas & Obsidian Ink Accent
+   LAYERED LIGHT THEME (#F4F4F5 Base / #FFFFFF Surface)
    ============================================ */
 html.light {
-  --color-bg: #F7F5F0;
+  --color-bg: #F4F4F5;
   --color-surface: #FFFFFF;
-  --color-surface-hover: #F0EDE4;
-  --color-fg: #141312;
-  --color-accent: #1C1917;
-  --color-muted: #57544D;
-  --color-subtle: #8C887E;
-  --color-border: #E6E2D8;
-  --color-border-strong: #CDC8BC;
+  --color-surface-hover: #E4E4E7;
+  --color-fg: #1A1A1A;
+  --color-accent: #111111;
+  --color-muted: #444444;
+  --color-subtle: #666666;
+  --color-border: #E4E4E7;
+  --color-border-strong: #D4D4D8;
 
-  --background: 40 16% 95%;
-  --foreground: 30 5% 7%;
+  --background: 240 5% 96%;
+  --foreground: 0 0% 7%;
   --card: 0 0% 100%;
-  --card-foreground: 30 5% 7%;
+  --card-foreground: 0 0% 7%;
   --popover: 0 0% 100%;
-  --popover-foreground: 30 5% 7%;
-  --primary: 24 10% 10%;
-  --primary-foreground: 40 16% 95%;
-  --secondary: 40 10% 92%;
-  --secondary-foreground: 30 5% 7%;
-  --muted: 40 10% 92%;
-  --muted-foreground: 35 6% 32%;
-  --accent: 24 10% 10%;
-  --accent-foreground: 40 16% 95%;
-  --border: 40 12% 87%;
-  --input: 40 12% 87%;
-  --ring: 24 10% 10%;
+  --popover-foreground: 0 0% 7%;
+  --primary: 0 0% 7%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 92%;
+  --secondary-foreground: 0 0% 7%;
+  --muted: 240 5% 92%;
+  --muted-foreground: 0 0% 32%;
+  --accent: 0 0% 7%;
+  --accent-foreground: 0 0% 100%;
+  --border: 240 5% 91%;
+  --input: 240 5% 91%;
+  --ring: 0 0% 7%;
 
-  --glass-bg: rgba(247, 245, 240, 0.82);
-  --glass-border: #E6E2D8;
+  --glass-bg: rgba(244, 244, 245, 0.85);
+  --glass-border: #E4E4E7;
 
   --text-primary: var(--color-fg);
   --text-secondary: var(--color-muted);
@@ -136,7 +135,7 @@ body::after {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 128px 128px;
@@ -146,7 +145,7 @@ body::after {
 }
 
 html.light body::after {
-  opacity: 0.032;
+  opacity: 0.015;
   mix-blend-mode: multiply;
 }
 
@@ -165,61 +164,61 @@ html.light body::after {
 }
 
 /* ============================================
-   PAGE-WIDE BALANCED AMBIENT LIGHTING
+   SUBTLE AMBIENT LIGHT POOLS (NEUTRAL)
    ============================================ */
 .ambient-page-lighting {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.5;
   background:
-    radial-gradient(1000px circle at 15% 15%, rgba(200, 240, 77, 0.05), transparent 70%),
-    radial-gradient(1200px circle at 85% 50%, rgba(200, 240, 77, 0.03), transparent 70%),
-    radial-gradient(900px circle at 40% 85%, rgba(200, 240, 77, 0.04), transparent 70%);
+    radial-gradient(1000px circle at 15% 15%, rgba(255, 255, 255, 0.025), transparent 70%),
+    radial-gradient(1200px circle at 85% 50%, rgba(255, 255, 255, 0.015), transparent 70%),
+    radial-gradient(900px circle at 40% 85%, rgba(255, 255, 255, 0.02), transparent 70%);
 }
 
 html.light .ambient-page-lighting {
-  opacity: 0.85;
+  opacity: 0.6;
   background:
-    radial-gradient(1100px circle at 15% 15%, rgba(242, 234, 216, 0.65), transparent 70%),
-    radial-gradient(1300px circle at 85% 45%, rgba(235, 226, 205, 0.5), transparent 70%),
-    radial-gradient(950px circle at 35% 85%, rgba(240, 231, 212, 0.55), transparent 70%);
+    radial-gradient(1100px circle at 15% 15%, rgba(0, 0, 0, 0.02), transparent 70%),
+    radial-gradient(1300px circle at 85% 45%, rgba(0, 0, 0, 0.015), transparent 70%),
+    radial-gradient(950px circle at 35% 85%, rgba(0, 0, 0, 0.018), transparent 70%);
   animation: ambient-breathe 14s ease-in-out infinite alternate;
 }
 
 @keyframes ambient-breathe {
-  0%   { opacity: 0.75; transform: scale(1); }
-  50%  { opacity: 0.95; transform: scale(1.025); }
-  100% { opacity: 0.75; transform: scale(1); }
+  0%   { opacity: 0.5; transform: scale(1); }
+  50%  { opacity: 0.7; transform: scale(1.02); }
+  100% { opacity: 0.5; transform: scale(1); }
 }
 
 /* ============================================
-   CURSOR GLOW (Warm Champagne Micro-Glow in Light)
+   CURSOR GLOW (Faint Neutral Micro-Glow)
    ============================================ */
 .cursor-spotlight-layer {
   background: radial-gradient(
-    400px circle at var(--x, 50%) var(--y, 50%),
-    rgba(200, 240, 77, 0.08) 0%,
+    450px circle at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.03) 0%,
     transparent 80%
   );
 }
 
 html.light .cursor-spotlight-layer {
   background: radial-gradient(
-    500px circle at var(--x, 50%) var(--y, 50%),
-    rgba(180, 140, 70, 0.05) 0%,
+    450px circle at var(--x, 50%) var(--y, 50%),
+    rgba(0, 0, 0, 0.025) 0%,
     transparent 80%
   );
 }
 
 /* ============================================
-   DOT & LINE GRID PATTERNS
+   ATTENUATED LOW-OPACITY GRID PATTERNS
    ============================================ */
 .bg-dot-grid {
   background-image: radial-gradient(
     circle,
-    rgba(200, 240, 77, 0.06) 1px,
+    rgba(255, 255, 255, 0.03) 1px,
     transparent 1px
   );
   background-size: 28px 28px;
@@ -228,7 +227,7 @@ html.light .cursor-spotlight-layer {
 html.light .bg-dot-grid {
   background-image: radial-gradient(
     circle,
-    rgba(28, 25, 23, 0.06) 1px,
+    rgba(0, 0, 0, 0.03) 1px,
     transparent 1px
   );
   background-size: 28px 28px;
@@ -241,15 +240,15 @@ html.light .bg-dot-grid {
 
 .bg-line-grid {
   background-image:
-    linear-gradient(rgba(34, 34, 32, 0.6) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 34, 32, 0.6) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
 html.light .bg-line-grid {
   background-image:
-    linear-gradient(rgba(230, 226, 216, 0.7) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(230, 226, 216, 0.7) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -278,11 +277,11 @@ html.light .bg-line-grid {
 }
 
 html.light .card-hover-glow {
-  box-shadow: 0 1px 3px rgba(20, 19, 18, 0.03), 0 4px 12px rgba(20, 19, 18, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 html.light .card-hover-glow:hover {
-  box-shadow: 0 6px 20px -2px rgba(20, 19, 18, 0.07), 0 2px 6px rgba(20, 19, 18, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .card-hover-glow::before {
@@ -291,7 +290,7 @@ html.light .card-hover-glow:hover {
   inset: 0;
   background: radial-gradient(
     400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(200, 240, 77, 0.06),
+    rgba(255, 255, 255, 0.03),
     transparent 80%
   );
   opacity: 0;
@@ -303,7 +302,7 @@ html.light .card-hover-glow:hover {
 html.light .card-hover-glow::before {
   background: radial-gradient(
     400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(180, 140, 70, 0.04),
+    rgba(0, 0, 0, 0.02),
     transparent 80%
   );
 }
@@ -340,17 +339,43 @@ html.light .card-hover-glow::before {
    SOCIAL LINKS HOVER (LIME FLASH + LIFT)
    ============================================ */
 .social-link-kinetic {
+  color: var(--color-muted);
   transition: color 0.15s ease, transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.social-link-kinetic:hover {
-  color: var(--color-accent);
+html.light .social-link-kinetic {
+  color: #666666;
+}
+
+.social-link-kinetic:hover,
+html.light .social-link-kinetic:hover {
+  color: #111111;
   transform: translateY(-2px);
 }
 
 /* ============================================
-   TEXT SHIMMER UTILITY
+   TEXT SHIMMER UTILITY & METALLIC REFLECTION
    ============================================ */
+.metallic-text-shine {
+  background-image: radial-gradient(
+    350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    #FFFFFF 0%,
+    #D4D4D8 35%,
+    var(--color-fg) 75%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-image 0.1s ease-out;
+}
+
+html.light .metallic-text-shine {
+  background-image: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #1A1A1A;
+}
+
 .text-shimmer {
   background: linear-gradient(
     90deg,
@@ -363,6 +388,19 @@ html.light .card-hover-glow::before {
   background-clip: text;
   color: transparent;
   animation: text-shimmer-keyframe 6s linear infinite;
+}
+
+html.light .text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #666666 0%,
+    #111111 50%,
+    #666666 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @keyframes text-shimmer-keyframe {
@@ -381,7 +419,7 @@ nav {
 html.light header {
   background-color: var(--glass-bg);
   border-bottom-color: var(--color-border);
-  box-shadow: 0 4px 20px -2px rgba(20, 19, 18, 0.04), 0 0 1px 0 rgba(20, 19, 18, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 0 1px 0 rgba(0, 0, 0, 0.06);
 }
 
 html.light nav {
