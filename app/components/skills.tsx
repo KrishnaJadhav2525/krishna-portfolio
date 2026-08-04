@@ -9,37 +9,37 @@ const skillSections = [
   {
     category: "AI & AGENTS",
     title: "AI & Agent Systems",
-    items: ["Groq (Llama 3.3 70B)", "RAG Architecture", "Pinecone Vector DB", "Google AI Embeddings", "ONNX Embeddings", "RRF Re-ranking", "LangChain", "OpenRouter LLMs", "n8n Workflows", "Meta Cloud API", "TF-IDF / Cosine Similarity", "Gemini 2.0", "Edge TTS"]
+    items: ["LangGraph", "LangChain", "n8n Workflows", "Groq (Llama 3.3 70B)", "RAG Architecture", "Pinecone Vector DB", "Google AI Embeddings", "ONNX Embeddings", "RRF Re-ranking", "OpenRouter LLMs", "Meta Cloud API", "TF-IDF / Cosine Similarity", "Gemini 2.0", "Edge TTS"]
   },
   {
     category: "FRONTEND",
     title: "Frontend Engineering",
-    items: ["Next.js 16", "React 18", "TypeScript", "TailwindCSS", "Framer Motion", "Shadcn UI", "MDX Engine", "DOM Virtualization"]
+    items: ["Next.js 16", "React 18", "Vue.js", "TypeScript", "TailwindCSS", "Framer Motion", "Shadcn UI", "MDX Engine", "DOM Virtualization"]
   },
   {
     category: "BACKEND",
     title: "Backend Development",
-    items: ["Node.js", "Express.js", "Python", "Flask", "Django", "REST APIs", "SSE Streaming", "JWT & RBAC Auth"]
+    items: ["Node.js", "Express.js", "Python", "FastAPI", "Flask", "Django", "REST APIs", "GraphQL", "SSE Streaming", "JWT & RBAC Auth"]
   },
   {
     category: "DATA & ML",
     title: "Data & Machine Learning",
-    items: ["Scikit-learn", "OpenCV", "NLP", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Computer Vision"]
+    items: ["Scikit-learn", "OpenCV", "NLP", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Computer Vision", "TensorFlow"]
   },
   {
     category: "DATABASES",
     title: "Databases & Storage",
-    items: ["MongoDB Atlas", "PostgreSQL", "GridFS Storage", "Pinecone Vector DB", "MySQL", "Redis"]
+    items: ["MongoDB Atlas", "PostgreSQL", "GridFS Storage", "Pinecone Vector DB", "MySQL", "Redis", "Supabase"]
   },
   {
     category: "DEVOPS",
     title: "DevOps & Tooling",
-    items: ["Docker", "Git & GitHub", "Vercel", "Linux", "FFmpeg / MoviePy", "CI/CD Pipelines"]
+    items: ["Docker", "Git & GitHub", "Vercel", "Linux", "FFmpeg / MoviePy", "Postman", "CI/CD Pipelines"]
   },
   {
     category: "LANGUAGES",
     title: "Programming Languages",
-    items: ["Python", "TypeScript", "JavaScript", "C++", "SQL"]
+    items: ["Python", "TypeScript", "JavaScript", "C++", "SQL", "HTML5 / CSS3"]
   }
 ];
 
@@ -57,8 +57,8 @@ export default function Skills() {
     : skillSections.filter(section => section.category === activeCategory);
 
   return (
-    <section id="skills" className="py-24">
-      <Container variant="wide">
+    <section id="skills" className="py-24 relative overflow-hidden">
+      <Container variant="wide" className="relative z-10">
         <motion.div
           variants={clipReveal}
           initial="hidden"
@@ -66,7 +66,7 @@ export default function Skills() {
           viewport={{ once: true, margin: "-80px" }}
           className="mb-12 border-b border-[var(--color-border)] pb-6"
         >
-          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-2">
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-2 font-medium">
             04 / TECHNICAL STACK & TOOLING
           </p>
           <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal text-[var(--color-fg)]">
@@ -106,14 +106,20 @@ export default function Skills() {
                   animate="visible"
                   exit="hidden"
                   transition={{ duration: 0.3 }}
-                  className="border border-[var(--color-border)] p-6 bg-[var(--color-bg)] space-y-4"
+                  className="card-hover-glow relative border border-[var(--divider-major)] p-6 bg-[var(--color-surface)] space-y-4 hover:border-[var(--divider-hover)] transition-colors duration-200"
                 >
-                  <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
-                    <h3 className="text-sm font-medium text-[var(--color-fg)]">
-                      {section.title}
+                  <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+                  <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+                  <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+                  <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
+                  <div className="flex items-center justify-between pb-3 border-b border-[var(--divider-hairline)]">
+                    <h3 className="text-sm font-medium text-[var(--color-fg)] flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full bg-[var(--color-subtle)]" />
+                      <span>{section.title}</span>
                     </h3>
                     <span className="font-mono text-[10px] text-[var(--color-subtle)] tabular-nums">
-                      {sectionNumber}
+                      TECH_SPEC // {sectionNumber}
                     </span>
                   </div>
 
@@ -121,7 +127,7 @@ export default function Skills() {
                     {section.items.map((skill) => (
                       <span
                         key={skill}
-                        className="font-mono text-[10px] text-[var(--color-muted)] px-2.5 py-1 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-fg)] transition-colors duration-150 tracking-wider uppercase"
+                        className="shimmer-hover font-mono text-[10px] text-[var(--color-muted)] px-2.5 py-1 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-fg)] transition-colors duration-150 tracking-wider uppercase"
                       >
                         {skill}
                       </span>

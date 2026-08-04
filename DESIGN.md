@@ -59,15 +59,21 @@ All mono text utilizes tabular numbers: `font-variant-numeric: tabular-nums`.
 
 ---
 
-## 4. Reusable Background Engine (7 Layers)
+## 4. Architectural Layout Dividers & Geometric Background Engine (`app/components/background-engine.tsx`)
 
-1. **Layer 1: Base Canvas**: Dark `#0A0A0A` or Light `#F7F6F3`.
-2. **Layer 2: Animated Film Grain**: Hardware-accelerated SVG noise overlay (`body::after`) with `0.5s` steps-jitter animation (`opacity: 0.035` dark / `0.028` light).
-3. **Layer 3: Ambient Light Pools**: Radial gradient spotlight behind hero text (`.hero-glow-primary` with `10s` / `12s` breathing animation).
-4. **Layer 4: Dot & Line Grid Patterns**: Attenuated 3.5% opacity grid pattern (`.bg-dot-grid` & `.bg-line-grid`) with scroll fade masks (`.bg-dot-grid-fade`).
-5. **Layer 5: Cursor Flashlight Spotlight**: Global `600px` radial gradient spotlight tracking cursor movement (`app/components/cursor-spotlight.tsx`).
-6. **Layer 6: Gradient Dividers**: Fading line section dividers (`.gradient-divider`).
-7. **Layer 7: Interactive Card Edge Glow**: Dynamic mouse position tracking (`card-hover-glow`) providing custom radial highlights on hover.
+### Architectural Divider Token Hierarchy
+- **Hairline Divider (`--divider-hairline`)**: `rgba(255,255,255,0.05)` dark / `rgba(0,0,0,0.05)` light (Subtle structural blueprint grid lines).
+- **Major Divider (`--divider-major`)**: `rgba(255,255,255,0.08)` dark / `rgba(0,0,0,0.08)` light (Section & column guide boundaries).
+- **Interactive Divider (`--divider-interactive`)**: `rgba(255,255,255,0.12)` dark / `rgba(0,0,0,0.12)` light (Active component borders).
+- **Hover Divider (`--divider-hover`)**: `rgba(255,255,255,0.18)` dark / `rgba(0,0,0,0.18)` light (Hover state boundary highlight).
+- **Glow Divider (`--divider-glow`)**: Fading line divider with soft white bloom glint.
+
+### 5-Layer Depth Architecture
+1. **Layer 1: Base Canvas**: Deep `#000000` (Dark) or Soft Neutral `#F5F4F0` (Light).
+2. **Layer 2: Reusable Geometric Background Engine (`app/components/background-engine.tsx`)**: Ultra-slow rotating wireframe geometry (outlined squares & diamonds rotating over 60–90 seconds) and blueprint intersection `+` node crosses.
+3. **Layer 3: Star Field & Ambient Particle Dust (`app/components/star-field.tsx`)**: Particle dust cluster and central starburst glint (`✦`).
+4. **Layer 4: Windows Spotlight / Acrylic Cursor Illumination**: Global radial gradient spotlight tracking cursor movement (`app/components/cursor-spotlight.tsx`).
+5. **Layer 5: Content & Technical Document Cards**: Technical blueprint cards with corner `+` cross markers (`.blueprint-card-corner`).
 
 ---
 
@@ -84,11 +90,7 @@ All motion variants in `lib/animations.ts` use standardized cubic-bezier timing:
 
 ## 6. Component Specification Rules
 
-- **Navbar (`app/components/nav.tsx`)**: Full-width fixed header (`h-14`), frosted glass (`blur(20px) saturate(180%)`), monogram `KJ`, active dot marker (`motion.span layoutId="activeNavDot"`), unicode mode toggle (`○ LIGHT` / `● DARK`).
-- **Hero (`app/page.tsx`)**: Asymmetric 2-column desktop layout (`max-w-[1200px]`), status badge, coordinates, display name, value prop, metrics, CTA row, scroll indicator.
-- **Projects (`app/components/project-carousel.tsx`)**: 2-column border grid, 5–8 technology pills per card, immediately visible **Live Demo →**, **GitHub →**, **Case Study →** links, modal specification inspector.
-- **Skills (`app/components/skills.tsx`)**: Interactive category filter tabs (`[ALL]`, `[AI & AGENTS]`, `[FRONTEND]`, `[BACKEND]`, `[DATA & ML]`, `[DATABASES]`, `[DEVOPS]`, `[LANGUAGES]`) with marquee track.
-- **Writing Engine (`app/blog/*`)**: 2-column magazine grid, RAG `SemanticSearch` input, top spring `<ReadingProgress />` bar on articles (`app/blog/[slug]/page.tsx`).
-- **Contact Form (`app/components/contact-section.tsx`)**: Linear-grade sharp inputs (`border border-[var(--color-border)] focus:border-[var(--color-fg)]`), 10px uppercase mono labels, high-contrast submit button.
-- **AI Assistant (`app/components/chat-widget.tsx`)**: Fixed floating toggle button with pulse dot and sharp monochrome dialog.
-- **Footer (`app/components/footer.tsx`)**: Single row with metadata, sitemap links, and current year.
+- **Navbar (`app/components/nav.tsx`)**: Full-width fixed header (`h-14`), frosted glass (`blur(24px)`), monogram `KJ`, active dot marker (`motion.span layoutId="activeNavDot"`), `✨ AI Assistant` glass pill button, unicode mode toggle (`○ LIGHT` / `● DARK`).
+- **Hero (`app/page.tsx`)**: Asymmetric 2-column desktop layout (`max-w-[1400px]`), status badge `● 01 / FULL-STACK...`, coordinates `19.0760° N, 72.8777° E`, display name with metallic light glints, `<StarField />` particle dust, fixed bottom-left monogram emblem pill (`N`).
+- **Projects (`app/components/project-carousel.tsx`)**: 2-column border grid, top metadata row (`01 / SYSTEM CASE STUDY` & `2 MONTHS`), clean title, concise description, rectangular mono tech pills (`N8N WORKFLOWS`, `POSTGRESQL`, `META CLOUD API`), visible **Live Demo →**, **GitHub →**, **Case Study →** links.
+- **AI Assistant (`app/components/chat-widget.tsx`)**: Elevated glass CTA button `✨ AI Assistant` in header and floating bottom-right (`bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl`), animated sparkle icon, idle halo pulse, hover illumination.

@@ -3,14 +3,16 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll } from "framer-motion"
 import { useTheme } from "./theme-provider"
 import { staggerFast, fadeIn } from "@/lib/animations"
+import { AIAssistantButton } from "./ai-assistant-button"
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Writing & Work" },
+  { href: "/", label: "Home", key: "/" },
+  { href: "/#projects", label: "Projects", key: "/#projects" },
+  { href: "/about", label: "About", key: "/about" },
+  { href: "/blog", label: "Writing & Work", key: "/blog" },
 ]
 
 function ThemeToggle() {
@@ -38,12 +40,75 @@ function ThemeToggle() {
 export default function Navbar() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const { scrollY } = useScroll()
-  const borderOpacity = useTransform(scrollY, [0, 50], [0.4, 1])
+  const [activeKey, setActiveKey] = useState<string>(pathname)
 
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
+
+  // Scroll Spy using IntersectionObserver when on homepage ('/')
+  useEffect(() => {
+    if (pathname !== "/") {
+      if (pathname.startsWith("/about")) setActiveKey("/about")
+      else if (pathname.startsWith("/blog")) setActiveKey("/blog")
+      else setActiveKey(pathname)
+      return
+    }
+
+    // Default to Home on load
+    setActiveKey("/")
+
+    const sectionMap: Record<string, string> = {
+      hero: "/",
+      projects: "/#projects",
+      about: "/about",
+      skills: "/blog",
+      contact: "/blog",
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const mappedKey = sectionMap[entry.target.id]
+            if (mappedKey) {
+              setActiveKey(mappedKey)
+            }
+          }
+        })
+      },
+      {
+        rootMargin: "-25% 0px -45% 0px",
+        threshold: 0.1,
+      }
+    )
+
+    const sections = ["hero", "projects", "about", "skills", "contact"]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[]
+
+    sections.forEach((section) => observer.observe(section))
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section))
+      observer.disconnect()
+    }
+  }, [pathname])
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, key: string) => {
+    setActiveKey(key)
+    if (href.startsWith("/#") && pathname === "/") {
+      e.preventDefault()
+      const targetId = href.replace("/#", "")
+      const el = document.getElementById(targetId)
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" })
+      }
+    } else if (href === "/" && pathname === "/") {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+  }
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 h-14 bg-[var(--glass-bg)] backdrop-blur-xl border-b border-[var(--glass-border)] transition-all duration-300">
@@ -51,6 +116,7 @@ export default function Navbar() {
         {/* Monogram Logo */}
         <Link
           href="/"
+          onClick={(e) => handleLinkClick(e, "/", "/")}
           className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-fg)] hover:opacity-70 transition-opacity"
         >
           KJ
@@ -63,13 +129,14 @@ export default function Navbar() {
           animate="visible"
           className="hidden md:flex items-center gap-6"
         >
-          {navLinks.map(({ href, label }) => {
-            const isActive = pathname === href || (href !== "/" && pathname.startsWith(href))
+          {navLinks.map(({ href, label, key }) => {
+            const isActive = activeKey === key
             return (
-              <motion.div key={href} variants={fadeIn}>
+              <motion.div key={key} variants={fadeIn}>
                 <Link
                   href={href}
-                  className={`relative text-sm transition-colors duration-150 py-1 ${
+                  onClick={(e) => handleLinkClick(e, href, key)}
+                  className={`relative text-sm transition-colors duration-200 py-1 ${
                     isActive
                       ? "text-[var(--color-fg)] font-medium"
                       : "text-[var(--color-muted)] hover:text-[var(--color-fg)]"
@@ -79,15 +146,26 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="activeNavDot"
-                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--color-fg)]"
-                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[var(--color-fg)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
                 </Link>
               </motion.div>
             )
           })}
+
+          {/* Unified AIAssistantButton Navbar CTA */}
+          <motion.div variants={fadeIn}>
+            <AIAssistantButton
+              onClick={() => window.dispatchEvent(new CustomEvent('toggle-ai-assistant'))}
+              variant="nav"
+              label="AI Assistant"
+            />
+          </motion.div>
+
           <span className="text-[var(--color-border-strong)] font-mono text-xs select-none">/</span>
+
           <motion.div variants={fadeIn}>
             <ThemeToggle />
           </motion.div>
@@ -115,13 +193,16 @@ export default function Navbar() {
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="md:hidden border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-4 space-y-3"
         >
-          {navLinks.map(({ href, label }) => {
-            const isActive = pathname === href || (href !== "/" && pathname.startsWith(href))
+          {navLinks.map(({ href, label, key }) => {
+            const isActive = activeKey === key
             return (
               <Link
-                key={href}
+                key={key}
                 href={href}
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  setMobileOpen(false)
+                  handleLinkClick(e, href, key)
+                }}
                 className={`block text-sm py-1 transition-colors duration-150 ${
                   isActive
                     ? "text-[var(--color-fg)] font-medium"

@@ -7,6 +7,7 @@ import ProjectCarousel from "@/app/components/project-carousel"
 import { ContactSection } from "@/app/components/contact-section"
 import { Badge } from "@/app/components/ui/badge"
 import { ScrambleText } from "@/app/components/scramble-text"
+import { StarField } from "@/app/components/star-field"
 import {
   lineReveal,
   inViewFadeUp,
@@ -22,15 +23,15 @@ const socialLinks = [
 const coreTechnologies = [
   {
     category: "AI & AUTOMATION",
-    items: ["Llama 3.3 70B", "RAG & Pinecone", "Google AI Embeddings", "ONNX Embeddings", "RRF Re-ranking", "n8n Workflows", "Meta Cloud API"]
+    items: ["LangGraph", "LangChain", "n8n Workflows", "Llama 3.3 70B", "RAG & Pinecone", "Google AI Embeddings", "ONNX Embeddings", "RRF Re-ranking", "Meta Cloud API"]
   },
   {
     category: "FRONTEND & ARCHITECTURE",
-    items: ["Next.js 16", "React 18", "TypeScript", "TailwindCSS", "Framer Motion", "MDX Engine"]
+    items: ["Next.js 16", "React 18", "Vue.js", "TypeScript", "TailwindCSS", "Framer Motion", "MDX Engine"]
   },
   {
     category: "BACKEND & DATABASES",
-    items: ["Node.js", "Express", "Python", "Flask", "Django", "MongoDB Atlas", "GridFS", "PostgreSQL", "REST APIs"]
+    items: ["Node.js", "Express", "Python", "FastAPI", "Flask", "Django", "MongoDB Atlas", "GridFS", "PostgreSQL", "REST APIs"]
   },
   {
     category: "INFRASTRUCTURE & DEVOPS",
@@ -61,22 +62,21 @@ export default function Page() {
   const heroParallaxY = useTransform(scrollYProgress, [0, 0.3], [0, -16])
 
   return (
-    <div className="w-full">
-      {/* 100VH TWO-COLUMN HERO SECTION — Dark Editorial × Kinetic */}
-      <section className="relative min-h-screen flex flex-col justify-between pt-24 pb-12 bg-dot-grid bg-dot-grid-fade overflow-hidden">
-
-        {/* Ambient Page Lighting */}
-        <div className="ambient-page-lighting" aria-hidden="true" />
+    <div className="w-full relative z-10">
+      {/* 100VH HERO SECTION */}
+      <section id="hero" className="relative min-h-screen flex flex-col justify-between pt-24 pb-12 overflow-hidden">
+        {/* Faint Star Field Overlay */}
+        <StarField />
 
         <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 w-full flex-1 flex flex-col justify-center relative z-10">
 
           {/* 2-Column Asymmetric Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-            {/* Left Column (70% Height Visually): Category Tag & Massive 120px+ Thin Name */}
+            {/* Left Column: Category Tag & Name */}
             <div className="lg:col-span-7 flex flex-col justify-center min-h-[55vh] lg:min-h-[65vh]">
 
-              {/* 1. Accent Label — Electric Lime #C8F04D, Mono, Tracking-Widest (Fades in first: 0.3s) */}
+              {/* Accent Label */}
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -89,27 +89,25 @@ export default function Page() {
 
               {/* Display Name Container with Parallax */}
               <motion.div style={{ y: heroParallaxY }} className="space-y-1">
-                {/* 2. "Krishna" Slides Up from Below (0.5s Delay) with Scramble Effect */}
                 <div className="overflow-hidden">
                   <motion.div
                     initial={{ opacity: 0, y: 80 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
                   >
-                    <h1 className="text-[clamp(4.5rem,12vw,9.5rem)] font-extralight tracking-[-0.05em] leading-[0.88] text-[var(--color-fg)] select-none">
+                    <h1 className="metallic-text-shine text-[clamp(4.5rem,12vw,9.5rem)] font-extralight tracking-[-0.05em] leading-[0.88] text-[var(--color-fg)] select-none">
                       <ScrambleText text="Krishna" delay={0.5} duration={1200} />
                     </h1>
                   </motion.div>
                 </div>
 
-                {/* 3. "Jadhav" Slides Up from Below (0.7s Delay) with Scramble Effect */}
                 <div className="overflow-hidden">
                   <motion.div
                     initial={{ opacity: 0, y: 80 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
                   >
-                    <h1 className="text-[clamp(4.5rem,12vw,9.5rem)] font-extralight tracking-[-0.05em] leading-[0.88] text-[var(--color-fg)] select-none">
+                    <h1 className="metallic-text-shine text-[clamp(4.5rem,12vw,9.5rem)] font-extralight tracking-[-0.05em] leading-[0.88] text-[var(--color-fg)] select-none">
                       <ScrambleText text="Jadhav" delay={0.7} duration={1200} />
                     </h1>
                   </motion.div>
@@ -118,10 +116,10 @@ export default function Page() {
 
             </div>
 
-            {/* Thin 1px Vertical Divider Line between columns */}
-            <div className="hidden lg:block absolute left-[58%] top-24 bottom-24 w-px bg-[var(--color-border)] pointer-events-none" />
+            {/* Thin Vertical Blueprint Line */}
+            <div className="hidden lg:block absolute left-[58%] top-24 bottom-24 w-px bg-[var(--divider-major)] pointer-events-none" />
 
-            {/* Right Column: Coordinates, Value Prop & Social Links (Fades in 0.9s delay) */}
+            {/* Right Column: Coordinates & Bio */}
             <div className="lg:col-span-5 space-y-8 lg:pl-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -129,18 +127,15 @@ export default function Page() {
                 transition={{ delay: 0.9, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
                 className="space-y-8"
               >
-                {/* Coordinates top-right in lime/muted */}
                 <div className="font-mono text-xs text-[var(--color-subtle)] uppercase tracking-[0.2em] select-none flex items-center justify-between">
                   <span className="text-[var(--color-accent)] font-medium">MUMBAI, IN</span>
                   <span>19.0760° N, 72.8777° E</span>
                 </div>
 
-                {/* Intro Body Text: 16px, line-height 1.7 */}
                 <p className="text-base text-[var(--color-muted)] leading-[1.7] max-w-[460px]">
                   Crafting high-performance web applications, resilient backend architectures, and intelligent automation systems with Swiss design discipline.
                 </p>
 
-                {/* Action Links Row */}
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                   <Link
                     href="/blog"
@@ -157,7 +152,6 @@ export default function Page() {
                   </a>
                 </div>
 
-                {/* Social Links: Lime Flash + translateY(-2px) Lift on Hover */}
                 <div className="flex items-center gap-6 pt-6 border-t border-[var(--color-border)]">
                   {socialLinks.map(({ href, label }) => (
                     <a
@@ -176,7 +170,6 @@ export default function Page() {
 
           </div>
 
-          {/* Animated Horizontal Divider */}
           <motion.div
             variants={lineReveal}
             initial="hidden"
@@ -184,7 +177,6 @@ export default function Page() {
             className="w-full h-px bg-[var(--color-border)] my-8"
           />
 
-          {/* Bottom Loop Animated Scroll Indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -201,12 +193,11 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Gradient Divider */}
       <div className="gradient-divider" aria-hidden="true" />
 
-      {/* FEATURED PROJECTS SECTION — What I Built */}
-      <section id="projects" className="py-24">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      {/* FEATURED PROJECTS SECTION */}
+      <section id="projects" className="py-24 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -215,7 +206,7 @@ export default function Page() {
             className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[var(--color-border)] pb-6"
           >
             <div>
-              <p className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-accent)] mb-2 font-medium">
+              <p className="font-mono text-xs tracking-[0.2em] uppercase text-shimmer mb-2 font-medium">
                 02 / SELECTED WORK & CASE STUDIES
               </p>
               <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal tracking-[-0.03em] text-[var(--color-fg)]">
@@ -238,12 +229,11 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Gradient Divider */}
       <div className="gradient-divider" aria-hidden="true" />
 
-      {/* ENGINEERING PHILOSOPHY SECTION — How I Think */}
-      <section className="py-24 bg-line-grid">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      {/* ENGINEERING PHILOSOPHY & ABOUT SECTION */}
+      <section id="about" className="py-24 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -251,8 +241,8 @@ export default function Page() {
             viewport={{ once: true, margin: "-80px" }}
             className="mb-16 border-b border-[var(--color-border)] pb-6"
           >
-            <p className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-accent)] mb-2 font-medium">
-              03 / PHILOSOPHY
+            <p className="font-mono text-xs tracking-[0.2em] uppercase text-shimmer mb-2 font-medium">
+              03 / PHILOSOPHY & PROFILE
             </p>
             <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal tracking-[-0.03em] text-[var(--color-fg)]">
               Engineering Principles
@@ -267,8 +257,13 @@ export default function Page() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                className="border border-[var(--color-border)] p-6 bg-[var(--color-surface)] flex flex-col justify-between"
+                className="card-hover-glow border border-[var(--color-border)] p-6 bg-[var(--color-surface)]/80 backdrop-blur-md flex flex-col justify-between"
               >
+                <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+                <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+                <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+                <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
                 <div>
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-[var(--color-border)]">
                     <span className="font-mono text-xs text-[var(--color-accent)] tabular-nums font-medium">
@@ -291,12 +286,11 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Gradient Divider */}
       <div className="gradient-divider" aria-hidden="true" />
 
-      {/* CORE TECHNOLOGIES SECTION — What I Use (Single Source of Truth) */}
-      <section className="py-24">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      {/* CORE TECHNOLOGIES SECTION */}
+      <section id="skills" className="py-24 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -304,7 +298,7 @@ export default function Page() {
             viewport={{ once: true, margin: "-80px" }}
             className="mb-12 border-b border-[var(--color-border)] pb-6"
           >
-            <p className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-accent)] mb-2 font-medium">
+            <p className="font-mono text-xs tracking-[0.2em] uppercase text-shimmer mb-2 font-medium">
               04 / TOOLKIT & ARCHITECTURE
             </p>
             <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal tracking-[-0.03em] text-[var(--color-fg)]">
@@ -317,8 +311,13 @@ export default function Page() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8"
+            className="card-hover-glow border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-md p-6 md:p-8"
           >
+            <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-[var(--color-border)]">
               <span className="font-mono text-xs text-[var(--color-subtle)] tracking-[0.2em] uppercase select-none">
                 TECHNICAL STACK
@@ -336,7 +335,7 @@ export default function Page() {
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {techGroup.items.map((tech) => (
-                      <Badge key={tech} variant="secondary">
+                      <Badge key={tech} variant="secondary" className="shimmer-hover">
                         {tech}
                       </Badge>
                     ))}
@@ -348,12 +347,13 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Gradient Divider */}
       <div className="gradient-divider" aria-hidden="true" />
 
-      {/* CONTACT SECTION — How To Reach Me */}
-      <section>
-        <ContactSection />
+      {/* CONTACT SECTION */}
+      <section id="contact" className="relative overflow-hidden">
+        <div className="relative z-10">
+          <ContactSection />
+        </div>
       </section>
     </div>
   )

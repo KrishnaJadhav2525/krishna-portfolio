@@ -18,21 +18,21 @@ export default function Footer() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className="border-t border-[var(--color-border)] py-10 mt-20"
+      className="border-t border-[var(--color-border)] py-12 mt-20 relative z-10"
     >
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span className="font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.15em] uppercase select-none">
-          © {new Date().getFullYear()} KRISHNA JADHAV
+          © {new Date().getFullYear()} KRISHNA JADHAV // SWISS OPERATING SYSTEM
         </span>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-6">
           {socialLinks.map(({ href, label }) => (
             <Link
               key={label}
               href={href}
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="font-mono text-[10px] text-[var(--color-subtle)] hover:text-[var(--color-fg)] transition-colors duration-150 tracking-[0.15em] uppercase"
+              className="font-mono text-[10px] text-[var(--color-subtle)] hover:text-[var(--color-fg)] transition-colors duration-150 tracking-[0.15em] uppercase shimmer-hover"
             >
               {label}
             </Link>

@@ -8,6 +8,9 @@ import { baseUrl } from "./blog/lib/site"
 import Script from "next/script"
 import { ThemeProvider } from "./components/theme-provider"
 import { CursorSpotlight } from "./components/cursor-spotlight"
+import { BackgroundEngine } from "./components/background-engine"
+import { ViewportEdgeGuides } from "./components/viewport-edge-guides"
+import { VercelGeometryBoxes } from "./components/vercel-geometry-boxes"
 
 import PageWrapper from "./components/page-wrapper"
 import ChatWidget from "./components/chat-widget"
@@ -15,13 +18,13 @@ import ChatWidget from "./components/chat-widget"
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Krishna | Legal Tech & Full Stack Developer",
+    default: "Krishna | Full Stack & AI Systems Engineer",
     template: "%s | Krishna",
   },
-  description: "Personal portfolio of Krishna, a Full Stack Developer specializing in AI, Legal Tech, and High-Performance Web Applications.",
+  description: "Personal portfolio of Krishna, a Full Stack Engineer & AI Agent Developer specializing in Vector RAG, System Architectures, and Autonomous Automation Pipelines.",
   openGraph: {
-    title: "Krishna | Legal Tech & Full Stack Developer",
-    description: "Personal portfolio of Krishna, a Full Stack Developer specializing in AI, Legal Tech, and High-Performance Web Applications.",
+    title: "Krishna | Full Stack & AI Systems Engineer",
+    description: "Personal portfolio of Krishna, a Full Stack Engineer & AI Agent Developer specializing in Vector RAG, System Architectures, and Autonomous Automation Pipelines.",
     url: baseUrl,
     siteName: "Krishna Portfolio",
     locale: "en_US",
@@ -88,8 +91,11 @@ export default function RootLayout({
         />
 
         <ThemeProvider>
-          {/* CURSOR SPOTLIGHT LIGHTING LAYER */}
+          {/* GEOMETRIC BACKGROUND ENGINE, VERCEL BLUEPRINT ARCHITECTURE, CURSOR LIGHTING & VIEWPORT GUIDES */}
+          <BackgroundEngine />
+          <VercelGeometryBoxes />
           <CursorSpotlight />
+          <ViewportEdgeGuides />
 
           {/* NAVBAR */}
           <Navbar />

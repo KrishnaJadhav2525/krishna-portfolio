@@ -36,6 +36,13 @@
   --color-border: #1F1F22;
   --color-border-strong: #27272A;
 
+  /* Architectural Divider Tokens */
+  --divider-hairline: rgba(255, 255, 255, 0.05);
+  --divider-major: rgba(255, 255, 255, 0.08);
+  --divider-interactive: rgba(255, 255, 255, 0.12);
+  --divider-hover: rgba(255, 255, 255, 0.18);
+  --divider-glow: rgba(255, 255, 255, 0.4);
+
   /* HSL Mapping */
   --background: 0 0% 0%;
   --foreground: 0 0% 93%;
@@ -65,20 +72,27 @@
 }
 
 /* ============================================
-   LAYERED LIGHT THEME (#F4F4F5 Base / #FFFFFF Surface)
+   LAYERED WARM EDITORIAL LIGHT THEME (#FAFAFA Base / #FFFFFF Surface)
    ============================================ */
 html.light {
-  --color-bg: #F4F4F5;
+  --color-bg: #FAFAFA;
   --color-surface: #FFFFFF;
-  --color-surface-hover: #E4E4E7;
-  --color-fg: #1A1A1A;
-  --color-accent: #111111;
-  --color-muted: #444444;
-  --color-subtle: #666666;
+  --color-surface-hover: #F4F4F5;
+  --color-fg: #111111;
+  --color-accent: #000000;
+  --color-muted: #525252;
+  --color-subtle: #71717A;
   --color-border: #E4E4E7;
   --color-border-strong: #D4D4D8;
 
-  --background: 240 5% 96%;
+  /* Architectural Divider Tokens Light Mode */
+  --divider-hairline: rgba(0, 0, 0, 0.05);
+  --divider-major: rgba(0, 0, 0, 0.08);
+  --divider-interactive: rgba(0, 0, 0, 0.12);
+  --divider-hover: rgba(0, 0, 0, 0.18);
+  --divider-glow: rgba(0, 0, 0, 0.3);
+
+  --background: 0 0% 98%;
   --foreground: 0 0% 7%;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 7%;
@@ -86,9 +100,9 @@ html.light {
   --popover-foreground: 0 0% 7%;
   --primary: 0 0% 7%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 5% 92%;
+  --secondary: 240 5% 96%;
   --secondary-foreground: 0 0% 7%;
-  --muted: 240 5% 92%;
+  --muted: 240 5% 96%;
   --muted-foreground: 0 0% 32%;
   --accent: 0 0% 7%;
   --accent-foreground: 0 0% 100%;
@@ -96,7 +110,7 @@ html.light {
   --input: 240 5% 91%;
   --ring: 0 0% 7%;
 
-  --glass-bg: rgba(244, 244, 245, 0.85);
+  --glass-bg: rgba(250, 250, 250, 0.88);
   --glass-border: #E4E4E7;
 
   --text-primary: var(--color-fg);
@@ -253,6 +267,31 @@ html.light .bg-line-grid {
 }
 
 /* ============================================
+   ARCHITECTURAL BLUEPRINT CORNER NODE CROSSES
+   ============================================ */
+.blueprint-card-corner {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-subtle);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.card-hover-glow:hover .blueprint-card-corner {
+  opacity: 0.85;
+  color: var(--color-fg);
+}
+
+.blueprint-corner-tl { top: -5px; left: -4px; }
+.blueprint-corner-tr { top: -5px; right: -4px; }
+.blueprint-corner-bl { bottom: -5px; left: -4px; }
+.blueprint-corner-br { bottom: -5px; right: -4px; }
+
+/* ============================================
    GRADIENT DIVIDER
    ============================================ */
 .gradient-divider {
@@ -269,19 +308,32 @@ html.light .bg-line-grid {
 }
 
 /* ============================================
-   CARD HOVER GLOW & DEPTH SHADOWS
+   CARD HOVER GLOW, ALIVE BORDERS & DEPTH SHADOWS
    ============================================ */
 .card-hover-glow {
   position: relative;
+  border-radius: 0px;
+  background-color: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset, 0 8px 32px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 html.light .card-hover-glow {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02) inset;
 }
 
 html.light .card-hover-glow:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.card-hover-glow:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.04);
 }
 
 .card-hover-glow::before {
@@ -289,9 +341,9 @@ html.light .card-hover-glow:hover {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 255, 255, 0.03),
-    transparent 80%
+    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.06),
+    transparent 75%
   );
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -301,9 +353,9 @@ html.light .card-hover-glow:hover {
 
 html.light .card-hover-glow::before {
   background: radial-gradient(
-    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(0, 0, 0, 0.02),
-    transparent 80%
+    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 0, 0, 0.035),
+    transparent 75%
   );
 }
 
@@ -336,7 +388,7 @@ html.light .card-hover-glow::before {
 }
 
 /* ============================================
-   SOCIAL LINKS HOVER (LIME FLASH + LIFT)
+   SOCIAL LINKS HOVER (WHITE FLASH + LIFT)
    ============================================ */
 .social-link-kinetic {
   color: var(--color-muted);
@@ -349,8 +401,46 @@ html.light .social-link-kinetic {
 
 .social-link-kinetic:hover,
 html.light .social-link-kinetic:hover {
-  color: #111111;
+  color: #FFFFFF;
   transform: translateY(-2px);
+}
+
+/* ============================================
+   GLOBAL METALLIC WHITE SHIMMER SWEEP SYSTEM
+   ============================================ */
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: transform 0.8s ease-out;
+}
+
+html.light .shimmer-hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.08) 50%,
+    transparent 100%
+  );
+}
+
+.shimmer-hover:hover::after {
+  transform: translateX(200%);
 }
 
 /* ============================================
@@ -358,10 +448,10 @@ html.light .social-link-kinetic:hover {
    ============================================ */
 .metallic-text-shine {
   background-image: radial-gradient(
-    350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
     #FFFFFF 0%,
-    #D4D4D8 35%,
-    var(--color-fg) 75%
+    #E4E4E7 30%,
+    var(--color-fg) 70%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -380,7 +470,7 @@ html.light .metallic-text-shine {
   background: linear-gradient(
     90deg,
     var(--color-subtle) 0%,
-    var(--color-accent) 50%,
+    #FFFFFF 50%,
     var(--color-subtle) 100%
   );
   background-size: 200% 100%;

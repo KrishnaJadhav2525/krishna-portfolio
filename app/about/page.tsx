@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ContactSection } from "@/app/components/contact-section"
-import { pageEnter, inViewFadeUp, clipReveal } from "@/lib/animations"
+import { pageEnter, inViewFadeUp } from "@/lib/animations"
 import { Container } from "@/app/components/ui/section"
 
 const socialLinks = [
@@ -36,9 +36,9 @@ export default function AboutPage() {
       variants={pageEnter}
       initial="hidden"
       animate="visible"
-      className="w-full pt-32 pb-20 bg-line-grid"
+      className="w-full pt-32 pb-20 relative z-10 overflow-hidden"
     >
-      <Container variant="wide">
+      <Container variant="wide" className="relative z-10">
 
         {/* BACK LINK */}
         <Link
@@ -61,7 +61,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="text-[clamp(2.5rem,6vw,4.5rem)] font-normal tracking-[-0.04em] leading-[0.95] text-[var(--color-fg)] select-none"
+              className="metallic-text-shine text-[clamp(2.5rem,6vw,4.5rem)] font-normal tracking-[-0.04em] leading-[0.95] text-[var(--color-fg)] select-none"
             >
               Krishna<br />Jadhav
             </motion.h1>
@@ -103,7 +103,7 @@ export default function AboutPage() {
 
         </div>
 
-        {/* SECTION 2: ENGINEERING PHILOSOPHY — 3-Column Grid */}
+        {/* SECTION 2: ENGINEERING PHILOSOPHY */}
         <motion.div
           variants={inViewFadeUp}
           initial="hidden"
@@ -122,7 +122,12 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {engineeringPrinciples.map((item) => (
-              <div key={item.number} className="border border-[var(--color-border)] p-6 bg-[var(--color-bg)]">
+              <div key={item.number} className="card-hover-glow border border-[var(--color-border)] p-6 bg-[var(--color-surface)]/80 backdrop-blur-md relative">
+                <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+                <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+                <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+                <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
                 <div className="flex items-center justify-between mb-4 pb-3 border-b border-[var(--color-border)]">
                   <span className="font-mono text-[10px] text-[var(--color-subtle)] tabular-nums">
                     {item.number}
@@ -142,7 +147,7 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* SECTION 3: FOCUS AREAS & NETWORKS — 2-Column Grid */}
+        {/* SECTION 3: FOCUS AREAS & NETWORKS */}
         <motion.div
           variants={inViewFadeUp}
           initial="hidden"
@@ -150,20 +155,30 @@ export default function AboutPage() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid md:grid-cols-2 gap-8 mb-20 pb-16 border-b border-[var(--color-border)]"
         >
-          <div className="border border-[var(--color-border)] p-8 bg-[var(--color-bg)]">
+          <div className="card-hover-glow border border-[var(--color-border)] p-8 bg-[var(--color-surface)]/80 backdrop-blur-md relative">
+            <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
             <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-6 select-none">
               SPECIALIZED FOCUS AREAS
             </h3>
             <div className="flex flex-wrap gap-2">
               {['AI / Agent Systems', 'Full-Stack Dev', 'Data & ML', 'DevOps & Cloud', 'Vector RAG Search', 'Automation Workflows'].map(tag => (
-                <span key={tag} className="font-mono text-[10px] text-[var(--color-muted)] border border-[var(--color-border)] px-3 py-1.5 tracking-wider uppercase">
+                <span key={tag} className="font-mono text-[10px] text-[var(--color-muted)] border border-[var(--color-border)] px-3 py-1.5 tracking-wider uppercase shimmer-hover">
                   {tag}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="border border-[var(--color-border)] p-8 bg-[var(--color-bg)]">
+          <div className="card-hover-glow border border-[var(--color-border)] p-8 bg-[var(--color-surface)]/80 backdrop-blur-md relative">
+            <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+            <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
             <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-6 select-none">
               NETWORKS & CONNECTIVITY
             </h3>
@@ -184,7 +199,7 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* SECTION 4 & 5: EXPERIENCE & EDUCATION — 2-Column Magazine Grid */}
+        {/* SECTION 4 & 5: EXPERIENCE & EDUCATION */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
 
           {/* EXPERIENCE */}

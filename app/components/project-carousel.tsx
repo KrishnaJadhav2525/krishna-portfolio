@@ -32,7 +32,7 @@ const projects: Project[] = [
     solution: "Built a 24/7 automated WhatsApp agent orchestrating n8n workflows, Meta Cloud API, and PostgreSQL for real-time status routing.",
     outcome: "Achieved 100% automated availability routing, 0 ms status sync latency, and zero missed inbound inquiries.",
     description: "Fully automated WhatsApp bot for managing availability. Features sleep mode, busy status, and smart auto-replies using n8n & PostgreSQL.",
-    tags: ['n8n Workflows', 'PostgreSQL', 'Meta Cloud API', 'Node.js', 'Docker'],
+    tags: ['n8n Workflows', 'Meta Cloud API', 'PostgreSQL', 'Node.js', 'Express', 'Docker'],
     features: [
       "Automated Availability Routing",
       "Sleep & Busy Mode Logic",
@@ -124,7 +124,7 @@ const projects: Project[] = [
     solution: "Engineered a 100% automated n8n pipeline combining Gemini AI for scripts, Edge TTS for voiceover, Pexels API for stock media, and MoviePy for rendering.",
     outcome: "Automated end-to-end 1080p MP4 rendering in under 3 minutes per video with zero human intervention required.",
     description: "Fully automated video generation pipeline. Orchestrates n8n, Gemini, Edge TTS, and MoviePy to turn a topic into a YouTube-ready MP4.",
-    tags: ['n8n Workflows', 'Python', 'Gemini AI', 'Edge TTS', 'MoviePy / FFmpeg'],
+    tags: ['n8n Workflows', 'Python', 'Gemini AI', 'Edge TTS', 'MoviePy', 'FFmpeg'],
     features: [
       "100% Automated Workflow",
       "Gemini AI Script Generation",
@@ -147,7 +147,7 @@ const projects: Project[] = [
     solution: "Constructed an interactive coaching intelligence tool featuring real-time telemetry analytics dashboards and AI-generated progress insights.",
     outcome: "Delivered real-time progress tracking with automated performance summaries for active skill development.",
     description: "AI-assisted coaching and performance analytics platform for tracking user progress and personalized skill development.",
-    tags: ['React', 'Node.js', 'Express', 'TailwindCSS', 'Chart.js'],
+    tags: ['React', 'Node.js', 'Express', 'TailwindCSS', 'Chart.js', 'REST API'],
     features: [
       "Performance Telemetry Dashboards",
       "Personalized Milestone Tracking",
@@ -170,7 +170,7 @@ const projects: Project[] = [
     solution: "Built a Python ad pipeline querying market trends via Tavily, generating video concepts with Kling v2 (Fal.ai), and uploading assets to Google Drive.",
     outcome: "Reduced ad production lead times from days to under 5 minutes with automated multi-modal generation.",
     description: "Fully automated ad generation pipeline. Researches via Tavily, scripts with Gemini 2.0, generates video with Kling v2 (Fal.ai), and assembles with FFmpeg.",
-    tags: ['Python', 'Gemini 2.0', 'Fal.ai (Kling v2)', 'Tavily API', 'FFmpeg'],
+    tags: ['Python', 'Gemini 2.0', 'Fal.ai (Kling v2)', 'Tavily API', 'FFmpeg', 'Google Drive API'],
     features: [
       "Tavily Market Intelligence",
       "Gemini 2.0 Script Generation",
@@ -193,7 +193,7 @@ const projects: Project[] = [
     solution: "Created a VC intelligence portal that automatically scrapes public startup URLs using Jina AI and enriches company profiles using Groq Llama 3.",
     outcome: "Instant startup profile extraction at $0 compute cost utilizing free-tier AI inference APIs.",
     description: "VC Intelligence Platform for startup discovery. Features live AI enrichment via Jina AI & Groq (Llama 3), searchable company database, and analyst notes.",
-    tags: ['Next.js 14', 'Groq (Llama 3)', 'Jina AI', 'TypeScript', 'TailwindCSS'],
+    tags: ['Next.js 14', 'Groq (Llama 3)', 'Jina AI', 'TypeScript', 'TailwindCSS', 'REST API'],
     features: [
       "Jina AI Web Scraping Engine",
       "Groq Llama 3 AI Profile Enrichment",
@@ -216,7 +216,7 @@ const projects: Project[] = [
     solution: "Engineered a Python CLI trading client for Binance Futures Testnet supporting market, limit, and stop-loss USDT-M contracts.",
     outcome: "Zero unhandled runtime exceptions, sub-10ms API order dispatch, and structured audit logs.",
     description: "Production-quality CLI trading bot for Binance Futures Testnet (USDT-M). Features robust validation, structured logging, and market/limit order support.",
-    tags: ['Python', 'Binance Futures API', 'HMAC Security', 'CLI', 'Requests'],
+    tags: ['Python', 'Binance Futures API', 'HMAC Security', 'CLI', 'Requests', 'JSON Logging'],
     features: [
       "USDT-M Testnet Order Execution",
       "Market & Limit Order Engines",
@@ -239,7 +239,7 @@ const projects: Project[] = [
     solution: "Developed a Django NLP service vectorizing resume text with Scikit-learn TF-IDF matrices to calculate exact cosine match percentages.",
     outcome: "Sub-millisecond score computation with 100% local privacy protection for candidate documents.",
     description: "Production-ready resume analyzer using TF-IDF & cosine similarity to match resumes with job descriptions. Features a premium minimal UI.",
-    tags: ['Django', 'Python', 'Scikit-Learn (TF-IDF)', 'Cosine Similarity', 'NLP'],
+    tags: ['Django', 'Python', 'Scikit-Learn (TF-IDF)', 'Cosine Similarity', 'NLP', 'NumPy'],
     features: [
       "TF-IDF Vectorization Matrix",
       "Cosine Similarity Calculation",
@@ -262,7 +262,7 @@ const projects: Project[] = [
     solution: "Designed a multi-threaded C++ / Qt desktop application leveraging OpenCV Haar cascade classifiers and LFW dataset face recognition.",
     outcome: "Achieved 99.8% accuracy on LFW benchmark with 60+ FPS processing speed at sub-15ms frame latency.",
     description: "High-performance biometric system utilizing OpenCV and Qt C++ for real-time face detection. Optimized for low-latency environments.",
-    tags: ['C++', 'OpenCV', 'Qt Framework', 'Multi-Threading', 'Haar Cascades'],
+    tags: ['C++', 'OpenCV', 'Qt Framework', 'Multi-Threading', 'Haar Cascades', 'Computer Vision'],
     features: [
       "99.8% Accuracy on LFW Benchmark",
       "Multi-Threaded Frame Pipeline",
@@ -285,7 +285,7 @@ const projects: Project[] = [
     solution: "Built a virtualized React grid component rendering only visible windowed rows with client-side sorting, column pinning, and undo history.",
     outcome: "Maintained stable 60 FPS scrolling performance when rendering datasets exceeding 50,000 items.",
     description: "Custom-built virtualized data grid for React. Handles 50k+ rows efficiently with client-side sorting and column management.",
-    tags: ['React', 'TypeScript', 'DOM Virtualization', 'Vite', 'TailwindCSS'],
+    tags: ['React', 'TypeScript', 'DOM Virtualization', 'Vite', 'TailwindCSS', 'Vitest'],
     features: [
       "50k+ Row DOM Virtualization",
       "Client-side Multi-Column Sort",
@@ -308,7 +308,7 @@ const projects: Project[] = [
     solution: "Analyzed 44,000+ movie records using Pandas, Seaborn, and Matplotlib to visualize revenue correlations and genre popularity trajectories.",
     outcome: "Surfaced key statistical ROI multipliers across 100 years of global cinematic data.",
     description: "Data analysis project exploring trends in 44,000+ movies. Visualizes budget vs. revenue correlations and genre popularity using Pandas.",
-    tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'NumPy'],
+    tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'NumPy', 'Jupyter Notebook'],
     features: [
       "44,000+ Film Record Cleaning",
       "ROI & Revenue Correlation Analysis",
@@ -491,7 +491,7 @@ export default function ProjectCarousel() {
         variants={staggerFast}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[var(--color-border)] border border-[var(--color-border)] mb-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8"
       >
         {visibleProjects.map((project, idx) => {
           const globalIndex = currentIndex * 4 + idx + 1;
@@ -505,15 +505,22 @@ export default function ProjectCarousel() {
               transition={{ duration: 0.2, ease: "easeOut" }}
               onMouseMove={handleMouseMove}
               onClick={() => setSelectedProject(project)}
-              className="card-hover-glow group bg-[var(--color-surface)] p-6 md:p-8 flex flex-col justify-between hover:bg-[var(--color-surface-hover)] transition-all duration-200 cursor-pointer relative z-10 overflow-hidden"
+              className="card-hover-glow group bg-[var(--color-surface)] border border-[var(--divider-major)] p-6 md:p-8 flex flex-col justify-between hover:border-[var(--divider-hover)] transition-all duration-300 cursor-pointer relative z-10 overflow-hidden"
             >
+              {/* Technical Blueprint Corner Node Crosses */}
+              <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+              <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+              <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+              <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
               <div className="relative z-10">
                 {/* Header: Tabular Index & Roles */}
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <span className="font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.15em] tabular-nums select-none">
-                    {formattedIndex} / SYSTEM CASE STUDY
+                <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-[var(--divider-hairline)]">
+                  <span className="font-mono text-[10px] text-[var(--color-subtle)] tracking-[0.15em] tabular-nums select-none flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-[var(--color-subtle)]" />
+                    <span>{formattedIndex} / SYSTEM CASE STUDY</span>
                   </span>
-                  <span className="font-mono text-[9px] text-[var(--color-subtle)] border border-[var(--color-border)] px-1.5 py-0.5 uppercase tracking-wider">
+                  <span className="font-mono text-[9px] text-[var(--color-subtle)] border border-[var(--divider-hairline)] px-2 py-0.5 uppercase tracking-wider">
                     {project.duration.split('·')[0].trim()}
                   </span>
                 </div>

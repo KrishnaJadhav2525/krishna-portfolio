@@ -66,16 +66,16 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 max-w-[680px] mx-auto px-4">
+    <section id="contact" className="py-24 max-w-[840px] mx-auto px-6 relative">
       <motion.div
         variants={clipReveal}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
-        className="mb-12"
+        className="mb-12 border-b border-[var(--color-border)] pb-6"
       >
-        <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-3">
-          04 / INQUIRIES & COLLABORATION
+        <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-3 font-medium">
+          05 / INQUIRIES & COLLABORATION
         </p>
         <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal text-[var(--color-fg)]">
           Get In Touch
@@ -87,8 +87,13 @@ export function ContactSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
-        className="grid md:grid-cols-12 gap-12"
+        className="card-hover-glow relative border border-[var(--color-border)] p-6 sm:p-10 bg-[var(--color-surface)]/90 backdrop-blur-md grid md:grid-cols-12 gap-10"
       >
+        <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
+        <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
+        <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
+        <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+
         {/* Form Column */}
         <div className="md:col-span-7">
           {status.type === 'success' ? (
@@ -108,7 +113,7 @@ export function ContactSection() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="email" className="block font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-2 select-none">
                   EMAIL ADDRESS
@@ -121,7 +126,7 @@ export function ContactSection() {
                   onChange={handleChange}
                   placeholder="name@domain.com"
                   required
-                  className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-all duration-150"
+                  className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-border-strong)] transition-all duration-150 font-mono"
                 />
               </div>
 
@@ -137,7 +142,7 @@ export function ContactSection() {
                   onChange={handleChange}
                   placeholder="Project Inquiry"
                   required
-                  className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-all duration-150"
+                  className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-border-strong)] transition-all duration-150 font-mono"
                 />
               </div>
 
@@ -150,16 +155,16 @@ export function ContactSection() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows={5}
+                  rows={4}
                   placeholder="Your message specifications..."
                   required
-                  className="w-full bg-transparent border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-colors duration-150 resize-y"
+                  className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-border-strong)] transition-all duration-150 resize-y font-mono"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-[var(--color-fg)] text-[var(--color-bg)] px-6 py-3.5 text-xs font-mono tracking-[0.15em] uppercase hover:opacity-90 active:scale-[0.99] transition-all duration-150"
+                className="shimmer-hover w-full bg-[var(--color-fg)] text-[var(--color-bg)] px-6 py-3 text-xs font-mono font-medium tracking-[0.15em] uppercase hover:opacity-90 active:scale-[0.99] transition-all duration-150"
               >
                 Send Message →
               </button>
@@ -174,7 +179,7 @@ export function ContactSection() {
         </div>
 
         {/* Info Column */}
-        <div className="md:col-span-5 flex flex-col justify-between space-y-8">
+        <div className="md:col-span-5 flex flex-col justify-between space-y-8 md:border-l border-[var(--color-border)] md:pl-8">
           <div>
             <h3 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-3 select-none">
               DIRECT EMAIL
