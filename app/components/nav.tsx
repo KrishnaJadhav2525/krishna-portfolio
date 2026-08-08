@@ -52,7 +52,8 @@ function ThemeToggle({ className = '' }: { className?: string }) {
   return (
     <button
       onClick={toggleTheme}
-      className={`group t-mono link-quiet inline-flex items-center gap-2 uppercase ${className}`}
+      className={`group t-mono inline-flex items-center gap-2 border px-3 py-[7px] uppercase text-[var(--muted)] transition-colors duration-200 hover:border-[var(--line-3)] hover:text-[var(--fg)] ${className}`}
+      style={{ borderColor: 'var(--line-2)' }}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
     >
       <span className="transition-transform duration-500 group-hover:rotate-180">

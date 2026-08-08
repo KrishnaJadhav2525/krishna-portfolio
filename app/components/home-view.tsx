@@ -135,15 +135,12 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.62, duration: 0.7 }}
-                className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4"
+                className="mt-12 flex flex-wrap items-center gap-3"
               >
-                <a href="#projects" className="link-line t-mono uppercase">
+                <a href="#projects" className="btn-solid sheen-hover">
                   Selected projects <span className="arrow">↓</span>
                 </a>
-                <a
-                  href="#contact"
-                  className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
-                >
+                <a href="#contact" className="btn-line">
                   Get in touch <span className="arrow">→</span>
                 </a>
               </motion.div>
@@ -221,12 +218,10 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
       {/* ==================================================================
           01 · CAPABILITIES
           ================================================================== */}
-      <Section id="capabilities">
+      <Section id="capabilities" index="01" label="Capabilities" meta="Four practice areas">
         <SectionHeader
-          index="01"
-          label="Capabilities"
           title="What I work on"
-          meta="Four practice areas"
+          lead="Four areas I keep returning to, and the work each one covers."
         />
 
         <div className="grid grid-cols-1 border-t sm:grid-cols-2 lg:grid-cols-4" style={{ borderColor: 'var(--line-2)' }}>
@@ -234,13 +229,9 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
             <Reveal
               key={c.index}
               delay={i * 0.06}
-              className="group relative border-b p-7 transition-colors duration-300 sm:border-r lg:p-8"
+              className="riser group relative border-b p-7 sm:border-r lg:p-8"
               style={{ borderColor: 'var(--line)' }}
             >
-              <span
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: 'color-mix(in srgb, var(--surface) 60%, transparent)' }}
-              />
               <div className="relative">
                 <span className="t-label">{c.index}</span>
                 <h3 className="t-item hover-text is-title mt-6">{c.title}</h3>
@@ -254,12 +245,9 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
       {/* ==================================================================
           02 · PROJECTS
           ================================================================== */}
-      <Section id="projects">
+      <Section id="projects" tone="raised" index="02" label="Selected projects" meta={`${projects.length} public repositories`}>
         <SectionHeader
-          index="02"
-          label="Selected projects"
           title="Systems, pipelines and interfaces"
-          meta={`${projects.length} public repositories`}
           lead="Each entry links to its live deployment where one exists, its source, and a written case study covering architecture, problem and approach."
         />
         <ProjectsIndex />
@@ -268,8 +256,8 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
       {/* ==================================================================
           03 · PROFILE
           ================================================================== */}
-      <Section id="about">
-        <SectionHeader index="03" label="Profile" title="How I work" meta="Engineering principles" />
+      <Section id="about" index="03" label="Profile" meta="Engineering principles">
+        <SectionHeader title="How I work" />
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <Reveal className="lg:col-span-5">
@@ -283,8 +271,8 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
               from failure, and front-ends that hold up under real data. I care about clean
               boundaries and about code the next person can read.
             </p>
-            <div className="mt-8">
-              <Link href="/about" className="link-line t-mono uppercase">
+            <div className="mt-9">
+              <Link href="/about" className="btn-line">
                 Read the full profile <span className="arrow">→</span>
               </Link>
             </div>
@@ -296,7 +284,7 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
                 <Reveal
                   key={p.number}
                   delay={i * 0.06}
-                  className="group grid grid-cols-12 gap-4 border-b py-7"
+                  className="riser group grid grid-cols-12 gap-4 border-b px-4 py-7"
                   style={{ borderColor: 'var(--line)' }}
                 >
                   <span className="t-label col-span-2">{p.number}</span>
@@ -314,12 +302,10 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
       {/* ==================================================================
           04 · STACK
           ================================================================== */}
-      <Section id="stack">
+      <Section id="stack" tone="raised" index="04" label="Core technologies" meta="Primary working set">
         <SectionHeader
-          index="04"
-          label="Core technologies"
           title="The toolset"
-          meta="Primary working set"
+          lead="The stack I reach for first, grouped by where it sits in a system."
         />
 
         <div className="border-t" style={{ borderColor: 'var(--line-2)' }}>
@@ -344,12 +330,10 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
       {/* ==================================================================
           05 · WRITING
           ================================================================== */}
-      <Section id="writing">
+      <Section id="writing" index="05" label="Writing & work" meta={`${posts.length} articles`}>
         <SectionHeader
-          index="05"
-          label="Writing & work"
           title="Notes from the build"
-          meta={`${posts.length} articles`}
+          lead="Write-ups produced while building the projects they describe."
         />
 
         <ul className="border-t" style={{ borderColor: 'var(--line-2)' }}>
@@ -363,11 +347,7 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
               className="group border-b"
               style={{ borderColor: 'var(--line)' }}
             >
-              <Link href={`/blog/${post.slug}`} className="relative block py-7">
-                <span
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: 'color-mix(in srgb, var(--surface) 55%, transparent)' }}
-                />
+              <Link href={`/blog/${post.slug}`} className="riser relative block px-4 py-7">
                 <div className="relative grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
                   <span className="t-label md:col-span-2">{post.date}</span>
                   <div className="md:col-span-7">
@@ -389,8 +369,8 @@ export default function HomeView({ posts }: { posts: BlogPost[] }) {
           ))}
         </ul>
 
-        <div className="pt-8">
-          <Link href="/blog" className="link-line t-mono uppercase">
+        <div className="pt-10">
+          <Link href="/blog" className="btn-line">
             All writing &amp; work <span className="arrow">→</span>
           </Link>
         </div>

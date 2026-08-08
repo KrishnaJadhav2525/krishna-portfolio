@@ -157,13 +157,9 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
                                     <Link
                                         key={blog._id}
                                         href={`/blog/${blog.slug}`}
-                                        className="group relative block border-b py-6"
+                                        className="riser group relative block border-b px-4 py-6"
                                         style={{ borderColor: 'var(--line)' }}
                                     >
-                                        <span
-                                            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                            style={{ background: 'color-mix(in srgb, var(--surface) 55%, transparent)' }}
-                                        />
                                         <div className="relative">
                                             <div className="flex items-baseline justify-between gap-4">
                                                 <h3 className="hover-text is-title text-[1rem] leading-snug transition-transform duration-500 group-hover:translate-x-1">

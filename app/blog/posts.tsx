@@ -55,11 +55,7 @@ export function BlogPosts({ posts }: Props) {
             className="group border-b"
             style={{ borderColor: "var(--line)" }}
           >
-            <Link href={`/blog/${post.slug}`} className="relative block py-7">
-              <span
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: "color-mix(in srgb, var(--surface) 55%, transparent)" }}
-              />
+            <Link href={`/blog/${post.slug}`} className="riser relative block px-4 py-7">
               <span
                 className="pointer-events-none absolute left-0 top-0 h-full w-px origin-top scale-y-0 transition-transform duration-500 group-hover:scale-y-100"
                 style={{ background: "var(--line-3)" }}
@@ -97,12 +93,12 @@ export function BlogPosts({ posts }: Props) {
       </ul>
 
       {filteredPosts.length === 0 && (
-        <div className="ticks border p-10 text-center" style={{ borderColor: "var(--line-2)" }}>
+        <div className="plate extrude p-10 text-center" style={{ borderColor: "var(--line-2)" }}>
           <div className="t-label mb-4">No results</div>
           <p className="t-body">
             Nothing in the archive matches &ldquo;{searchQuery}&rdquo;.
           </p>
-          <button onClick={() => setSearchQuery("")} className="link-line t-mono mt-6 uppercase">
+          <button onClick={() => setSearchQuery("")} className="btn-line mt-6">
             Clear filter <span className="arrow">→</span>
           </button>
         </div>

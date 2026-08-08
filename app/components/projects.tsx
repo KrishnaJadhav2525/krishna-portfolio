@@ -438,7 +438,11 @@ function CaseStudy({ project, onClose }: { project: Project | null; onClose: () 
             exit={{ x: '100%' }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="relative h-full w-full max-w-[720px] overflow-y-auto border-l"
-            style={{ background: 'var(--bg)', borderColor: 'var(--line-2)' }}
+            style={{
+              background: 'var(--bg)',
+              borderColor: 'var(--line-2)',
+              boxShadow: '-1px 0 0 var(--edge-light), -40px 0 80px -40px var(--depth-cast-strong)',
+            }}
           >
             <div className="p-6 sm:p-10 lg:p-14">
               <div className="mb-10 flex items-start justify-between gap-6">
@@ -451,7 +455,7 @@ function CaseStudy({ project, onClose }: { project: Project | null; onClose: () 
                     {project.role} · {project.duration}
                   </div>
                 </div>
-                <button onClick={onClose} className="t-label link-quiet shrink-0 py-1">
+                <button onClick={onClose} className="btn-line min-h-[36px] shrink-0 px-3.5">
                   Close
                 </button>
               </div>
@@ -505,13 +509,13 @@ function CaseStudy({ project, onClose }: { project: Project | null; onClose: () 
                 </div>
               </div>
 
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-10 flex flex-wrap items-center gap-3">
                 {project.links.demo && (
                   <a
                     href={project.links.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-line t-mono uppercase"
+                    className="btn-solid sheen-hover"
                   >
                     Live demo <span className="arrow">→</span>
                   </a>
@@ -521,16 +525,13 @@ function CaseStudy({ project, onClose }: { project: Project | null; onClose: () 
                     href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
+                    className="btn-line"
                   >
                     Source <span className="arrow">→</span>
                   </a>
                 )}
                 {project.links.caseStudy?.startsWith('/') && (
-                  <Link
-                    href={project.links.caseStudy}
-                    className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
-                  >
+                  <Link href={project.links.caseStudy} className="btn-ghost">
                     Full write-up <span className="arrow">→</span>
                   </Link>
                 )}
@@ -563,14 +564,9 @@ function ProjectRow({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEWPORT}
       transition={{ duration: 0.7, delay: Math.min(index, 4) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative border-b"
+      className="riser group relative border-b px-4"
       style={{ borderColor: 'var(--line)' }}
     >
-      {/* Hover wash */}
-      <span
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background: 'color-mix(in srgb, var(--surface) 55%, transparent)' }}
-      />
       {/* Left accent that grows on hover */}
       <span
         className="pointer-events-none absolute left-0 top-0 h-full w-px origin-top scale-y-0 transition-transform duration-500 group-hover:scale-y-100"
@@ -633,10 +629,7 @@ function ProjectRow({
               GitHub <span className="arrow">→</span>
             </a>
           )}
-          <button
-            onClick={onOpen}
-            className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
-          >
+          <button onClick={onOpen} className="btn-line mt-1 min-h-[36px] px-3.5 text-[0.625rem]">
             Case study <span className="arrow">→</span>
           </button>
         </div>
@@ -662,21 +655,17 @@ export default function ProjectsIndex() {
         ))}
       </ul>
 
-      <div className="flex flex-wrap items-center justify-between gap-4 pt-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-10">
         <span className="t-label">
           Showing {String(visible.length).padStart(2, '0')} of {projects.length}
         </span>
-        {!expanded && (
-          <button onClick={() => setExpanded(true)} className="link-line t-mono uppercase">
-            View all projects <span className="arrow">↓</span>
-          </button>
-        )}
-        {expanded && (
-          <button
-            onClick={() => setExpanded(false)}
-            className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
-          >
+        {expanded ? (
+          <button onClick={() => setExpanded(false)} className="btn-ghost">
             Collapse <span className="arrow">↑</span>
+          </button>
+        ) : (
+          <button onClick={() => setExpanded(true)} className="btn-line">
+            View all projects <span className="arrow">↓</span>
           </button>
         )}
       </div>

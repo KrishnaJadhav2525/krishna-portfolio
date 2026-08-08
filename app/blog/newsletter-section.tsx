@@ -53,7 +53,7 @@ export function NewsletterSection() {
 
   return (
     <div
-      className="ticks grid grid-cols-1 gap-10 border p-8 lg:grid-cols-12 lg:gap-8 lg:p-12"
+      className="plate extrude grid grid-cols-1 gap-10 p-8 lg:grid-cols-12 lg:gap-8 lg:p-12"
       style={{ borderColor: 'var(--line-2)' }}
     >
       <div className="lg:col-span-5">
@@ -71,7 +71,7 @@ export function NewsletterSection() {
             <div className="t-label mb-4">Status · Subscribed</div>
             <h3 className="t-item text-[var(--fg)]">You&rsquo;re on the list</h3>
             <p className="t-body mt-3">{message}</p>
-            <button onClick={resetForm} className="link-line t-mono mt-6 self-start uppercase">
+            <button onClick={resetForm} className="btn-line mt-6 self-start">
               Subscribe another <span className="arrow">→</span>
             </button>
           </div>

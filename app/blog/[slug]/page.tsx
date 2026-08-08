@@ -33,7 +33,7 @@ export default async function BlogSlugPage({
         <Shell>
           <div className="t-label mb-5">Error · 404</div>
           <h1 className="t-page text-[var(--fg)]">Article not found</h1>
-          <Link href="/blog" className="link-line t-mono mt-8 inline-flex uppercase">
+          <Link href="/blog" className="btn-line mt-8">
             Return to the archive <span className="arrow">→</span>
           </Link>
         </Shell>

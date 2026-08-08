@@ -15,13 +15,9 @@ export function CuratedBlogs() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group relative block border-b py-5"
+            className="riser group relative block border-b px-4 py-5"
             style={{ borderColor: "var(--line)" }}
           >
-            <span
-              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              style={{ background: "color-mix(in srgb, var(--surface) 55%, transparent)" }}
-            />
             <div className="relative">
               <h3 className="hover-text is-title text-[0.95rem] leading-snug">{post.title}</h3>
               <p className="t-body mt-2 line-clamp-2 text-[0.8125rem]">{post.description}</p>

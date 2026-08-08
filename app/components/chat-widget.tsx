@@ -123,7 +123,7 @@ export default function ChatWidget() {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="t-label link-quiet px-1 py-1"
+                className="btn-line min-h-[30px] px-2.5 text-[0.625rem]"
                 aria-label="Close assistant"
               >
                 Esc
@@ -180,8 +180,13 @@ export default function ChatWidget() {
                     <button
                       key={s}
                       onClick={() => send(s)}
-                      className="group block w-full border px-3 py-2 text-left text-[12px] text-[var(--muted)] transition-colors duration-200 hover:text-[var(--fg)]"
-                      style={{ borderColor: 'var(--line)' }}
+                      className="group block w-full border px-3 py-2.5 text-left text-[12px] text-[var(--muted)] transition-all duration-200 hover:-translate-y-px hover:text-[var(--fg)]"
+                      style={{
+                        borderColor: 'var(--line-2)',
+                        background:
+                          'linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 70%, transparent), color-mix(in srgb, var(--surface) 60%, transparent))',
+                        boxShadow: 'inset 0 1px 0 var(--edge-light)',
+                      }}
                     >
                       <span className="mr-2 opacity-40">→</span>
                       {s}
@@ -210,7 +215,7 @@ export default function ChatWidget() {
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="btn-solid px-4 py-0 disabled:opacity-35"
+                className="btn-solid min-h-0 self-stretch px-4 disabled:pointer-events-none disabled:opacity-35"
               >
                 Send
               </button>

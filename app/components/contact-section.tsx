@@ -9,7 +9,7 @@ const socialLinks = [
   { href: 'https://x.com/krlshn444', label: 'Twitter' },
 ]
 
-export function ContactSection() {
+export function ContactSection({ index = '06' }: { index?: string } = {}) {
   const [formData, setFormData] = useState({
     email: '',
     subject: '',
@@ -65,12 +65,9 @@ export function ContactSection() {
   }
 
   return (
-    <Section id="contact">
+    <Section id="contact" tone="raised" index={index} label="Contact" meta="Open to work & collaboration">
       <SectionHeader
-        index="06"
-        label="Contact"
         title="Start a conversation"
-        meta="Open to work & collaboration"
         lead="Send a note about a role, a build, or something you'd like to take apart together."
       />
 
@@ -78,13 +75,13 @@ export function ContactSection() {
         {/* Form */}
         <Reveal className="lg:col-span-7">
           {status.type === 'success' ? (
-            <div className="ticks border p-8" style={{ borderColor: 'var(--line-2)' }}>
+            <div className="plate extrude p-8" style={{ borderColor: 'var(--line-2)' }}>
               <div className="t-label mb-4">Status · Sent</div>
               <h3 className="t-item text-[var(--fg)]">Message received</h3>
               <p className="t-body mt-3 max-w-[44ch]">{status.message}</p>
               <button
                 onClick={() => setStatus({ type: '', message: '' })}
-                className="link-line t-mono mt-6 uppercase"
+                className="btn-line mt-6"
               >
                 Send another <span className="arrow">→</span>
               </button>

@@ -27,23 +27,59 @@ export function Shell({
 }
 
 /* -------------------------------------------------------------------------
-   Section — full-bleed boundary + shell-constrained content
+   Section — a labelled, full-bleed band.
+
+   Every section opens with a heavy rule, a full-width bar carrying its number
+   and name, and a hairline closing the bar. Alternating sections carry a
+   slightly raised ground tone. Together these make it unambiguous where one
+   section ends and the next begins (DESIGN.md §4).
    ------------------------------------------------------------------------- */
 export function Section({
   id,
+  index,
+  label,
+  meta,
+  tone = 'base',
   className,
-  bleed = true,
   children,
 }: {
   id?: string
+  index?: string
+  label?: string
+  meta?: React.ReactNode
+  tone?: 'base' | 'raised'
   className?: string
-  bleed?: boolean
   children: React.ReactNode
 }) {
   return (
-    <section id={id} className={cn('relative', className)}>
-      {bleed && <Rule />}
-      <Shell className="py-[clamp(72px,11vh,150px)]">{children}</Shell>
+    <section
+      id={id}
+      className={cn('relative', className)}
+      style={
+        tone === 'raised'
+          ? { background: 'color-mix(in srgb, var(--bg-2) 78%, transparent)' }
+          : undefined
+      }
+    >
+      {/* Opening boundary — the heaviest rule in the system */}
+      <div className="rule-x" style={{ background: 'var(--line-2)' }} aria-hidden="true" />
+
+      {/* Section bar */}
+      {(index || label || meta) && (
+        <>
+          <Shell className="flex items-center justify-between gap-6 py-3.5">
+            <span className="t-label flex items-center gap-2.5 text-[var(--fg-dim)]">
+              {index && <span className="text-[var(--fg)]">{index}</span>}
+              {index && label && <span className="opacity-30">/</span>}
+              {label}
+            </span>
+            {meta && <span className="t-label hidden text-right sm:inline">{meta}</span>}
+          </Shell>
+          <div className="rule-x" aria-hidden="true" />
+        </>
+      )}
+
+      <Shell className="py-[clamp(64px,9vh,128px)]">{children}</Shell>
     </section>
   )
 }
@@ -89,18 +125,14 @@ export function MonoLabel({
    SectionHeader — numbered editorial heading with optional right-hand meta
    ------------------------------------------------------------------------- */
 export function SectionHeader({
-  index,
-  label,
   title,
-  meta,
   lead,
+  aside,
   className,
 }: {
-  index: string
-  label: string
   title: React.ReactNode
-  meta?: React.ReactNode
   lead?: React.ReactNode
+  aside?: React.ReactNode
   className?: string
 }) {
   return (
@@ -109,25 +141,16 @@ export function SectionHeader({
       initial="hidden"
       whileInView="visible"
       viewport={VIEWPORT}
-      className={cn('mb-12 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-6', className)}
+      className={cn('mb-14 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-8', className)}
     >
-      <motion.div variants={inViewFadeUp} className="lg:col-span-3">
-        <MonoLabel className="text-[var(--subtle)]">
-          {index} <span className="mx-1 opacity-40">/</span> {label}
-        </MonoLabel>
-      </motion.div>
-
-      <motion.div variants={inViewFadeUp} className="lg:col-span-6">
+      <motion.div variants={inViewFadeUp} className="lg:col-span-7">
         <h2 className="t-section text-[var(--fg)]">{title}</h2>
-        {lead && <p className="t-lead mt-5 max-w-[52ch]">{lead}</p>}
       </motion.div>
 
-      {meta && (
-        <motion.div
-          variants={inViewFadeUp}
-          className="t-mono self-end text-[var(--subtle)] uppercase lg:col-span-3 lg:text-right"
-        >
-          {meta}
+      {(lead || aside) && (
+        <motion.div variants={inViewFadeUp} className="lg:col-span-5">
+          {lead && <p className="t-lead max-w-[48ch]">{lead}</p>}
+          {aside && <div className="mt-4">{aside}</div>}
         </motion.div>
       )}
     </motion.div>

@@ -127,6 +127,47 @@ assistant launcher.
 
 Borders express structure. They are never decoration and never wrap every element.
 
+### Section demarcation
+
+A reader must never have to guess where one section ends. Every section opens with:
+
+1. a **heavy full-bleed rule** (`--line-2`) — the strongest horizontal line in the system;
+2. a **section bar**: a full-width row carrying `NN / SECTION NAME` on the left and its
+   metadata on the right;
+3. a **hairline** closing the bar.
+
+Sections then **alternate ground tone** — `base` (transparent) and `raised`
+(`--bg-2` at 78%) — so adjacent bands differ in value as well as in line. The next
+section's heavy rule is what closes the previous one.
+
+### Depth (minimal 3D)
+
+Thickness comes from light, never from rounding.
+
+- `.plate` — a plane: vertical surface gradient, `--edge-light` lit top edge,
+  `--edge-dark` shaded bottom edge, and a cast shadow.
+- `.extrude` — a ghost plane offset 7px behind a block, reading as its thickness;
+  it slides to 12px on hover.
+- `.riser` — flat at rest so the editorial grid stays calm, lifting `-3px` into a
+  lit gradient on hover. Used for every row and cell in a list.
+
+Depth tokens are per-theme: dark builds it from emitted light on black
+(`--edge-light: rgba(255,255,255,.08)`), light from the white of the paper
+(`--edge-light: rgba(255,255,255,.9)`) with a soft, low-opacity cast.
+
+### Buttons
+
+Every action carries a visible edge at rest — no bare-text CTAs.
+
+| Class | Role | Rest state |
+| :-- | :-- | :-- |
+| `.btn-solid` | Primary | Filled `--fg`, lit top edge, cast shadow |
+| `.btn-line` | Secondary | `--line-2` border, plate gradient, lit top edge |
+| `.btn-ghost` | Tertiary | Transparent; border appears on hover |
+
+All are 44px minimum height, mono uppercase, and lift 1px on hover with their arrow
+travelling 3px.
+
 ---
 
 ## 5. Background system

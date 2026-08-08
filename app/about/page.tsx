@@ -11,7 +11,6 @@ import {
   MetaRow,
   Reveal,
   Tag,
-  Rule,
 } from '@/app/components/ui/primitives'
 import { maskUp } from '@/lib/animations'
 
@@ -188,8 +187,8 @@ export default function AboutPage() {
       </header>
 
       {/* ================= 01 · STORY ================= */}
-      <Section id="story">
-        <SectionHeader index="01" label="Background" title="The short version" meta="Profile" />
+      <Section id="story" index="01" label="Background" meta="Profile">
+        <SectionHeader title="The short version" />
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
           <Reveal className="lg:col-span-6">
@@ -229,8 +228,8 @@ export default function AboutPage() {
       </Section>
 
       {/* ================= 02 · EXPERIENCE & EDUCATION ================= */}
-      <Section id="experience">
-        <SectionHeader index="02" label="Record" title="Experience & education" meta="2023 — present" />
+      <Section id="experience" tone="raised" index="02" label="Record" meta="2023 — present">
+        <SectionHeader title="Experience & education" />
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-6">
@@ -245,13 +244,8 @@ export default function AboutPage() {
       </Section>
 
       {/* ================= 03 · CAPABILITIES ================= */}
-      <Section id="capabilities">
-        <SectionHeader
-          index="03"
-          label="Technical capabilities"
-          title="What I work with"
-          meta="Primary working set"
-        />
+      <Section id="capabilities" index="03" label="Technical capabilities" meta="Primary working set">
+        <SectionHeader title="What I work with" />
 
         <div className="border-t" style={{ borderColor: 'var(--line-2)' }}>
           {capabilities.map((row, i) => (
@@ -273,26 +267,17 @@ export default function AboutPage() {
       </Section>
 
       {/* ================= 04 · PRINCIPLES ================= */}
-      <Section id="principles">
-        <SectionHeader
-          index="04"
-          label="Engineering principles"
-          title="How I make decisions"
-          meta="Four rules"
-        />
+      <Section id="principles" tone="raised" index="04" label="Engineering principles" meta="Four rules">
+        <SectionHeader title="How I make decisions" />
 
         <div className="grid grid-cols-1 border-t md:grid-cols-2" style={{ borderColor: 'var(--line-2)' }}>
           {principles.map((p, i) => (
             <Reveal
               key={p.number}
               delay={i * 0.06}
-              className="group relative border-b p-7 md:odd:border-r lg:p-9"
+              className="riser group relative border-b p-7 md:odd:border-r lg:p-9"
               style={{ borderColor: 'var(--line)' }}
             >
-              <span
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: 'color-mix(in srgb, var(--surface) 60%, transparent)' }}
-              />
               <div className="relative">
                 <span className="t-label">{p.number}</span>
                 <h3 className="t-item hover-text is-title mt-6">{p.title}</h3>
@@ -304,8 +289,8 @@ export default function AboutPage() {
       </Section>
 
       {/* ================= 05 · NETWORKS ================= */}
-      <Section id="networks">
-        <SectionHeader index="05" label="Elsewhere" title="Find me" meta="External" />
+      <Section id="networks" index="05" label="Elsewhere" meta="External">
+        <SectionHeader title="Find me" />
 
         <div className="border-t" style={{ borderColor: 'var(--line-2)' }}>
           {socialLinks.map(({ href, label }, i) => (
@@ -319,12 +304,8 @@ export default function AboutPage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-baseline justify-between gap-6 py-6"
+                className="riser group relative flex items-baseline justify-between gap-6 px-4 py-6"
               >
-                <span
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: 'color-mix(in srgb, var(--surface) 55%, transparent)' }}
-                />
                 <span className="hover-text is-title relative text-[1.05rem] transition-transform duration-500 group-hover:translate-x-1">
                   {label}
                 </span>
@@ -337,7 +318,6 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Rule />
       <ContactSection />
     </div>
   )

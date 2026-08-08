@@ -46,25 +46,17 @@ export default function BlogPage() {
       </header>
 
       {/* SEMANTIC SEARCH */}
-      <Section id="search">
+      <Section id="search" index="01" label="Semantic search" meta="Vector retrieval">
         <SectionHeader
-          index="01"
-          label="Semantic search"
           title="Search by concept"
-          meta="Vector retrieval"
           lead="Queries run through an embedding index, so related ideas surface even when the wording differs."
         />
         <SemanticSearch />
       </Section>
 
       {/* ARCHIVE */}
-      <Section id="archive">
-        <SectionHeader
-          index="02"
-          label="Archive"
-          title="All articles"
-          meta={`${posts.length} entries`}
-        />
+      <Section id="archive" tone="raised" index="02" label="Archive" meta={`${posts.length} entries`}>
+        <SectionHeader title="All articles" />
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-8">
@@ -79,11 +71,11 @@ export default function BlogPage() {
       </Section>
 
       {/* NEWSLETTER */}
-      <Section id="newsletter">
+      <Section id="newsletter" index="03" label="Newsletter" meta="Occasional dispatches">
         <NewsletterSection />
       </Section>
 
-      <ContactSection />
+      <ContactSection index="04" />
     </div>
   )
 }
