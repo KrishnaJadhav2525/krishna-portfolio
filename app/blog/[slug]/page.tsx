@@ -5,9 +5,12 @@ import { remark } from "remark"
 import html from "remark-html"
 import Link from "next/link"
 import { ReadingProgress } from "@/app/components/reading-progress"
+import { Shell } from "@/app/components/ui/primitives"
 
-function formatDate(date: string | Date) {
+function formatDate(date: string | Date | undefined) {
+  if (!date) return ""
   const d = new Date(date)
+  if (Number.isNaN(d.getTime())) return ""
   return d.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -22,84 +25,107 @@ export default async function BlogSlugPage({
 }) {
   const { slug } = await params
 
-  const filePath = path.join(
-    process.cwd(),
-    "app/blog/content",
-    `${slug}.md`
-  )
+  const filePath = path.join(process.cwd(), "app/blog/content", `${slug}.md`)
 
   if (!fs.existsSync(filePath)) {
     return (
-      <main className="pt-28 px-4 max-w-[680px] mx-auto">
-        <h1 className="text-xl font-normal text-[var(--color-fg)]">
-          Blog post not found
-        </h1>
-        <Link href="/blog" className="text-sm text-[var(--color-muted)] underline mt-4 inline-block">
-          Return to blog index
-        </Link>
+      <main className="relative z-10 pt-40">
+        <Shell>
+          <div className="t-label mb-5">Error · 404</div>
+          <h1 className="t-page text-[var(--fg)]">Article not found</h1>
+          <Link href="/blog" className="link-line t-mono mt-8 inline-flex uppercase">
+            Return to the archive <span className="arrow">→</span>
+          </Link>
+        </Shell>
       </main>
     )
   }
 
   const fileContent = fs.readFileSync(filePath, "utf8")
   const { data, content } = matter(fileContent)
+  const processedContent = await remark().use(html).process(content)
 
-  const processedContent = await remark()
-    .use(html)
-    .process(content)
+  const published = formatDate(data.publishedAt ?? data.date)
 
   return (
     <>
       <ReadingProgress />
-      <main className="min-h-screen pt-28 pb-20 px-4 max-w-[680px] mx-auto">
-        {/* BACK LINK */}
-        <Link
-          href="/blog"
-          className="font-mono text-xs text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors mb-10 inline-block uppercase tracking-wider"
-        >
-          ← Back to Writing
-        </Link>
 
-        {/* HEADER */}
-        <header className="mb-12">
-          <div className="font-mono text-xs text-[var(--color-subtle)] mb-3">
-            {formatDate(data.date)}
-          </div>
+      <div className="relative z-10 w-full">
+        {/* MASTHEAD */}
+        <header className="pb-10 pt-32 sm:pt-40">
+          <Shell>
+            <Link
+              href="/blog"
+              className="link-line t-mono mb-10 inline-flex uppercase text-[var(--muted)] hover:text-[var(--fg)]"
+            >
+              <span className="arrow inline-block rotate-180">→</span> Archive
+            </Link>
 
-          <h1 className="text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-fg)] mb-4 leading-tight">
-            {data.title}
-          </h1>
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
+              <div className="lg:col-span-8">
+                <h1 className="text-[clamp(2rem,4.6vw,3.4rem)] font-light leading-[1.02] tracking-[-0.04em] text-[var(--fg)]">
+                  {data.title}
+                </h1>
+              </div>
 
-          {data.tags && (
-            <div className="flex flex-wrap gap-2 pt-2">
-              {data.tags.map((tag: string) => (
-                <span key={tag} className="font-mono text-[10px] text-[var(--color-subtle)] border border-[var(--color-border)] px-2 py-0.5 tracking-wider uppercase">
-                  {tag}
-                </span>
-              ))}
+              <div className="relative lg:col-span-3 lg:col-start-10">
+                <div
+                  className="absolute -left-8 bottom-0 top-1 hidden w-px lg:block"
+                  style={{ background: "var(--line)" }}
+                />
+                {published && (
+                  <div className="mb-5">
+                    <div className="t-label mb-2">Published</div>
+                    <div className="t-mono uppercase text-[var(--fg-dim)]">{published}</div>
+                  </div>
+                )}
+                {data.tags && (
+                  <div>
+                    <div className="t-label mb-3">Topics</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {data.tags.map((tag: string) => (
+                        <span key={tag} className="tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </Shell>
         </header>
 
-        {/* ARTICLE CONTENT */}
-        <article className="prose border-t border-[var(--color-border)] pt-8">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: processedContent.toString(),
-            }}
-          />
-        </article>
+        <div className="rule-x" />
 
-        {/* FOOTER */}
-        <div className="mt-16 border-t border-[var(--color-border)] pt-8">
-          <Link
-            href="/blog"
-            className="text-sm font-medium text-[var(--color-fg)] underline underline-offset-4 decoration-[var(--color-border-strong)] hover:opacity-80"
+        {/* ARTICLE */}
+        <Shell className="py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            <article
+              className="prose lg:col-span-8 lg:col-start-3"
+              dangerouslySetInnerHTML={{ __html: processedContent.toString() }}
+            />
+          </div>
+
+          <div
+            className="mt-20 grid grid-cols-1 border-t pt-8 lg:grid-cols-12"
+            style={{ borderColor: "var(--line)" }}
           >
-            ← Read all articles
-          </Link>
-        </div>
-      </main>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 lg:col-span-8 lg:col-start-3">
+              <Link href="/blog" className="link-line t-mono uppercase">
+                <span className="arrow inline-block rotate-180">→</span> All articles
+              </Link>
+              <Link
+                href="/#contact"
+                className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
+              >
+                Get in touch <span className="arrow">→</span>
+              </Link>
+            </div>
+          </div>
+        </Shell>
+      </div>
     </>
   )
 }

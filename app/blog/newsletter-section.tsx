@@ -51,74 +51,71 @@ export function NewsletterSection() {
     setMessage('');
   };
 
-  if (status === 'success') {
-    return (
-      <div className="border border-[var(--color-border)] p-8 text-center max-w-[520px] mx-auto">
-        <h3 className="text-lg font-medium text-[var(--color-fg)] mb-2">Subscribed</h3>
-        <p className="text-sm text-[var(--color-muted)] mb-4">{message}</p>
-        <button
-          onClick={resetForm}
-          className="font-mono text-xs text-[var(--color-fg)] underline underline-offset-4"
-        >
-          Subscribe another email
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="border border-[var(--color-border)] p-8 max-w-[520px] mx-auto">
-      <p className="font-mono text-xs tracking-[0.12em] uppercase text-[var(--color-muted)] mb-2">
-        Newsletter
-      </p>
-      <h2 className="text-xl font-medium text-[var(--color-fg)] mb-3">
-        Subscribe to technical updates
-      </h2>
-      <p className="text-sm text-[var(--color-muted)] mb-6 leading-relaxed">
-        Occasional updates on software engineering, AI systems, and new project write-ups.
-      </p>
+    <div
+      className="ticks grid grid-cols-1 gap-10 border p-8 lg:grid-cols-12 lg:gap-8 lg:p-12"
+      style={{ borderColor: 'var(--line-2)' }}
+    >
+      <div className="lg:col-span-5">
+        <div className="t-label mb-5">Newsletter</div>
+        <h2 className="t-section text-[var(--fg)]">Technical updates</h2>
+        <p className="t-body mt-5 max-w-[38ch]">
+          Occasional notes on software engineering, AI systems and new project write-ups.
+          No schedule, no filler.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block font-mono text-xs tracking-[0.1em] uppercase text-[var(--color-muted)] mb-2">
-            Email Address
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
-            required
-            className="w-full bg-transparent border border-[var(--color-border)] px-3 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-colors duration-150"
-          />
-        </div>
+      <div className="lg:col-span-6 lg:col-start-7">
+        {status === 'success' ? (
+          <div className="flex h-full flex-col justify-center">
+            <div className="t-label mb-4">Status · Subscribed</div>
+            <h3 className="t-item text-[var(--fg)]">You&rsquo;re on the list</h3>
+            <p className="t-body mt-3">{message}</p>
+            <button onClick={resetForm} className="link-line t-mono mt-6 self-start uppercase">
+              Subscribe another <span className="arrow">→</span>
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="nl-email" className="t-label mb-3 block">
+                Email address
+              </label>
+              <input
+                id="nl-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                required
+                className="field"
+              />
+            </div>
 
-        <div>
-          <label className="block font-mono text-xs tracking-[0.1em] uppercase text-[var(--color-muted)] mb-2">
-            Name (Optional)
-          </label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
-            className="w-full bg-transparent border border-[var(--color-border)] px-3 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-colors duration-150"
-          />
-        </div>
+            <div>
+              <label htmlFor="nl-name" className="t-label mb-3 block">
+                Name (optional)
+              </label>
+              <input
+                id="nl-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                className="field"
+              />
+            </div>
 
-        <button
-          type="submit"
-          className="w-full bg-[var(--color-fg)] text-[var(--color-bg)] px-6 py-3 text-sm font-medium hover:opacity-90 active:scale-[0.99] transition-all duration-150"
-        >
-          Subscribe
-        </button>
+            <button type="submit" className="btn-solid sheen-hover w-full sm:w-auto">
+              Subscribe <span aria-hidden="true">→</span>
+            </button>
 
-        {status === 'error' && message && (
-          <p className="text-xs font-mono text-red-500 mt-2 text-center">
-            {message}
-          </p>
+            {status === 'error' && message && (
+              <p className="t-mono uppercase text-red-500">{message}</p>
+            )}
+          </form>
         )}
-      </form>
+      </div>
     </div>
   );
 }

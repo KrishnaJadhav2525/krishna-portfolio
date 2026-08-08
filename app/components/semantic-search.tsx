@@ -116,89 +116,103 @@ export default function SemanticSearch({ className = '' }: SemanticSearchProps) 
     };
 
     return (
-        <div className={`w-full max-w-2xl mx-auto ${className}`}>
-            {/* Search Input */}
-            <div className="relative">
-                <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search articles semantically by concept..."
-                    className="w-full bg-transparent border border-[var(--color-border)] px-4 py-3 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-fg)] transition-colors duration-150"
-                />
-
-                {isLoading && (
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-xs text-[var(--color-subtle)]">
-                        Searching...
+        <div className={`w-full ${className}`}>
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-8">
+                <div className="lg:col-span-8">
+                    {/* Query field */}
+                    <div className="relative">
+                        <label htmlFor="semantic-q" className="t-label mb-3 block">
+                            Query
+                        </label>
+                        <input
+                            id="semantic-q"
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="e.g. how retrieval pipelines stay accurate"
+                            className="field"
+                        />
+                        {isLoading && (
+                            <span className="t-label absolute bottom-3.5 right-3 text-[var(--subtle)]">
+                                Retrieving
+                            </span>
+                        )}
                     </div>
-                )}
-            </div>
 
-            {/* Error Message */}
-            {error && (
-                <div className="mt-3 p-3 border border-red-500/30 text-xs font-mono text-red-500">
-                    {error}
-                </div>
-            )}
+                    {error && (
+                        <div className="t-mono mt-4 border border-red-500/30 p-3 uppercase text-red-500">
+                            {error}
+                        </div>
+                    )}
 
-            {/* Results List */}
-            {hasSearched && !error && (
-                <div className="mt-4 border border-[var(--color-border)] divide-y divide-[var(--color-border)] bg-[var(--color-bg)]">
-                    {results.length === 0 ? (
-                        <p className="text-xs font-mono text-[var(--color-subtle)] text-center py-6">
-                            No semantic matches found for &ldquo;{query}&rdquo;
-                        </p>
-                    ) : (
-                        <>
-                            <div className="px-4 py-2 bg-[var(--color-surface)] border-b border-[var(--color-border)] font-mono text-[11px] text-[var(--color-subtle)] uppercase tracking-wider">
-                                {results.length} semantic result{results.length !== 1 ? 's' : ''}
-                            </div>
+                    {/* Results */}
+                    {hasSearched && !error && (
+                        <div className="mt-8 border-t" style={{ borderColor: 'var(--line-2)' }}>
+                            {results.length === 0 ? (
+                                <p className="t-body py-8">
+                                    No semantic matches for &ldquo;{query}&rdquo;.
+                                </p>
+                            ) : (
+                                results.map(({ score, blog }) => (
+                                    <Link
+                                        key={blog._id}
+                                        href={`/blog/${blog.slug}`}
+                                        className="group relative block border-b py-6"
+                                        style={{ borderColor: 'var(--line)' }}
+                                    >
+                                        <span
+                                            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                            style={{ background: 'color-mix(in srgb, var(--surface) 55%, transparent)' }}
+                                        />
+                                        <div className="relative">
+                                            <div className="flex items-baseline justify-between gap-4">
+                                                <h3 className="hover-text is-title text-[1rem] leading-snug transition-transform duration-500 group-hover:translate-x-1">
+                                                    {blog.title}
+                                                </h3>
+                                                <span className="t-label shrink-0">{formatScore(score)}</span>
+                                            </div>
 
-                            {results.map(({ score, blog }) => (
-                                <Link
-                                    key={blog._id}
-                                    href={`/blog/${blog.slug}`}
-                                    className="block p-4 hover:bg-[var(--color-surface)] transition-colors duration-150 group"
-                                >
-                                    <div className="flex items-center justify-between gap-4 mb-1">
-                                        <h3 className="text-sm font-medium text-[var(--color-fg)] group-hover:underline underline-offset-4 decoration-[var(--color-border-strong)]">
-                                            {blog.title}
-                                        </h3>
-                                        <span className="font-mono text-[10px] text-[var(--color-subtle)] border border-[var(--color-border)] px-1.5 py-0.5 shrink-0">
-                                            {formatScore(score)}
-                                        </span>
-                                    </div>
+                                            {blog.description && (
+                                                <p className="t-body mt-2 line-clamp-2 max-w-[58ch] text-[0.875rem]">
+                                                    <Typewriter text={blog.description} speed={12} />
+                                                </p>
+                                            )}
 
-                                    {blog.description && (
-                                        <p className="text-xs text-[var(--color-muted)] line-clamp-2 leading-relaxed mb-2">
-                                            <Typewriter text={blog.description} speed={12} />
-                                        </p>
-                                    )}
-
-                                    {blog.tags && blog.tags.length > 0 && (
-                                        <div className="flex flex-wrap gap-1.5 pt-1">
-                                            {blog.tags.slice(0, 4).map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="font-mono text-[10px] text-[var(--color-subtle)] border border-[var(--color-border)] px-1 py-0.2"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
+                                            {blog.tags && blog.tags.length > 0 && (
+                                                <div className="mt-4 flex flex-wrap gap-1.5">
+                                                    {blog.tags.slice(0, 4).map((tag) => (
+                                                        <span key={tag} className="tag">
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </Link>
-                            ))}
-                        </>
+                                    </Link>
+                                ))
+                            )}
+                        </div>
                     )}
                 </div>
-            )}
 
-            {!hasSearched && !isLoading && (
-                <p className="mt-2 text-xs font-mono text-[var(--color-subtle)] text-center">
-                    Enter a topic or concept to run RAG vector search across articles
-                </p>
-            )}
+                {/* Side note */}
+                <div className="relative lg:col-span-3 lg:col-start-10">
+                    <div
+                        className="absolute -left-8 bottom-0 top-0 hidden w-px lg:block"
+                        style={{ background: 'var(--line)' }}
+                    />
+                    <div className="t-label mb-4">How it works</div>
+                    <p className="t-body text-[0.875rem]">
+                        Articles are embedded into a vector index. Your query is embedded the same
+                        way, and the closest passages come back ranked by similarity — so
+                        &ldquo;keeping models honest&rdquo; can surface a post that never uses
+                        those words.
+                    </p>
+                    {!hasSearched && !isLoading && (
+                        <p className="t-label mt-6">Enter a concept to begin</p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

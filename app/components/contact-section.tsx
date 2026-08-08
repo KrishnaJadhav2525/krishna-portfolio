@@ -1,13 +1,12 @@
-'use client';
+'use client'
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { inViewFadeUp, clipReveal } from "@/lib/animations"
+import { useState } from 'react'
+import { Section, SectionHeader, Reveal, MetaRow } from '@/app/components/ui/primitives'
 
 const socialLinks = [
-  { href: "https://github.com/KrishnaJadhav2525", label: "GitHub" },
-  { href: "https://x.com/krlshn444", label: "Twitter" },
-  { href: "https://www.linkedin.com/in/krishna-jadhav-a5122a316/", label: "LinkedIn" },
+  { href: 'https://github.com/KrishnaJadhav2525', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/krishna-jadhav-a5122a316/', label: 'LinkedIn' },
+  { href: 'https://x.com/krlshn444', label: 'Twitter' },
 ]
 
 export function ContactSection() {
@@ -15,108 +14,86 @@ export function ContactSection() {
     email: '',
     subject: '',
     message: '',
-  });
-  const [status, setStatus] = useState({ type: '', message: '' });
+  })
+  const [status, setStatus] = useState({ type: '', message: '' })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!formData.email || !formData.subject || !formData.message) {
-      setStatus({ type: 'error', message: 'Please fill in all fields' });
-      return;
+      setStatus({ type: 'error', message: 'Please fill in all fields' })
+      return
     }
 
-    const submittedData = { ...formData };
+    const submittedData = { ...formData }
 
     setStatus({
       type: 'success',
-      message: 'Message sent successfully! I will get back to you soon.'
-    });
-    setFormData({ email: '', subject: '', message: '' });
+      message: 'Message sent successfully! I will get back to you soon.',
+    })
+    setFormData({ email: '', subject: '', message: '' })
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submittedData),
-      });
+      })
 
-      const result = await response.json();
+      const result = await response.json()
 
       if (!result.success) {
         setStatus({
           type: 'error',
-          message: result.error || 'Failed to send message. Please try again.'
-        });
+          message: result.error || 'Failed to send message. Please try again.',
+        })
       }
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again later.'
-      });
-      console.error('Contact form error:', error);
+        message: 'Failed to send message. Please try again later.',
+      })
+      console.error('Contact form error:', error)
     }
-  };
+  }
 
   return (
-    <section id="contact" className="py-24 max-w-[840px] mx-auto px-6 relative">
-      <motion.div
-        variants={clipReveal}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="mb-12 border-b border-[var(--color-border)] pb-6"
-      >
-        <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-3 font-medium">
-          05 / INQUIRIES & COLLABORATION
-        </p>
-        <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-normal text-[var(--color-fg)]">
-          Get In Touch
-        </h2>
-      </motion.div>
+    <Section id="contact">
+      <SectionHeader
+        index="06"
+        label="Contact"
+        title="Start a conversation"
+        meta="Open to work & collaboration"
+        lead="Send a note about a role, a build, or something you'd like to take apart together."
+      />
 
-      <motion.div
-        variants={inViewFadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        className="card-hover-glow relative border border-[var(--color-border)] p-6 sm:p-10 bg-[var(--color-surface)]/90 backdrop-blur-md grid md:grid-cols-12 gap-10"
-      >
-        <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
-        <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
-        <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
-        <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
-
-        {/* Form Column */}
-        <div className="md:col-span-7">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+        {/* Form */}
+        <Reveal className="lg:col-span-7">
           {status.type === 'success' ? (
-            <div className="p-8 border border-[var(--color-border)] text-center space-y-4">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] block">
-                STATUS / TRANSMITTED
-              </span>
-              <h3 className="text-base font-medium text-[var(--color-fg)]">Message Received</h3>
-              <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-                {status.message}
-              </p>
+            <div className="ticks border p-8" style={{ borderColor: 'var(--line-2)' }}>
+              <div className="t-label mb-4">Status · Sent</div>
+              <h3 className="t-item text-[var(--fg)]">Message received</h3>
+              <p className="t-body mt-3 max-w-[44ch]">{status.message}</p>
               <button
                 onClick={() => setStatus({ type: '', message: '' })}
-                className="font-mono text-xs text-[var(--color-fg)] underline underline-offset-4 tracking-wider uppercase pt-2"
+                className="link-line t-mono mt-6 uppercase"
               >
-                Send another message →
+                Send another <span className="arrow">→</span>
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-2 select-none">
-                  EMAIL ADDRESS
+                <label htmlFor="email" className="t-label mb-3 block">
+                  Email address
                 </label>
                 <input
                   type="email"
@@ -126,13 +103,13 @@ export function ContactSection() {
                   onChange={handleChange}
                   placeholder="name@domain.com"
                   required
-                  className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-border-strong)] transition-all duration-150 font-mono"
+                  className="field"
                 />
               </div>
 
               <div>
-                <label htmlFor="subject" className="block font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-2 select-none">
-                  SUBJECT
+                <label htmlFor="subject" className="t-label mb-3 block">
+                  Subject
                 </label>
                 <input
                   type="text"
@@ -140,81 +117,73 @@ export function ContactSection() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Project Inquiry"
+                  placeholder="What is this about?"
                   required
-                  className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-border-strong)] transition-all duration-150 font-mono"
+                  className="field"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-2 select-none">
-                  MESSAGE
+                <label htmlFor="message" className="t-label mb-3 block">
+                  Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows={4}
-                  placeholder="Your message specifications..."
+                  rows={5}
+                  placeholder="Tell me a bit about it…"
                   required
-                  className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] px-3.5 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-subtle)] focus:outline-none focus:border-[var(--color-border-strong)] transition-all duration-150 resize-y font-mono"
+                  className="field resize-y"
                 />
               </div>
 
-              <button
-                type="submit"
-                className="shimmer-hover w-full bg-[var(--color-fg)] text-[var(--color-bg)] px-6 py-3 text-xs font-mono font-medium tracking-[0.15em] uppercase hover:opacity-90 active:scale-[0.99] transition-all duration-150"
-              >
-                Send Message →
+              <button type="submit" className="btn-solid sheen-hover w-full sm:w-auto">
+                Send message <span aria-hidden="true">→</span>
               </button>
 
               {status.type === 'error' && (
-                <p className="text-xs font-mono text-red-500 mt-2">
-                  {status.message}
-                </p>
+                <p className="t-mono uppercase text-red-500">{status.message}</p>
               )}
             </form>
           )}
-        </div>
+        </Reveal>
 
-        {/* Info Column */}
-        <div className="md:col-span-5 flex flex-col justify-between space-y-8 md:border-l border-[var(--color-border)] md:pl-8">
-          <div>
-            <h3 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-3 select-none">
-              DIRECT EMAIL
-            </h3>
-            <a
-              href="mailto:jadhavkrishna475@gmail.com"
-              className="animated-link text-sm font-medium text-[var(--color-fg)] pb-0.5"
-            >
-              jadhavkrishna475@gmail.com
-            </a>
-            <p className="text-xs text-[var(--color-subtle)] font-mono mt-3">
-              LOCATION: INDIA · AVAILABLE WORLDWIDE
-            </p>
+        {/* Details */}
+        <Reveal delay={0.08} className="relative lg:col-span-4 lg:col-start-9">
+          <div
+            className="absolute -left-8 bottom-0 top-0 hidden w-px lg:block"
+            style={{ background: 'var(--line)' }}
+          />
+
+          <div className="t-label mb-4">Direct</div>
+          <a href="mailto:jadhavkrishna475@gmail.com" className="link-line text-[1rem]">
+            jadhavkrishna475@gmail.com
+          </a>
+
+          <div className="mt-10">
+            <MetaRow label="Location">Mumbai, India</MetaRow>
+            <MetaRow label="Availability">Remote worldwide</MetaRow>
+            <MetaRow label="Response">Usually within a day</MetaRow>
           </div>
 
-          <div>
-            <h3 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[var(--color-subtle)] mb-3 select-none">
-              NETWORKS
-            </h3>
-            <div className="flex flex-col gap-2">
-              {socialLinks.map(({ href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-xs text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors duration-150 uppercase tracking-widest"
-                >
-                  {label} →
-                </a>
-              ))}
-            </div>
+          <div className="t-label mb-4 mt-10">Networks</div>
+          <div className="flex flex-col gap-3">
+            {socialLinks.map(({ href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
+              >
+                {label} <span className="arrow">→</span>
+              </a>
+            ))}
           </div>
-        </div>
-      </motion.div>
-    </section>
-  );
+        </Reveal>
+      </div>
+    </Section>
+  )
 }

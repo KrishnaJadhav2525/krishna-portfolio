@@ -1,292 +1,344 @@
-'use client';
+'use client'
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { ContactSection } from "@/app/components/contact-section"
-import { pageEnter, inViewFadeUp } from "@/lib/animations"
-import { Container } from "@/app/components/ui/section"
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { ContactSection } from '@/app/components/contact-section'
+import {
+  Shell,
+  Section,
+  SectionHeader,
+  MonoLabel,
+  MetaRow,
+  Reveal,
+  Tag,
+  Rule,
+} from '@/app/components/ui/primitives'
+import { maskUp } from '@/lib/animations'
 
 const socialLinks = [
-  { href: "https://github.com/KrishnaJadhav2525", label: "GitHub" },
-  { href: "https://x.com/krlshn444", label: "Twitter" },
-  { href: "https://www.linkedin.com/in/krishna-jadhav-a5122a316/", label: "LinkedIn" },
+  { href: 'https://github.com/KrishnaJadhav2525', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/krishna-jadhav-a5122a316/', label: 'LinkedIn' },
+  { href: 'https://x.com/krlshn444', label: 'Twitter' },
 ]
 
-const engineeringPrinciples = [
+const experience = [
   {
-    number: "01",
-    title: "ARCHITECTURE OVER HYPE",
-    description: "Building systems with clear boundaries, strict type-safety, and production-grade resilience rather than chasing transient tech stack trends."
+    role: 'Database & IT Support',
+    org: 'Kohinoor Ropes Pvt. Ltd.',
+    period: "May '25 – Aug '25",
+    body: 'Optimised MySQL queries for data validation and provided on-site IT infrastructure support for production systems.',
   },
   {
-    number: "02",
-    title: "DETERMINISTIC AI & RAG",
-    description: "Orchestrating LLMs, vector embeddings, and multi-API pipelines with strict structured outputs and sub-millisecond retrieval."
+    role: 'Business Development Executive',
+    org: 'Conglomerate Magazine',
+    period: "Aug '24 – Feb '25",
+    body: 'Led client requirements gathering and outreach, acting as the technical bridge between clients and the engineering team.',
   },
-  {
-    number: "03",
-    title: "OBSERVABLE & MAINTAINABLE",
-    description: "Writing self-documenting code with comprehensive error handling, structured logging, and clean team handoff protocols."
-  }
 ]
+
+const education = [
+  {
+    role: 'B.Sc. Computer Science',
+    org: 'Rajarshi Shahu Mahavidyalaya',
+    period: '2023 – 2026',
+    body: 'CGPA 7.53/10. Coursework focused on data structures, algorithms and artificial intelligence.',
+  },
+  {
+    role: 'Higher Secondary (Science)',
+    org: 'Maharashtra State Board',
+    period: '2023',
+    body: 'Physics, Chemistry, Mathematics and Computer Science.',
+  },
+]
+
+const capabilities = [
+  {
+    group: 'Languages',
+    items: ['TypeScript', 'JavaScript', 'Python', 'C++', 'SQL'],
+  },
+  {
+    group: 'Frontend',
+    items: ['React', 'Next.js', 'Vue.js', 'TailwindCSS', 'Framer Motion', 'MDX'],
+  },
+  {
+    group: 'Backend',
+    items: ['Node.js', 'Express', 'Flask', 'Django', 'FastAPI', 'REST APIs'],
+  },
+  {
+    group: 'Data',
+    items: ['PostgreSQL', 'MongoDB', 'Pinecone', 'GridFS', 'Pandas', 'Scikit-Learn'],
+  },
+  {
+    group: 'AI',
+    items: ['LangChain', 'RAG Pipelines', 'Vector Embeddings', 'Groq', 'Gemini', 'ONNX Runtime'],
+  },
+  {
+    group: 'Infrastructure',
+    items: ['Docker', 'Git', 'Linux', 'Vercel', 'n8n', 'CI/CD'],
+  },
+]
+
+const principles = [
+  {
+    number: '01',
+    title: 'Architecture over hype',
+    body: 'Systems with clear boundaries, strict typing and production-grade error handling — not whichever stack is trending this quarter.',
+  },
+  {
+    number: '02',
+    title: 'Deterministic AI',
+    body: 'Language models are components, not magic. Structured outputs, validation, retries and traceable retrieval keep them honest.',
+  },
+  {
+    number: '03',
+    title: 'Observable & maintainable',
+    body: 'Structured logging, meaningful errors and self-documenting code so the system explains itself when something breaks.',
+  },
+  {
+    number: '04',
+    title: 'Finish the last ten percent',
+    body: 'Empty states, failure paths, mobile layouts and documentation are part of the work, not an optional follow-up.',
+  },
+]
+
+function Timeline({ items }: { items: typeof experience }) {
+  return (
+    <div className="border-t" style={{ borderColor: 'var(--line-2)' }}>
+      {items.map((item, i) => (
+        <Reveal
+          key={item.role}
+          delay={i * 0.06}
+          className="group relative grid grid-cols-1 gap-3 border-b py-7 md:grid-cols-12 md:gap-6"
+          style={{ borderColor: 'var(--line)' }}
+        >
+          <div className="t-label md:col-span-4">{item.period}</div>
+          <div className="md:col-span-8">
+            <h3 className="hover-text is-title text-[1.05rem] leading-snug">{item.role}</h3>
+            <div className="t-mono mt-1.5 uppercase text-[var(--subtle)]">{item.org}</div>
+            <p className="t-body mt-3 max-w-[46ch] text-[0.875rem]">{item.body}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  )
+}
 
 export default function AboutPage() {
   return (
-    <motion.main
-      variants={pageEnter}
-      initial="hidden"
-      animate="visible"
-      className="w-full pt-32 pb-20 relative z-10 overflow-hidden"
-    >
-      <Container variant="wide" className="relative z-10">
+    <div className="relative z-10 w-full">
+      {/* ================= MASTHEAD ================= */}
+      <header className="relative pb-4 pt-32 sm:pt-40">
+        <Shell>
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10"
+          >
+            <Link href="/" className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]">
+              <span className="arrow inline-block rotate-180">→</span> Index
+            </Link>
+          </motion.div>
 
-        {/* BACK LINK */}
-        <Link
-          href="/"
-          className="font-mono text-xs text-[var(--color-subtle)] hover:text-[var(--color-fg)] transition-colors mb-10 inline-block tracking-wider uppercase"
-        >
-          ← Back to Home
-        </Link>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-7">
+              <MonoLabel dot className="text-[var(--fg)]">
+                Profile · Full-stack &amp; AI systems engineer
+              </MonoLabel>
 
-        {/* SECTION 1: STORY / BIOGRAPHY — Wide Desktop 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20 pb-16 border-b border-[var(--color-border)]">
+              <h1 className="t-page mt-8 select-none text-[var(--fg)]">
+                {['Krishna', 'Jadhav'].map((line, i) => (
+                  <span key={line} className="block overflow-hidden pb-[0.06em]">
+                    <motion.span
+                      className="block"
+                      variants={maskUp}
+                      initial="hidden"
+                      animate="visible"
+                      transition={{ delay: 0.12 + i * 0.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {line}
+                    </motion.span>
+                  </span>
+                ))}
+              </h1>
+            </div>
 
-          {/* Left: Headline & Bio Summary */}
-          <div className="lg:col-span-5 space-y-6">
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer select-none">
-              01 / STORY & PROFILE
-            </p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="metallic-text-shine text-[clamp(2.5rem,6vw,4.5rem)] font-normal tracking-[-0.04em] leading-[0.95] text-[var(--color-fg)] select-none"
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.34, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative lg:col-span-5 lg:pl-10"
             >
-              Krishna<br />Jadhav
-            </motion.h1>
+              <div
+                className="absolute -left-px bottom-0 top-1 hidden w-px lg:block"
+                style={{ background: 'var(--line)' }}
+              />
+              <p className="t-lead max-w-[44ch]">
+                Building reliable web architectures, automation pipelines and retrieval systems —
+                from Mumbai, for teams anywhere.
+              </p>
+              <div className="mt-8">
+                <MetaRow label="Based in">Mumbai, India</MetaRow>
+                <MetaRow label="Education">B.Sc. Computer Science</MetaRow>
+                <MetaRow label="Working on">AI systems · Full-stack</MetaRow>
+              </div>
+            </motion.div>
+          </div>
+        </Shell>
+      </header>
 
-            <p className="text-[clamp(1rem,1.8vw,1.25rem)] text-[var(--color-muted)] leading-relaxed font-normal">
-              Full-Stack Engineer & AI Agent Developer creating reliable web architectures and vector intelligence systems.
+      {/* ================= 01 · STORY ================= */}
+      <Section id="story">
+        <SectionHeader index="01" label="Background" title="The short version" meta="Profile" />
+
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
+          <Reveal className="lg:col-span-6">
+            <p className="t-lead">
+              I&rsquo;m a full-stack engineer and AI developer who enjoys building software that
+              keeps working after the demo is over.
             </p>
+            <p className="t-body mt-6 max-w-[54ch]">
+              Over the past couple of years I&rsquo;ve built a portfolio with retrieval-augmented
+              semantic search over my own writing, an autonomous video generation pipeline
+              orchestrated through n8n, a medical research assistant that fuses results from
+              several academic databases, and a resume matching engine built on classical NLP.
+            </p>
+          </Reveal>
 
-            <div className="pt-2">
-              <Link
-                href="/blog"
-                className="animated-link text-sm font-medium text-[var(--color-fg)] pb-0.5"
-              >
-                Read technical blog & research →
+          <Reveal delay={0.08} className="lg:col-span-6 lg:pl-10">
+            <p className="t-body max-w-[54ch]">
+              On the AI side I work hands-on with language models, vector embeddings, retrieval
+              pipelines and multi-API orchestration — wiring together providers like Gemini, Groq
+              and Pinecone into systems that run end to end rather than demos that run once.
+            </p>
+            <p className="t-body mt-6 max-w-[54ch]">
+              On the product side I build with React and Next.js on the front, Node, Flask and
+              Django on the back, and PostgreSQL or MongoDB underneath. I care about clean
+              architecture, observable systems and code the next engineer can read without me.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <Link href="/blog" className="link-line t-mono uppercase">
+                Technical writing <span className="arrow">→</span>
+              </Link>
+              <Link href="/#projects" className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]">
+                Selected projects <span className="arrow">→</span>
               </Link>
             </div>
-          </div>
-
-          {/* Right: Detailed Story Paragraphs */}
-          <div className="lg:col-span-7 space-y-6 text-base text-[var(--color-muted)] leading-relaxed lg:border-l border-[var(--color-border)] lg:pl-10">
-            <p>
-              I'm a Full-Stack Engineer and AI Developer who enjoys building software that performs reliably in production.
-              Over the past couple of years I've engineered a <span className="text-[var(--color-fg)] font-medium">RAG-powered portfolio with sub-100ms vector retrieval</span>,
-              an AI resume matching engine, an autonomous <span className="text-[var(--color-fg)] font-medium">AI video generation pipeline</span> orchestrated via n8n,
-              and a fraud detection ML pipeline trained on 6.3M+ records.
-            </p>
-
-            <p>
-              On the AI side, I work hands-on with <span className="text-[var(--color-fg)] font-medium">LLMs, vector embeddings, RAG, LangChain, and multi-API pipelines</span> —
-              integrating Gemini, Pexels, GitHub API, and Pinecone to build systems that operate end-to-end.
-              On full-stack development, I build with React/Next.js 16, Django/Flask/Node, and PostgreSQL/MongoDB.
-            </p>
-
-            <p>
-              I prioritize <span className="text-[var(--color-fg)] font-medium">clean architecture, observable systems, and writing maintainable code</span> —
-              and I thrive in engineering teams where software craft and precision matter.
-            </p>
-          </div>
-
+          </Reveal>
         </div>
+      </Section>
 
-        {/* SECTION 2: ENGINEERING PHILOSOPHY */}
-        <motion.div
-          variants={inViewFadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="mb-20 pb-16 border-b border-[var(--color-border)]"
-        >
-          <div className="mb-10">
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-shimmer mb-2">
-              02 / MANIFESTO
-            </p>
-            <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-normal text-[var(--color-fg)]">
-              Engineering Philosophy
-            </h2>
+      {/* ================= 02 · EXPERIENCE & EDUCATION ================= */}
+      <Section id="experience">
+        <SectionHeader index="02" label="Record" title="Experience & education" meta="2023 — present" />
+
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-6">
+            <div className="t-label mb-5">Experience</div>
+            <Timeline items={experience} />
           </div>
+          <div className="lg:col-span-6">
+            <div className="t-label mb-5">Education</div>
+            <Timeline items={education} />
+          </div>
+        </div>
+      </Section>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {engineeringPrinciples.map((item) => (
-              <div key={item.number} className="card-hover-glow border border-[var(--color-border)] p-6 bg-[var(--color-surface)]/80 backdrop-blur-md relative">
-                <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
-                <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
-                <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
-                <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+      {/* ================= 03 · CAPABILITIES ================= */}
+      <Section id="capabilities">
+        <SectionHeader
+          index="03"
+          label="Technical capabilities"
+          title="What I work with"
+          meta="Primary working set"
+        />
 
-                <div className="flex items-center justify-between mb-4 pb-3 border-b border-[var(--color-border)]">
-                  <span className="font-mono text-[10px] text-[var(--color-subtle)] tabular-nums">
-                    {item.number}
-                  </span>
-                  <span className="font-mono text-[9px] text-[var(--color-subtle)] tracking-[0.15em] uppercase">
-                    PRINCIPLE
-                  </span>
-                </div>
-                <h3 className="font-mono text-xs tracking-[0.15em] uppercase text-[var(--color-fg)] font-medium mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-[var(--color-muted)] leading-relaxed">
-                  {item.description}
-                </p>
+        <div className="border-t" style={{ borderColor: 'var(--line-2)' }}>
+          {capabilities.map((row, i) => (
+            <Reveal
+              key={row.group}
+              delay={i * 0.04}
+              className="grid grid-cols-1 gap-4 border-b py-6 md:grid-cols-12 md:gap-8"
+              style={{ borderColor: 'var(--line)' }}
+            >
+              <div className="t-label md:col-span-3 lg:col-span-2">{row.group}</div>
+              <div className="flex flex-wrap gap-1.5 md:col-span-9 lg:col-span-10">
+                {row.items.map((item) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
               </div>
-            ))}
-          </div>
-        </motion.div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
 
-        {/* SECTION 3: FOCUS AREAS & NETWORKS */}
-        <motion.div
-          variants={inViewFadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid md:grid-cols-2 gap-8 mb-20 pb-16 border-b border-[var(--color-border)]"
-        >
-          <div className="card-hover-glow border border-[var(--color-border)] p-8 bg-[var(--color-surface)]/80 backdrop-blur-md relative">
-            <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
-            <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
-            <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
-            <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
+      {/* ================= 04 · PRINCIPLES ================= */}
+      <Section id="principles">
+        <SectionHeader
+          index="04"
+          label="Engineering principles"
+          title="How I make decisions"
+          meta="Four rules"
+        />
 
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-6 select-none">
-              SPECIALIZED FOCUS AREAS
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {['AI / Agent Systems', 'Full-Stack Dev', 'Data & ML', 'DevOps & Cloud', 'Vector RAG Search', 'Automation Workflows'].map(tag => (
-                <span key={tag} className="font-mono text-[10px] text-[var(--color-muted)] border border-[var(--color-border)] px-3 py-1.5 tracking-wider uppercase shimmer-hover">
-                  {tag}
+        <div className="grid grid-cols-1 border-t md:grid-cols-2" style={{ borderColor: 'var(--line-2)' }}>
+          {principles.map((p, i) => (
+            <Reveal
+              key={p.number}
+              delay={i * 0.06}
+              className="group relative border-b p-7 md:odd:border-r lg:p-9"
+              style={{ borderColor: 'var(--line)' }}
+            >
+              <span
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ background: 'color-mix(in srgb, var(--surface) 60%, transparent)' }}
+              />
+              <div className="relative">
+                <span className="t-label">{p.number}</span>
+                <h3 className="t-item hover-text is-title mt-6">{p.title}</h3>
+                <p className="t-body mt-4 max-w-[44ch] text-[0.875rem]">{p.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* ================= 05 · NETWORKS ================= */}
+      <Section id="networks">
+        <SectionHeader index="05" label="Elsewhere" title="Find me" meta="External" />
+
+        <div className="border-t" style={{ borderColor: 'var(--line-2)' }}>
+          {socialLinks.map(({ href, label }, i) => (
+            <Reveal
+              key={label}
+              delay={i * 0.05}
+              className="border-b"
+              style={{ borderColor: 'var(--line)' }}
+            >
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex items-baseline justify-between gap-6 py-6"
+              >
+                <span
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: 'color-mix(in srgb, var(--surface) 55%, transparent)' }}
+                />
+                <span className="hover-text is-title relative text-[1.05rem] transition-transform duration-500 group-hover:translate-x-1">
+                  {label}
                 </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="card-hover-glow border border-[var(--color-border)] p-8 bg-[var(--color-surface)]/80 backdrop-blur-md relative">
-            <span className="blueprint-card-corner blueprint-corner-tl" aria-hidden="true">+</span>
-            <span className="blueprint-card-corner blueprint-corner-tr" aria-hidden="true">+</span>
-            <span className="blueprint-card-corner blueprint-corner-bl" aria-hidden="true">+</span>
-            <span className="blueprint-card-corner blueprint-corner-br" aria-hidden="true">+</span>
-
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-subtle)] mb-6 select-none">
-              NETWORKS & CONNECTIVITY
-            </h3>
-            <div className="flex flex-col gap-3">
-              {socialLinks.map(({ href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-xs text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors uppercase tracking-widest flex items-center justify-between border-b border-[var(--color-border)] pb-2"
-                >
-                  <span>{label}</span>
-                  <span>→</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* SECTION 4 & 5: EXPERIENCE & EDUCATION */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-
-          {/* EXPERIENCE */}
-          <motion.div
-            variants={inViewFadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase text-shimmer mb-8 select-none">
-              03 / CAREER EXPERIENCE
-            </h2>
-            <div className="space-y-8 border-l border-[var(--color-border)] ml-2 pl-6">
-
-              <div className="relative">
-                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 bg-[var(--color-border-strong)]" />
-                <h3 className="text-base font-medium text-[var(--color-fg)] mb-1">
-                  Database & IT Support
-                </h3>
-                <p className="font-mono text-[10px] text-[var(--color-subtle)] mb-2 uppercase tracking-wider">
-                  Kohinoor Ropes Pvt. Ltd. · May '25 – Aug '25
-                </p>
-                <p className="text-xs text-[var(--color-muted)] leading-relaxed">
-                  Optimized MySQL queries for data validation and provided on-site IT infrastructure support, ensuring 99% uptime for critical systems.
-                </p>
-              </div>
-
-              <div className="relative">
-                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 bg-[var(--color-border-strong)]" />
-                <h3 className="text-base font-medium text-[var(--color-fg)] mb-1">
-                  Business Development Exec
-                </h3>
-                <p className="font-mono text-[10px] text-[var(--color-subtle)] mb-2 uppercase tracking-wider">
-                  Conglomerate Magazine · Aug '24 – Feb '25
-                </p>
-                <p className="text-xs text-[var(--color-muted)] leading-relaxed">
-                  Led client requirements gathering and strategic outreach, acting as the technical bridge between clients and the engineering team.
-                </p>
-              </div>
-
-            </div>
-          </motion.div>
-
-          {/* EDUCATION */}
-          <motion.div
-            variants={inViewFadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase text-shimmer mb-8 select-none">
-              04 / ACADEMIC CREDENTIALS
-            </h2>
-            <div className="space-y-8 border-l border-[var(--color-border)] ml-2 pl-6">
-
-              <div className="relative">
-                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 bg-[var(--color-border-strong)]" />
-                <h3 className="text-base font-medium text-[var(--color-fg)] mb-1">
-                  B.Sc. Computer Science
-                </h3>
-                <p className="font-mono text-[10px] text-[var(--color-subtle)] mb-2 uppercase tracking-wider">
-                  Rajarshi Shahu Mahavidyalaya · 2023 – 2026
-                </p>
-                <p className="text-xs text-[var(--color-muted)]">
-                  CGPA: 7.53/10 · Specialized in Data Structures & AI
-                </p>
-              </div>
-
-              <div className="relative">
-                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 bg-[var(--color-border-strong)]" />
-                <h3 className="text-base font-medium text-[var(--color-fg)] mb-1">
-                  Higher Secondary (Science)
-                </h3>
-                <p className="font-mono text-[10px] text-[var(--color-subtle)] mb-2 uppercase tracking-wider">
-                  Maharashtra State Board · 2023
-                </p>
-              </div>
-
-            </div>
-          </motion.div>
-
+                <span className="t-mono relative uppercase text-[var(--subtle)] transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </a>
+            </Reveal>
+          ))}
         </div>
+      </Section>
 
-        {/* SECTION 6: CONTACT */}
-        <ContactSection />
-
-      </Container>
-    </motion.main>
+      <Rule />
+      <ContactSection />
+    </div>
   )
 }

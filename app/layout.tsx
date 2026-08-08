@@ -1,5 +1,7 @@
 import "./global.css"
 import type { Metadata } from "next"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 import Navbar from "./components/nav"
 import Footer from "./components/footer"
 import { Analytics } from "@vercel/analytics/react"
@@ -7,10 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { baseUrl } from "./blog/lib/site"
 import Script from "next/script"
 import { ThemeProvider } from "./components/theme-provider"
-import { CursorSpotlight } from "./components/cursor-spotlight"
-import { BackgroundEngine } from "./components/background-engine"
-import { ViewportEdgeGuides } from "./components/viewport-edge-guides"
-import { VercelGeometryBoxes } from "./components/vercel-geometry-boxes"
+import { SiteBackground, ConstructionRails } from "./components/background/site-background"
 
 import PageWrapper from "./components/page-wrapper"
 import ChatWidget from "./components/chat-widget"
@@ -67,7 +66,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className="bg-[var(--color-bg)] text-[var(--color-fg)]"
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <head>
         {/* Anti-FOUC: apply saved theme before paint */}
@@ -82,7 +81,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased min-h-screen flex flex-col relative bg-[var(--color-bg)] text-[var(--color-fg)]">
+      <body className="relative flex min-h-screen flex-col antialiased">
         {/* JSON-LD for SEO */}
         <Script
           id="json-ld"
@@ -91,16 +90,12 @@ export default function RootLayout({
         />
 
         <ThemeProvider>
-          {/* GEOMETRIC BACKGROUND ENGINE, VERCEL BLUEPRINT ARCHITECTURE, CURSOR LIGHTING & VIEWPORT GUIDES */}
-          <BackgroundEngine />
-          <VercelGeometryBoxes />
-          <CursorSpotlight />
-          <ViewportEdgeGuides />
+          {/* Global blueprint background stack (DESIGN.md §5) */}
+          <SiteBackground />
+          <ConstructionRails />
 
-          {/* NAVBAR */}
           <Navbar />
 
-          {/* PAGE CONTENT */}
           <PageWrapper>
             {children}
             <Footer />

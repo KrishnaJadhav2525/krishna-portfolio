@@ -1,29 +1,39 @@
 import Link from 'next/link'
+import { Shell } from '@/app/components/ui/primitives'
 
 export default function NotFound() {
   return (
-    <main className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 pt-32 pb-20 bg-dot-grid bg-dot-grid-fade">
-      <div className="max-w-[560px] w-full border border-[var(--color-border)] p-10 md:p-12 bg-[var(--color-bg)] relative z-10">
-        <div className="flex items-center justify-center gap-2 font-mono text-[10px] text-[var(--color-subtle)] uppercase tracking-[0.2em] mb-4 select-none">
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-fg)] animate-[pulse-dot_2s_ease-in-out_infinite]" />
-          <span>STATUS 404 / RESOURCE UNRESOLVED</span>
+    <main className="relative z-10 flex min-h-[80vh] items-center">
+      <Shell>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7">
+            <div className="t-label mb-8">Status 404 · Route unresolved</div>
+            <h1 className="t-page text-[var(--fg)]">Not found</h1>
+          </div>
+
+          <div className="relative lg:col-span-5 lg:pl-10">
+            <div
+              className="absolute -left-px bottom-0 top-1 hidden w-px lg:block"
+              style={{ background: 'var(--line)' }}
+            />
+            <p className="t-lead max-w-[40ch]">
+              This route doesn&rsquo;t exist. It may have been renamed, or the link that brought
+              you here may be out of date.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <Link href="/" className="link-line t-mono uppercase">
+                Return to index <span className="arrow">→</span>
+              </Link>
+              <Link
+                href="/blog"
+                className="link-line t-mono uppercase text-[var(--muted)] hover:text-[var(--fg)]"
+              >
+                Writing &amp; work <span className="arrow">→</span>
+              </Link>
+            </div>
+          </div>
         </div>
-
-        <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-normal tracking-[-0.04em] leading-[0.95] text-[var(--color-fg)] mb-4 select-none">
-          Not Found
-        </h1>
-
-        <p className="text-sm text-[var(--color-muted)] leading-relaxed max-w-[420px] mx-auto mb-8">
-          The requested system specification or route URL does not exist on this portfolio environment.
-        </p>
-
-        <Link
-          href="/"
-          className="inline-block bg-[var(--color-fg)] text-[var(--color-bg)] px-6 py-3.5 text-xs font-mono tracking-[0.15em] uppercase hover:opacity-90 active:scale-[0.99] transition-all duration-150"
-        >
-          Return to Primary Index →
-        </Link>
-      </div>
+      </Shell>
     </main>
   )
 }

@@ -1,96 +1,212 @@
-# Portfolio Design System & Aesthetic Manifesto (DESIGN.md)
+# DESIGN.md — Portfolio Design System
 
-> Source of Truth for Design Architecture, Swiss Typography, Spatial Layouts, Motion Choreography, and Dual Light/Dark Environments.
-
----
-
-## 1. Core Philosophy
-
-The portfolio is designed as a **Swiss-Inspired Editorial Digital Product** that prioritizes clarity, structural precision, and subtle atmospheric depth over transient UI trends.
-
-- **Typography as Architecture**: Text scale and tracking dictate layout hierarchy. Display headings serve as primary visual anchors.
-- **Razor-Sharp Monochrome Contrast**: Color is restricted to functional monochrome tokens. Depth is created through surface elevation, borders, lighting, and texture rather than hue saturation.
-- **Purposeful Motion**: Every animation guides user attention or signals interactive state. All transforms use GPU-composited properties (`opacity`, `transform`, `filter`, `clip-path`) with non-wobbling cubic-bezier easing.
-- **Layered Spatial Canvas**: Backgrounds consist of multi-layered material depth (film grain, ambient light pools, subtle dot/line grids, flashlight cursor spotlights).
+> Internal specification for the visual system. Source of truth for tokens, type, grid,
+> borders, motion, background architecture and component rules.
+> **Version 3 — "Blueprint Editorial".**
 
 ---
 
-## 2. Independent Theme Architecture (`lib/theme/*`)
+## 0. Research references & extracted principles
 
-### Cinematic Dark Theme System (`lib/theme/dark/`)
-- **Background (`--color-bg`)**: `#000000` (Pure Deep Black Canvas)
-- **Foreground (`--color-fg`)**: `#EDEDED` (Pure Crisp White Headings)
-- **Muted Text (`--color-muted`)**: `#A1A1AA` (Medium Neutral Gray Body Text)
-- **Subtle Metadata (`--color-subtle`)**: `#71717A` (Light Neutral Gray Captions)
-- **Border Hairline (`--color-border`)**: `#1F1F23` (Subtle Hairline Border)
-- **Border Strong (`--color-border-strong`)**: `#27272A` (Active Border)
-- **Surface / Card (`--color-surface`)**: `#0A0A0B` (Elevated Deep Black Surface)
-- **Hover Surface (`--color-surface-hover`)**: `#121215` (Subtle Elevated Hover Surface)
-- **Cursor Spotlight**: Windows 10 Spotlight / Fluent acrylic white shimmer (`rgba(255, 255, 255, 0.04)`).
-- **Text Shimmer**: Brushed aluminum light reflection tracking mouse position over display headings (`Krishna`, `Jadhav`).
+Studied (design language, not copied): **Vercel / Geist**, **Linear**, **Raycast**,
+**Resend**, **Stripe**, Swiss editorial print (Müller-Brockmann grid discipline,
+Unimark technical signage), and engineering blueprint drafting conventions.
 
-### Editorial Light Theme System (`lib/theme/light/`)
-- **Background (`--color-bg`)**: `#F5F4F0` (Warm Editorial Paper Base Canvas)
-- **Foreground (`--color-fg`)**: `#111111` (Near-Black Display Headings)
-- **Muted Text (`--color-muted`)**: `#525252` (Medium Dark Gray Body Text)
-- **Subtle Metadata (`--color-subtle`)**: `#71717A` (Light Neutral Gray Captions)
-- **Border Hairline (`--color-border`)**: `#E4E4E7` (Soft Hairline Border)
-- **Border Strong (`--color-border-strong`)**: `#D4D4D8` (Active Hairline Border)
-- **Surface / Card (`--color-surface`)**: `#FFFFFF` (Elevated Warm White Surface)
-- **Hover Surface (`--color-surface-hover`)**: `#EBE9E2` (Subtle Elevated Hover Surface)
-- **Glass Header (`--glass-bg`)**: `rgba(245, 244, 240, 0.85)` with `backdrop-filter: blur(24px)`
-- **Subtle Shadows**: `box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03)`
-- **Floating Nav Shadow**: `box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03)`
+Principles extracted and applied here:
+
+| Source | Principle taken |
+| :-- | :-- |
+| Vercel / Geist | Monochrome-only palette; hairline borders instead of shadows; sharp corners; mono metadata; extremely tight display tracking. |
+| Linear | Motion as continuity — shared-layout indicators, short 150–250ms interaction curves, long 700–900ms entrance curves. |
+| Raycast | Dense but calm information; every element sits on a rule or a grid line. |
+| Resend | Generous negative space around very few, very confident type sizes. |
+| Stripe | Layered depth built from geometry and light, never from color. |
+| Swiss editorial | Asymmetric 12-column grid, full-bleed rules, numbered sections, uppercase mono labels. |
+
+Anti-goals: SaaS landing pages, rounded card grids, neon/cyberpunk, gradient meshes,
+emoji ornamentation, invented metrics.
 
 ---
 
-## 3. Typography & Rhythm
+## 1. Color tokens
 
-| Token | Size | Weight | Line Height | Tracking | Purpose |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Display H1** | `clamp(3.5rem, 10vw, 7.5rem)` | `400` | `0.88` | `-0.05em` | Hero Name & Page Anchors |
-| **Section H2** | `clamp(1.75rem, 4vw, 2.75rem)` | `400` | `0.95` | `-0.04em` | Major Section Titles |
-| **Card H3** | `1.25rem` | `500` | `1.1` | `-0.02em` | Project & Post Headers |
-| **Body Lead** | `clamp(1rem, 1.8vw, 1.25rem)` | `400` | `1.7` | `-0.01em` | Descriptors & Intro Paragraphs |
-| **Body Base** | `1rem (16px)` | `400` | `1.6` | `normal` | Article Text & Case Studies |
-| **Mono Label**| `0.625rem (10px)` | `400` | `1.2` | `0.15em–0.2em` | Uppercase Tags, Index Numbers & Status Badges |
+Two independently designed themes. **Not** an inversion of one another: the dark theme
+is built from *emitted light on near-black*, the light theme from *ink on warm paper*.
 
-All mono text utilizes tabular numbers: `font-variant-numeric: tabular-nums`.
+### Dark — "Studio at night"
+
+| Token | Value | Use |
+| :-- | :-- | :-- |
+| `--bg` | `#08080A` | Page canvas (near-black, never `#000`) |
+| `--bg-2` | `#0C0C0F` | Alternating section bands |
+| `--surface` | `#111114` | Raised blocks |
+| `--surface-2` | `#17171B` | Hover surface |
+| `--fg` | `#EDEDEF` | Primary text |
+| `--fg-dim` | `#C6C6CC` | Secondary headings |
+| `--muted` | `#8B8B94` | Body text |
+| `--subtle` | `#6E6E78` | Metadata, mono labels (≥4.5:1 on `--bg`) |
+| `--line` | `rgba(255,255,255,.07)` | Hairline rules |
+| `--line-2` | `rgba(255,255,255,.13)` | Block borders |
+| `--line-3` | `rgba(255,255,255,.24)` | Hover / active borders |
+| `--geo` | `rgba(255,255,255,.055)` | Background geometry stroke |
+| `--geo-dim` | `rgba(255,255,255,.028)` | Deep geometry layer |
+| `--glow` | `rgba(255,255,255,.06)` | Restrained bloom |
+
+### Light — "Warm studio paper"
+
+| Token | Value | Use |
+| :-- | :-- | :-- |
+| `--bg` | `#F7F7F5` | Warm neutral paper (never `#FFF`) |
+| `--bg-2` | `#F2F2EE` | Alternating bands |
+| `--surface` | `#FDFDFC` | Raised blocks |
+| `--surface-2` | `#EFEFEA` | Hover surface |
+| `--fg` | `#1A1A19` | Dark charcoal, not black |
+| `--fg-dim` | `#3A3A37` | Secondary headings |
+| `--muted` | `#63635D` | Body text |
+| `--subtle` | `#6F6F68` | Metadata (≥4.5:1 on `--bg`) |
+| `--line` | `rgba(26,26,25,.10)` | Hairline rules |
+| `--line-2` | `rgba(26,26,25,.16)` | Block borders |
+| `--line-3` | `rgba(26,26,25,.30)` | Hover / active |
+| `--geo` | `rgba(26,26,25,.055)` | Background geometry |
+| `--glow` | `rgba(26,26,25,.05)` | Restrained shadow bloom |
+
+Light theme carries **soft shadows** (`0 1px 2px rgba(0,0,0,.04)`); dark theme carries
+**inner light** (`inset 0 1px 0 rgba(255,255,255,.04)`). Neither uses the other's tool.
+
+No hue is permitted anywhere in the interface chrome. Only semantic error text may use red.
 
 ---
 
-## 4. Architectural Layout Dividers & Geometric Background Engine (`app/components/background-engine.tsx`)
+## 2. Typography
 
-### Architectural Divider Token Hierarchy
-- **Hairline Divider (`--divider-hairline`)**: `rgba(255,255,255,0.05)` dark / `rgba(0,0,0,0.05)` light (Subtle structural blueprint grid lines).
-- **Major Divider (`--divider-major`)**: `rgba(255,255,255,0.08)` dark / `rgba(0,0,0,0.08)` light (Section & column guide boundaries).
-- **Interactive Divider (`--divider-interactive`)**: `rgba(255,255,255,0.12)` dark / `rgba(0,0,0,0.12)` light (Active component borders).
-- **Hover Divider (`--divider-hover`)**: `rgba(255,255,255,0.18)` dark / `rgba(0,0,0,0.18)` light (Hover state boundary highlight).
-- **Glow Divider (`--divider-glow`)**: Fading line divider with soft white bloom glint.
+Family: **Geist Sans** (UI/display) and **Geist Mono** (labels, data, coordinates),
+loaded locally via `next/font` — no network font request.
 
-### 5-Layer Depth Architecture
-1. **Layer 1: Base Canvas**: Deep `#000000` (Dark) or Soft Neutral `#F5F4F0` (Light).
-2. **Layer 2: Reusable Geometric Background Engine (`app/components/background-engine.tsx`)**: Ultra-slow rotating wireframe geometry (outlined squares & diamonds rotating over 60–90 seconds) and blueprint intersection `+` node crosses.
-3. **Layer 3: Star Field & Ambient Particle Dust (`app/components/star-field.tsx`)**: Particle dust cluster and central starburst glint (`✦`).
-4. **Layer 4: Windows Spotlight / Acrylic Cursor Illumination**: Global radial gradient spotlight tracking cursor movement (`app/components/cursor-spotlight.tsx`).
-5. **Layer 5: Content & Technical Document Cards**: Technical blueprint cards with corner `+` cross markers (`.blueprint-card-corner`).
+| Role | Size | Weight | Tracking | Leading |
+| :-- | :-- | :-- | :-- | :-- |
+| Display (hero) | `clamp(3.2rem, 11.5vw, 11rem)` | 300 | `-0.055em` | `0.84` |
+| Page title | `clamp(2.4rem, 6vw, 4.6rem)` | 300 | `-0.045em` | `0.92` |
+| Section heading | `clamp(1.6rem, 3.4vw, 2.6rem)` | 350 | `-0.035em` | `1.05` |
+| Item title | `clamp(1.15rem, 2vw, 1.6rem)` | 400 | `-0.02em` | `1.2` |
+| Lead paragraph | `clamp(1rem, 1.4vw, 1.15rem)` | 400 | `-0.01em` | `1.65` |
+| Body | `0.9375rem` | 400 | `0` | `1.7` |
+| Mono label | `0.625rem` | 500 | `0.18em` | `1` |
+| Mono data | `0.6875rem` | 400 | `0.06em` | `1.4` |
 
----
-
-## 5. Motion System & Easing
-
-All motion variants in `lib/animations.ts` use standardized cubic-bezier timing:
-- **Default Entry**: `ease: [0.25, 0.1, 0.25, 1]`, duration: `0.5s–0.6s`.
-- **Editorial Slow Entry**: `ease: [0.16, 1, 0.3, 1]`, duration: `0.8s`.
-- **Clip Mask Reveal**: `ease: [0.76, 0, 0.24, 1]`, duration: `0.7s`.
-- **Hover Micro-Interactions**: `y: -2px`, duration: `0.2s easeOut`.
-- **Reduced Motion Guard**: `@media (prefers-reduced-motion: reduce)` disables non-essential keyframes and instant-swaps opacity.
+Mono is always **uppercase** and always tabular (`font-variant-numeric: tabular-nums`).
+Mono is used for: section numbers, coordinates, dates, status, technology tags,
+axis labels, and any figure.
 
 ---
 
-## 6. Component Specification Rules
+## 3. Grid & spacing
 
-- **Navbar (`app/components/nav.tsx`)**: Full-width fixed header (`h-14`), frosted glass (`blur(24px)`), monogram `KJ`, active dot marker (`motion.span layoutId="activeNavDot"`), `✨ AI Assistant` glass pill button, unicode mode toggle (`○ LIGHT` / `● DARK`).
-- **Hero (`app/page.tsx`)**: Asymmetric 2-column desktop layout (`max-w-[1400px]`), status badge `● 01 / FULL-STACK...`, coordinates `19.0760° N, 72.8777° E`, display name with metallic light glints, `<StarField />` particle dust, fixed bottom-left monogram emblem pill (`N`).
-- **Projects (`app/components/project-carousel.tsx`)**: 2-column border grid, top metadata row (`01 / SYSTEM CASE STUDY` & `2 MONTHS`), clean title, concise description, rectangular mono tech pills (`N8N WORKFLOWS`, `POSTGRESQL`, `META CLOUD API`), visible **Live Demo →**, **GitHub →**, **Case Study →** links.
-- **AI Assistant (`app/components/chat-widget.tsx`)**: Elevated glass CTA button `✨ AI Assistant` in header and floating bottom-right (`bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl`), animated sparkle icon, idle halo pulse, hover illumination.
+- Page shell: `max-width: 1560px`, gutters `20px → 32px → 56px`.
+- Grid: **12 columns**, `gap: 24px` desktop / `16px` tablet.
+- Canonical splits: `7/5` (hero), `5/7` (editorial), `2/6/4` (project row), `3/9` (stack row).
+- Vertical rhythm on a **4px** base; section padding `clamp(88px, 12vh, 168px)`.
+- Section rules are **full-bleed** (edge to edge of viewport); content stays inside the shell.
+- Two **construction rails** (vertical hairlines) sit at the shell edges on `lg+`.
+
+Never center the whole desktop page in a narrow column. Desktop uses the viewport.
+
+---
+
+## 4. Border system
+
+Sharp geometry only. `border-radius: 0` everywhere except the status dot and the
+assistant launcher.
+
+1. **Hairline rule** `--line` — separates content within a block.
+2. **Section boundary** `--line` full-bleed `1px` horizontal.
+3. **Construction line** `--line` vertical, runs through/past sections.
+4. **Block frame** `--line-2` — only for genuinely enclosed content.
+5. **Partial frame** — corner ticks (`12px` L-shaped marks) instead of a full box.
+6. **Intersection node** — a `7px` mono `+` at grid crossings.
+7. **Active border** `--line-3` on hover, transitioned over 240ms.
+
+Borders express structure. They are never decoration and never wrap every element.
+
+---
+
+## 5. Background system
+
+`app/components/background/site-background.tsx` — one fixed, global, `aria-hidden`
+layer stack behind all content. Never per-card.
+
+| Layer | Content | Motion |
+| :-- | :-- | :-- |
+| L0 | Base wash + two ambient light pools | 24s breathe |
+| L1 | 72px hairline grid, radially masked | static |
+| L2 | Deep geometry: oversized wireframe rectangles extending past the viewport, slight rotation | parallax `-6%` of scroll |
+| L3 | Mid geometry: large circles, intersecting long axes, drawn-line animation on load | parallax `-14%` |
+| L4 | Near geometry: small squares, `+` nodes, coordinate labels | parallax `-26%` |
+| L5 | 18 drifting particles, CSS-only keyframes | 18–40s drift |
+| L6 | Cursor light (radial, `--glow`) | rAF-throttled |
+
+Rules: stroke opacity never exceeds `0.06`; nothing in the background may read as a card;
+geometry must overlap section boundaries; all motion is `transform`/`opacity` only;
+the entire stack collapses to static under `prefers-reduced-motion`.
+
+---
+
+## 6. Motion system
+
+Curves:
+
+- `--ease-out` `cubic-bezier(.22,1,.36,1)` — entrances, 700–900ms
+- `--ease-io` `cubic-bezier(.65,0,.35,1)` — line draws / clip reveals, 700ms
+- `--ease-ui` `cubic-bezier(.2,0,0,1)` — hover & state, 160–260ms
+- spring `stiffness 420 / damping 38` — shared-layout nav indicator
+
+Choreography:
+
+- **Load** — nav (0ms) → hero eyebrow (120ms) → display line 1 (200ms) → line 2 (300ms)
+  → right column (420ms) → bottom rail (560ms). Background geometry fades over 1.6s.
+- **Scroll** — sections reveal once at `-15%` margin: `opacity 0→1`, `y 28→0`.
+  Children stagger `60ms`. Rules draw with `scaleX 0→1`.
+- **Hover** — text brightens `--muted → --fg` plus a 700ms sheen sweep; links draw an
+  underline from the left and translate their arrow `+3px`; blocks illuminate their
+  border, shift background one step, and lift `-2px`.
+
+Reduced motion: all keyframes stop, all reveals become instant, parallax is zeroed.
+
+---
+
+## 7. Component rules
+
+- **Nav** — full-bleed, `56px`, hairline bottom, backdrop blur. Items live in a bordered
+  group; the active item is marked by a shared-layout (`layoutId`) sliding backdrop plus a
+  bottom rule. Scroll position drives it via `IntersectionObserver`.
+- **Project row** — full-width horizontal record: `index / status` | `title + description +
+  5–7 real technologies` | `Live Demo · GitHub · Case Study`. Not a card grid.
+- **Stack** — label/values rows on rules, no boxes.
+- **Assistant** — bordered square launcher with a custom node glyph, rotating dashed ring,
+  live status dot; panel opens with a clip + scale transition from the launcher corner.
+- **Forms** — square inputs, hairline borders, mono labels above, focus moves the border
+  to `--line-3`.
+
+## 8. Content integrity
+
+No metric appears in the UI unless it is present and verifiable in the project data.
+Headline slots use factual descriptors — *Selected Projects*, *Core Technologies*,
+*AI & Automation*, *Full-Stack Engineering*, *Open Source*, *Current Focus* — rather
+than invented figures.
+
+## 9. Responsive
+
+| Breakpoint | Behaviour |
+| :-- | :-- |
+| `< 640px` | Single column; display type `clamp` floor `3.2rem`; project row stacks to index → title → description → tags → links; rails and edge labels hidden; background geometry count halved. |
+| `640–1023px` | 2-column blocks; hero stacks but keeps the meta table; nav collapses to overlay. |
+| `≥ 1024px` | Full asymmetric grid, construction rails, horizontal project records. |
+| `≥ 1536px` | Shell caps at 1560px; gutters grow, type does not. |
+
+`overflow-x` is clipped at `body`; no element may exceed `100vw`.
+
+## 10. Performance
+
+Animate `transform`/`opacity`/`clip-path` only. `will-change` is set on the six background
+layers and nothing else. Particles are CSS keyframes (no canvas, no rAF loop). Scroll work
+is `IntersectionObserver` plus one rAF-throttled pointer listener. Framer Motion handles
+reveals with `viewport={{ once: true }}` so observers detach after firing.

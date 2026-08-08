@@ -2,46 +2,39 @@ import Link from "next/link"
 import { BLOG_POSTS } from "./data"
 
 export function CuratedBlogs() {
-  const featured = BLOG_POSTS.filter(post => post.featured)
+  const featured = BLOG_POSTS.filter((post) => post.featured)
+
+  if (featured.length === 0) return null
 
   return (
-    <aside className="space-y-6">
-      {/* HEADER */}
-      <div className="font-mono text-xs tracking-[0.12em] uppercase text-[var(--color-muted)]">
-        Featured Writing
-      </div>
+    <div>
+      <div className="t-label mb-5">Featured</div>
 
-      {/* CARDS */}
-      <div className="divide-y divide-[var(--color-border)] border-t border-b border-[var(--color-border)]">
-        {featured.map(post => (
+      <div className="border-t" style={{ borderColor: "var(--line-2)" }}>
+        {featured.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group block py-4 hover:bg-[var(--color-surface)] px-2 transition-colors duration-150"
+            className="group relative block border-b py-5"
+            style={{ borderColor: "var(--line)" }}
           >
-            <div className="space-y-1.5">
-              <span className="font-mono text-[10px] text-[var(--color-subtle)] uppercase tracking-wider block">
-                Featured
-              </span>
-
-              <h3 className="text-sm font-medium text-[var(--color-fg)] leading-snug group-hover:underline underline-offset-4 decoration-[var(--color-border-strong)]">
-                {post.title}
-              </h3>
-
-              <p className="text-xs text-[var(--color-muted)] line-clamp-2">
-                {post.description}
-              </p>
-
-              <div className="pt-1 text-[11px] font-mono text-[var(--color-subtle)] flex items-center justify-between">
+            <span
+              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              style={{ background: "color-mix(in srgb, var(--surface) 55%, transparent)" }}
+            />
+            <div className="relative">
+              <h3 className="hover-text is-title text-[0.95rem] leading-snug">{post.title}</h3>
+              <p className="t-body mt-2 line-clamp-2 text-[0.8125rem]">{post.description}</p>
+              <div className="t-label mt-3 flex items-center justify-between">
                 <span>{post.date}</span>
-                <span className="group-hover:translate-x-0.5 transition-transform">
-                  Read →
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  →
                 </span>
               </div>
             </div>
           </Link>
         ))}
       </div>
-    </aside>
+    </div>
   )
 }

@@ -12,7 +12,7 @@ export function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] bg-[var(--color-fg)] z-[100] origin-left"
+      className="fixed left-0 right-0 top-0 z-[100] h-px origin-left bg-[var(--fg)]"
       style={{ scaleX }}
     />
   )
